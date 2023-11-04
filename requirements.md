@@ -1,16 +1,14 @@
-## <remove all of the example text and notes in < > such as this one>
-
 ## Functional Requirements
-<should be 1 sentence that describes requirement>
+
 1. Create Note: User is able to create a note
 2. Edit Note: User is able to edit a note that has been created
 3. Create Pages: User is able to create pages to organize notes
 4. Create Template: User can create a template that acts as a boilerplate when creating notes
-5. requirement
-6. requirement
-7. requirement
-8. requirement
-9. requirement
+5. Delete Note: When user chooses to delete a note, it will be stored in a trash folder and there they can permanently delete afterwards
+6. Share Note: User is able to share their notes to other users
+7. Export & Import w/ Google Drive API: User can connect to their Google Drive to export and import to an from their Drive
+8. Recover Note: User is able to recover deleted notes
+9. Search Note: User is able to search a note by its text contents
 10. requirement
 11. requirement
 12. requirement
@@ -118,3 +116,109 @@ describe multiple issues that may arise and their outcomes>
 - **Alternate Sequence:** The user tries to create a template with the same name as another
 1. The system will prompt the user to change the name of the template
 2. The user will not be able to make a template unless they change the name to something that is available
+
+5. Delete Note
+- **Pre-Condition:** User must have a note created
+- **Trigger:** User clicks on delete button
+- **Primary Sequence:**
+1. User selects note options menu
+2. System will display menu that includes a delete option
+3. User selects delete option
+4. System will display a confirmation message with two options to the user, cancel or delete
+5. User selects option to delete
+6. System stores the deleted note in a trash folder
+7. System displays all deleted notes inside of trash folder
+8. User has options to do a permanent deletion of note, recover the note or leave as is and system will permanently delete note in 30 days
+- **Primary Postconditions:** The note user selected to be deleted is in trash folder
+    - Deleted note is removed from users current notes
+- **Alternate Sequence:** User tried to delete note but fails due to storage limit
+1. System will display an error message
+2. User can free space by cleaning trash folder
+3. System allows user to delete note again
+- **Alternate Sequence #2:** User selects to permanently delete note
+1. User selects note to delete
+2. System displays confirmation message
+3. User selects to delete note
+4. Note is permanently deleted from users account
+5. System displays message that note is deleted permanently
+
+6. Share Note
+- **Pre-Condition:** User is logged in and recipient has an account
+- **Trigger:** User clicks on share button
+- **Primary Sequence:**
+1. User selects note they want to share
+2. User clicks on share button
+3. System prompts user to enter email of recipient user
+4. User enters emails of intended recipient
+5. System will check if it is a valid email and valid user attached to email
+6. User clicks send
+7. Selected note are shared between owner(user) and recipient.
+- **Primary Postconditions:** The shared note is available to all intended recipients
+    - Recipient can view note
+- **Alternate Sequence:** Email of recipient is not valid and or not a valid user
+1. System will display an error message stating invalid recipient credentials
+2. System prompts user to re enter email again
+3. User can click send once re entered email is verfied
+- **Alternate Sequence #2:** User clicks on send button but note fails to send
+1. System prompts user to retry with a retry button
+2. System will re attempt to send note to recipient by re initiating the sending process
+3. System display success message once action is completed
+
+7. Export & Import w/ Google Drive API
+- **Pre-Condition:** User has connected Google Drive with their account
+- **Trigger:** User clicks on export/import button
+- **Primary Sequence:**
+1. User clicks on export/import button 
+2. System prompts user to select import or export 
+3. User clicks on export
+4. System prompts user to choose a file format(pdf, txt, docx, etc)
+5. User chooses a format and clicks on export button
+6. System connect to Google Drive api
+7. User selects destination where note will go in their Google Drive
+8. User clicks upload button to google drive
+9. System displays message when export was successful
+- **Primary Postconditions:** Selected note has been exported to Google Drive or Selected file in Google Drive has been imported into note
+- **Alternate Sequence:** User clicks on import
+1. System connects to Google Drive api with user credentials
+2. User selects which file they want to import(restricted to supported files)
+3. File is now imported to users notes
+- **Alternate Sequence #2:** System fails to connect to Google Drive
+1. System displays error message stating failed connection
+2. User can reload page to establish a connection
+
+8. Recover Note
+- **Pre-Condition:** User has deleted a note
+- **Trigger:** User clicks on recover button
+- **Primary Sequence:** 
+1. User is inside of the trash folder
+2. User clicks on recover button
+3. System prompts user to select the note they want to recover
+4. User selects note
+5. User clicks on checkmark button to confirm recovry of note
+6. System prompts user to confirm their choice (cancel or recover buttons) w/ a message
+7. User confirm by clicking on recover
+8. System moves note from trash folder back to where user had previously had stored the note
+- **Primary Postconditions:** Selected note is recovered and available to user
+    - User has access to note with their current notes
+- **Alternate Sequence:** Previous location of note no longer exists
+1. System will move note to main Notes section
+2. User can then select to move the location of the note as they wish
+- **Alternate Sequence #2:** Trash Folder is empty and user clicks on recover button
+1. System will display a message that folder is empty
+2. User can leave trash folder and the folder will remain the same
+
+9. Search Note
+- **Pre-condition:** User must have an existing note
+- **Trigger:** User clicks on search button
+- **Primary Sequence:**
+1. User clicks on search button
+2. System display a search bar where user can type a text input of a phrase or keywords they seek
+3. User types a text input
+4. System will look through all notes seeking those that match users input
+5. System will display all note(s) that contains users input
+6. User can select the note that contain the text content they seek
+- **Primary Postconditions:** User finds notes that contains the text contents they were seeking for
+- **Alternate Sequence:** System can't find a match for user search input
+1. System displays an error message
+2. System prompts user to try and search for a different term
+3. System will continue once it finds a match to the given search input
