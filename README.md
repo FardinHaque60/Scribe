@@ -1,5 +1,5 @@
 # Scribe
 - Fardin Haque (@FardinHaque60)
-- Name (@username)
+- Carlos M. Quiroz-Vasquez (@carlosq-mv)
 - Name (@username)
 - Name (@username)
