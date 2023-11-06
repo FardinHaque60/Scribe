@@ -222,3 +222,77 @@ describe multiple issues that may arise and their outcomes>
 1. System displays an error message
 2. System prompts user to try and search for a different term
 3. System will continue once it finds a match to the given search input
+
+10. Create User profiles
+- **Pre-condition:** The user is on the main page
+- **Trigger:** User clicks on create profile button
+- **Primary Sequence:**
+1. User clicks on create profile button
+2. System displays a create profile button
+3. User types in string of text for name
+4. System will create the user profile
+5. System will display all the profiles created
+6. User can now select which profile to pick
+- **Primary Postconditions:** User profile is now added 
+- **Alternate Sequence:** The user does not choose to create a profile but instead picks a profile
+1. System prompts user to pick a profile
+2. A profile is selected
+- **Alternate Sequence #2:** The user decides not to create a profile page
+1. User is prompted if they are sure if they want to cancel
+2. The request is canceled
+3. User is back on the main page
+
+11. Edit User profiles
+- **Pre-condition:** User must have an existing profile
+- **Trigger:** User clicks on edit profile
+- **Primary Sequence:**
+1. User clicks on edit profile
+2. System display options on how to edit profile
+3. Options to rename profile
+4. System prompts user on what the new name should be
+5. System updates the profile
+- **Primary Postconditions:** User has added an images to their notes
+- **Alternate Sequence:** The user decides to change profile picture
+1. User clicks on change profile picture
+2. System displays to upload the picture
+3. System updates the user profile picture
+4. System updates the profile
+- **Alternate Sequence #2:** The user decides not to change their user profile
+1. System prompts user if they are sure to proceed with no changes
+2. The user is back to the main page
+   
+12. Add ability to attach images to notes
+- **Pre-condition:** User must have an existing note
+- **Trigger:** User clicks on add images to notes
+- **Primary Sequence:**
+1. User clicks on add images to notes
+2. User is prompted to choose what type of images to post
+3. User clicks on images they would like to upload
+4. User submits the images to the existing note
+5. The database is now updated with the image on the notes
+- **Primary Postconditions:** User has added an images to their notes
+- **Alternate Sequence:** User tries to upload a video instead of an image
+1. User is prompted to specify that an image is required
+2. User is back to prompt on uploading an image
+
+13. Create Tables with links to notes
+- **Pre-condition:** User must have existing notes
+- **Trigger:** User clicks on create table within the notes
+- **Primary Sequence:**
+1. User clicks on create table option
+2. User is prompted as to what size the table needs to be
+3. User chooses the table type
+4. Table is created in the notes
+5. The table is prompted to require a link to notes
+6. The system checks if the table link is valid
+7. Tables is now created with links to notes
+8. The database is now updated with the table within the notes
+- **Primary Postconditions:**  User has now added tables with a link to the notes attached
+- **Alternate Sequence:** User Tables are created with no links to the notes
+1. User decides to attach no links to the notes
+2. User is prompted if they are sure they do not want link to the notes
+3. User notes is created without a link
+
+    
+    
+  
