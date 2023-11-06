@@ -19,6 +19,7 @@
 1. Data must persist in the database and populate the page upon start-up
 2. The application must be able to run on all OS’s such as Edge, Chrome, Firefox, etc.
 
+## Use Cases
 1. Create Note
 - **Pre-condition:** The user is on the main page
 - **Trigger:** User clicks on the create note button
