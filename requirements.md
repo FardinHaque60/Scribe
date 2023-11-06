@@ -9,43 +9,15 @@
 7. Export & Import w/ Google Drive API: User can connect to their Google Drive to export and import to an from their Drive
 8. Recover Note: User is able to recover deleted notes
 9. Search Note: User is able to search a note by its text contents
-10. requirement
-11. requirement
-12. requirement
-13. requirement
-14. requirement
-
-<using the syntax [](images/ui1.png) add images in a folder called images/ and place sketches of your webpages>
+10. Create User Profile: User can create a profile from which they can log into 
+11. Edit User Profiles: User can edit their profile
+12. Insert Images: Add ability to attach images to notes
+13. Insert Tables: Create Tables with links to notes
+14. Spell Check: User is given suggestions when they have improper grammar/spelling using python library Spello
 
 ## Non-functional Requirements
 1. Data must persist in the database and populate the page upon start-up
 2. The application must be able to run on all OS’s such as Edge, Chrome, Firefox, etc.
-
-<each of the 14 requirements will have a use case associated with it>
-## Use Cases <Add name of who will write (this specific requirement) and implement (in subsequent milestones) the use case below>
-<example/template below>
-1. Use Case Name (Should match functional requirement name)
-- **Pre-condition:** <can be a list or short description>
-- **Trigger:** <can be a list or short description>
-- **Primary Sequence:**
-1. Ut enim ad minim veniam, quis nostrum e
-2. Et sequi incidunt
-3. Quis aute iure reprehenderit
-4. ...
-5. ...
-6. ...
-7. ...
-8. ...
-9. ...
-10. <Try to stick to a max of 12 steps>
-- **Primary Postconditions:** <can be a list or short description>
-- **Alternate Sequence:** <you can have more than one alternate sequence to
-describe multiple issues that may arise and their outcomes>
-1. Ut enim ad minim veniam, quis nostrum e
-2. Ut enim ad minim veniam, quis nostrum e
-3. ...
-- **Alternate Sequence <optional>:** <you can have more than one alternate sequence to describe multiple issues that may arise>
-<example/template end>
 
 1. Create Note
 - **Pre-condition:** The user is on the main page
@@ -223,7 +195,7 @@ describe multiple issues that may arise and their outcomes>
 2. System prompts user to try and search for a different term
 3. System will continue once it finds a match to the given search input
 
-10. Create User profiles
+10. Create User Profile
 - **Pre-condition:** The user is on the main page
 - **Trigger:** User clicks on create profile button
 - **Primary Sequence:**
@@ -242,7 +214,7 @@ describe multiple issues that may arise and their outcomes>
 2. The request is canceled
 3. User is back on the main page
 
-11. Edit User profiles
+11. Edit User Profiles
 - **Pre-condition:** User must have an existing profile
 - **Trigger:** User clicks on edit profile
 - **Primary Sequence:**
@@ -261,7 +233,7 @@ describe multiple issues that may arise and their outcomes>
 1. System prompts user if they are sure to proceed with no changes
 2. The user is back to the main page
    
-12. Add ability to attach images to notes
+12. Insert Images
 - **Pre-condition:** User must have an existing note
 - **Trigger:** User clicks on add images to notes
 - **Primary Sequence:**
@@ -275,7 +247,7 @@ describe multiple issues that may arise and their outcomes>
 1. User is prompted to specify that an image is required
 2. User is back to prompt on uploading an image
 
-13. Create Tables with links to notes
+13. Insert Tables
 - **Pre-condition:** User must have existing notes
 - **Trigger:** User clicks on create table within the notes
 - **Primary Sequence:**
@@ -293,6 +265,24 @@ describe multiple issues that may arise and their outcomes>
 2. User is prompted if they are sure they do not want link to the notes
 3. User notes is created without a link
 
-    
-    
-  
+14. Spell Check
+- **Pre-condition:** <can be a list or short description>
+- **Trigger:** <can be a list or short description>
+- **Primary Sequence:**
+1. Ut enim ad minim veniam, quis nostrum e
+2. Et sequi incidunt
+3. Quis aute iure reprehenderit
+4. ...
+5. ...
+6. ...
+7. ...
+8. ...
+9. ...
+10. <Try to stick to a max of 12 steps>
+- **Primary Postconditions:** <can be a list or short description>
+- **Alternate Sequence:** <you can have more than one alternate sequence to
+describe multiple issues that may arise and their outcomes>
+1. Ut enim ad minim veniam, quis nostrum e
+2. Ut enim ad minim veniam, quis nostrum e
+3. ...
+- **Alternate Sequence <optional>:** <you can have more than one alternate sequence to describe multiple issues that may arise>
