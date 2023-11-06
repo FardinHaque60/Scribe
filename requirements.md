@@ -16,7 +16,7 @@
 
 ## Non-functional Requirements
 1. Data must persist in the database and populate the page upon start-up
-2. The application must be able to run on all OS’s such as Edge, Chrome, Firefox, etc.
+2. The application is responsive and changes size depending on window size
 
 ## Use Cases
 1. Create Note - Fardin Haque
