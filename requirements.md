@@ -266,23 +266,13 @@
 3. User notes is created without a link
 
 14. Spell Check
-- **Pre-condition:** <can be a list or short description>
-- **Trigger:** <can be a list or short description>
-- **Primary Sequence:**
-1. Ut enim ad minim veniam, quis nostrum e
-2. Et sequi incidunt
-3. Quis aute iure reprehenderit
-4. ...
-5. ...
-6. ...
-7. ...
-8. ...
-9. ...
-10. <Try to stick to a max of 12 steps>
-- **Primary Postconditions:** <can be a list or short description>
-- **Alternate Sequence:** <you can have more than one alternate sequence to
-describe multiple issues that may arise and their outcomes>
-1. Ut enim ad minim veniam, quis nostrum e
-2. Ut enim ad minim veniam, quis nostrum e
-3. ...
-- **Alternate Sequence <optional>:** <you can have more than one alternate sequence to describe multiple issues that may arise>
+- **Pre-condition:** User is in a note they created
+- **Trigger:** User creates a mistake in their grammar/spelling
+- **Primary Sequence:** 
+1. User is writing in their note and they make a mistake
+2. System will use the library Spello running in the background to provide any suggestions
+3. System will underline spelling with a red line to indicate their a suggestion
+4. User can click on the suggestion and accept it and it will update their note
+- **Primary Postconditions:** The note is updated with the correct spelling/grammar upon user confirmation
+- **Alternate Sequence:** User declines spelling suggestion
+1. User can ignore spelling suggestion and the system will remove the red underline from it
