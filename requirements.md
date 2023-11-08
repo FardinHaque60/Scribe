@@ -61,6 +61,7 @@
     2. User may choose to confirm and go home or can cancel and save their changes before leaving
 
 3. Create Pages - Fardin Haque
+[Create Page UI](images/Create_Page_UI.png)
 - **Pre-condition:** User is on the main page
 - **Trigger:** User clicks on the create page button
 - **Primary Sequence:**
