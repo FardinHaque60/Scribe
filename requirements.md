@@ -20,7 +20,7 @@
 
 ## Use Cases
 1. Create Note - Fardin Haque
-[](images/Create_Note_UI.png)
+![](images/Create_Note_UI.png)
 - **Pre-condition:** The user is on the main page
 - **Trigger:** User clicks on the create note button
 - **Primary Sequence:**
@@ -41,7 +41,7 @@
     2. User will not be able to save the note until they change the name to something unique
 
 2. Edit Note - Fardin Haque
-[](images/Edit_Note_UI.png)
+![](images/Edit_Note_UI.png)
 - **Pre-condition:** The note they want to edit has already been made
 - **Trigger:** User makes edits to a note and clicks save
 - **Primary Sequence:** 
@@ -61,7 +61,7 @@
     2. User may choose to confirm and go home or can cancel and save their changes before leaving
 
 3. Create Pages - Fardin Haque
-[](images/Create_Page_UI.png)
+![](images/Create_Page_UI.png)
 - **Pre-condition:** User is on the main page
 - **Trigger:** User clicks on the create page button
 - **Primary Sequence:**
@@ -79,7 +79,7 @@
     2. The user is allowed to save this page with the same name as long as they confirm upon the alert
 
 4. Create Template - Fardin Haque
-[Create Template UI](images/Create_Template_UI.png)
+![](images/Create_Template_UI.png)
 - **Pre-condition:** The user is the main page
 - **Trigger:** The user clicks on the create template page
 - **Primary Sequence:**
@@ -120,7 +120,7 @@
     5. System displays message that note is deleted permanently
 
 6. Share Note - Carlos Quiroz
-[](images/Share_UI.png)
+![](images/Share_UI.png)
 - **Pre-Condition:** User is logged in and recipient has an account
 - **Trigger:** User clicks on share button
 - **Primary Sequence:**
@@ -143,7 +143,7 @@
     3. System display success message once action is completed
 
 7. Export & Import w/ Google Drive API - Carlos Quiroz
-[](images/Import:Export_UI.png)
+![](images/Import:Export_UI.png)
 - **Pre-Condition:** User has connected Google Drive with their account
 - **Trigger:** User clicks on export/import button
 - **Primary Sequence:**
@@ -187,7 +187,7 @@
     2. User can leave trash folder and the folder will remain the same
 
 9. Search Note - Carlos Quiroz
-[](images/Search_UI.png)
+![](images/Search_UI.png)
 - **Pre-condition:** User must have an existing note
 - **Trigger:** User clicks on search button
 - **Primary Sequence:**
@@ -287,6 +287,6 @@
 
 ## Additional UI Sketches:
 Welcome/Login Pages:
-[](images/Welcome+Login_UI.png)
+![](images/Welcome+Login_UI.png)
 Home Page:
-[](images/Home_UI.png)
+![](images/Home_UI.png)
