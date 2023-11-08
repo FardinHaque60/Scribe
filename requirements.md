@@ -19,8 +19,8 @@
 2. The application is responsive and changes size depending on window size
 
 ## Use Cases
-1. Create Note - Fardin Haque
-![](images/Create_Note_UI.png)
+1. Create Note - Fardin Haque\
+![](images/Create_Note_UI.png)\
 - **Pre-condition:** The user is on the main page
 - **Trigger:** User clicks on the create note button
 - **Primary Sequence:**
@@ -40,8 +40,8 @@
     1. User is prompted to change the name of this note since it already exists in another note
     2. User will not be able to save the note until they change the name to something unique
 
-2. Edit Note - Fardin Haque
-![](images/Edit_Note_UI.png)
+2. Edit Note - Fardin Haque\
+![](images/Edit_Note_UI.png)\
 - **Pre-condition:** The note they want to edit has already been made
 - **Trigger:** User makes edits to a note and clicks save
 - **Primary Sequence:** 
@@ -60,8 +60,8 @@
     1. User is prompted that their changes will not be saved if they go back/home
     2. User may choose to confirm and go home or can cancel and save their changes before leaving
 
-3. Create Pages - Fardin Haque
-![](images/Create_Page_UI.png)
+3. Create Pages - Fardin Haque\
+![](images/Create_Page_UI.png)\
 - **Pre-condition:** User is on the main page
 - **Trigger:** User clicks on the create page button
 - **Primary Sequence:**
@@ -78,8 +78,8 @@
     1. The user is warned that this page has the same name as another
     2. The user is allowed to save this page with the same name as long as they confirm upon the alert
 
-4. Create Template - Fardin Haque
-![](images/Create_Template_UI.png)
+4. Create Template - Fardin Haque\
+![](images/Create_Template_UI.png)\
 - **Pre-condition:** The user is the main page
 - **Trigger:** The user clicks on the create template page
 - **Primary Sequence:**
@@ -93,8 +93,8 @@
     1. The system will prompt the user to change the name of the template
     2. The user will not be able to make a template unless they change the name to something that is available
 
-5. Delete Note - Carlos Quiroz
-[](images/Trash_UI.png)
+5. Delete Note - Carlos Quiroz\
+[](images/Trash_UI.png)\
 - **Pre-Condition:** User must have a note created
 - **Trigger:** User clicks on delete button
 - **Primary Sequence:**
@@ -119,8 +119,8 @@
     4. Note is permanently deleted from users account
     5. System displays message that note is deleted permanently
 
-6. Share Note - Carlos Quiroz
-![](images/Share_UI.png)
+6. Share Note - Carlos Quiroz\
+![](images/Share_UI.png)\
 - **Pre-Condition:** User is logged in and recipient has an account
 - **Trigger:** User clicks on share button
 - **Primary Sequence:**
@@ -142,8 +142,8 @@
     2. System will re attempt to send note to recipient by re initiating the sending process
     3. System display success message once action is completed
 
-7. Export & Import w/ Google Drive API - Carlos Quiroz
-![](images/Import:Export_UI.png)
+7. Export & Import w/ Google Drive API - Carlos Quiroz\
+![](images/Import:Export_UI.png)\
 - **Pre-Condition:** User has connected Google Drive with their account
 - **Trigger:** User clicks on export/import button
 - **Primary Sequence:**
@@ -186,8 +186,8 @@
     1. System will display a message that folder is empty
     2. User can leave trash folder and the folder will remain the same
 
-9. Search Note - Carlos Quiroz
-![](images/Search_UI.png)
+9. Search Note - Carlos Quiroz\
+![](images/Search_UI.png)\
 - **Pre-condition:** User must have an existing note
 - **Trigger:** User clicks on search button
 - **Primary Sequence:**
@@ -286,7 +286,7 @@
     1. User can ignore spelling suggestion and the system will remove the red underline from it
 
 ## Additional UI Sketches:
-Welcome/Login Pages:
-![](images/Welcome+Login_UI.png)
-Home Page:
+Welcome/Login Pages:\
+![](images/Welcome+Login_UI.png)\
+Home Page:\
 ![](images/Home_UI.png)
