@@ -94,7 +94,7 @@
     2. The user will not be able to make a template unless they change the name to something that is available
 
 5. Delete Note - Carlos Quiroz\
-[](images/Trash_UI.png)\
+![](images/Trash_UI.png)\
 - **Pre-Condition:** User must have a note created
 - **Trigger:** User clicks on delete button
 - **Primary Sequence:**
@@ -203,7 +203,8 @@
     2. System prompts user to try and search for a different term
     3. System will continue once it finds a match to the given search input
 
-10. Create User Profile - Henry To
+10. Create User Profile - Henry To\
+![](images/Welcome+Login_UI.png)\
 - **Pre-condition:** The user is on the main page
 - **Trigger:** User clicks on create profile button
 - **Primary Sequence:**
@@ -241,7 +242,8 @@
     1. System prompts user if they are sure to proceed with no changes
     2. The user is back to the main page
    
-12. Insert Images - Henry To
+12. Insert Images - Henry To\
+![](images/Home_UI.png)\
 - **Pre-condition:** User must have an existing note
 - **Trigger:** User clicks on add images to notes
 - **Primary Sequence:**
@@ -284,9 +286,3 @@
 - **Primary Postconditions:** The note is updated with the correct spelling/grammar upon user confirmation
 - **Alternate Sequence:** User declines spelling suggestion
     1. User can ignore spelling suggestion and the system will remove the red underline from it
-
-## Additional UI Sketches:
-Welcome/Login Pages:\
-![](images/Welcome+Login_UI.png)\
-Home Page:\
-![](images/Home_UI.png)
