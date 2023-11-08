@@ -94,7 +94,7 @@
     2. The user will not be able to make a template unless they change the name to something that is available
 
 5. Delete Note - Carlos Quiroz\
-![](images/Trash_UI.png)\
+![](images/Trash_UI.png)
 - **Pre-Condition:** User must have a note created
 - **Trigger:** User clicks on delete button
 - **Primary Sequence:**
@@ -204,7 +204,7 @@
     3. System will continue once it finds a match to the given search input
 
 10. Create User Profile - Henry To\
-![](images/Welcome+Login_UI.png)\
+![](images/Welcome+Login_UI.png)
 - **Pre-condition:** The user is on the main page
 - **Trigger:** User clicks on create profile button
 - **Primary Sequence:**
