@@ -1,29 +1,25 @@
-## Instructions
-- Delete this block before adding to your repository.
-- Delete any instructions you see below they will be within < >
-- This schedule should reflect the meetings from the start of the project until the end of the semester.
-- Write at least 1 meeting per week until the end of the semester
-
 ## Meetings
-### 2023-10-01 at 10:30
-- Who attended the meeting
-- Team updates (15min or less)
-<Each team member gives an update of what they did from the last meeting and what
-they plan to do next. If they are stuck, bring it up here to see if others can
-help.>
-- <name> worked on X. Will work on Y next.
-- pair-programming (optional) (25 mins)
-<- Pair program on one part of the project. Driver will be the person responsible
-for that requirement.>
-- Summarize group progress
+### 2023-11-10 at 14:00
+- Attendees: Fardin, Henry, Carlos
+- Team Updates:
+    - Fardin: Worked on putting in my 4.5 requirements into github, getting repo and google drive set-up for collaboration
+    - Henry: Worked on the 4 requirements and pushed changes from requirement.md file
+    - Carlos: Worked on 5.5 requirements and sketches for the base plate UI and other features
+- Group Progress:
+    - We have completed our requirements and now looking into implementing some features such as:
+- This Week Goals:
+    - Fardin: Create Template, Page, Notes
+    - Henry: Edit, Create, Login for User profile
+    - Carlos: Share, Delete, Search Notes
 
-### 2023-10-08 at 13:30
-<meeting template would go here>
-<only fill in template once you had the meeting>
-<see example on the last date>
-<use date format YYYY-MM-DD at HH:MM>
+### 2023-11-17 at 14:00
+- Attendees:
+- Team Updates:
+- Group Progress:
+- This Week Goals:
 
-### 2023-10-15 at 10:30
-<meeting template would go here>
-<only fill in template once you had the meeting>
-
+### 2023-11-24 at 14:00
+- Attendees:
+- Team Updates:
+- Group Progress:
+- This Week Goals:
