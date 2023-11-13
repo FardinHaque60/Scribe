@@ -1,22 +1,30 @@
 <html>
     <head>
+        <link rel="stylesheet" href="../static/css/create_account.css">
         <title>Scribe - Create Account</title>
     </head>
     <body>
-        <!--TODO: so it has fields for creating an account, right now its same as login -->
-        <h1>Sign In</h1>
-        <form action="" method="post" novalidate>
-            {{ form.hidden_tag() }}
-            <p>
-                {{ form.username.label }}<br>
-                {{ form.username(size=32) }}
-            </p>
-            <p>
-                {{ form.password.label }}<br>
-                {{ form.password(size=32) }}
-            </p>
-            <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-            <p>{{ form.submit() }}</p>
-        </form>
+        <div class="create-acc">
+            <h1>Create Account</h1>
+            <form action="" method="post" novalidate>
+                {{ form.hidden_tag() }}
+                <p>
+                    {{ form.username.label }}
+                    <br> <br>
+                    {{ form.username(size=32) }}
+                </p>
+                <p>
+                    {{ form.password.label }}
+                    <br> <br>
+                    {{ form.password(size=32) }}
+                </p>
+                <p>
+                    {{ form.email.label }}
+                    <br> <br>
+                    {{ form.email(size=32) }}
+                </p>
+                <p>{{ form.submit() }}</p>
+            </form>
+        </div>
     </body>
 </html>

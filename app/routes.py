@@ -1,20 +1,20 @@
-from flask import render_template
+from flask import render_template, redirect, flash
 from app import myapp_obj
 from datetime import date
 from .forms import LoginForm, CreateAccount
 
 @myapp_obj.route("/")
+@myapp_obj.route("/home")
 def main_page():
-    return render_template('home.html')
+    name = "[Filler Name]"
+    return render_template('home.html', name=name)
 
 @myapp_obj.route("/login", methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    ''' this is the code for validation below, and flashing to db
     if form.validate_on_submit():
         flash(f'Here are the input {form.username.data} and {form.password.data}')
         return redirect('/')
-    '''
     return render_template('login.html', form=form)
 
 @myapp_obj.route("/create_account")
