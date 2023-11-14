@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../static/css/create_account.css">
+        <title>Scribe - Create Account</title>
+    </head>
+    <body>
+        <div class="create-acc">
+            <h1>Create Account</h1>
+            <form action="" method="post" novalidate>
+                {{ form.hidden_tag() }}
+                <p>
+                    {{ form.username.label }}
+                    <br> <br>
+                    {{ form.username(size=32) }}
+                </p>
+                <p>
+                    {{ form.password.label }}
+                    <br> <br>
+                    {{ form.password(size=32) }}
+                </p>
+                <p>
+                    {{ form.email.label }}
+                    <br> <br>
+                    {{ form.email(size=32) }}
+                </p>
+                <p>{{ form.submit() }}</p>
+            </form>
+        </div>
+    </body>
+</html>

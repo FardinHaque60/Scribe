@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../static/css/login.css">
+        <title>Scribe - Login</title>
+    </head>
+    <body>
+        <div class="login">
+            <h1>Sign In</h1>
+            <form action="" method="POST" novalidate>
+                {{ form.hidden_tag() }}
+                <p>
+                    {{ form.username.label }}
+                    <br> <br>
+                    {{ form.username(size=32) }}
+                </p>
+                <p>
+                    {{ form.password.label }}
+                    <br> <br>
+                    {{ form.password(size=32) }}
+                </p>
+                <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+                <p>{{ form.submit() }}</p>
+            </form>
+        </div>
+    </body>
+</html>
