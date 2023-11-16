@@ -1,0 +1,20 @@
+.no-padding {
+    padding: 0;
+}
+
+.base {
+    width: 25%; /* Adjust the width as needed */
+    height: 50%; /* Adjust the height as needed */
+    text-align: center;
+}
+body {
+    background: (antiquewhite);
+}
+
+h1 {
+    font-family: sans-serif;
+}
+
+p {
+    font-family: monospace;
+}
