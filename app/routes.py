@@ -24,3 +24,7 @@ def create_account():
 
 #create routes like
 #@myapp_obj.route("/<note_name>") so that you can use that input name within the page itself, but doubles as the address
+
+@myapp_obj.route("/trash_folder")
+def trash_folder():
+    return render_template("trash_folder.html")
