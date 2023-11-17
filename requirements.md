@@ -15,7 +15,7 @@
 14. Spell Check: User is given suggestions when they have improper grammar/spelling using python library Spello
 
 ## Non-functional Requirements
-1. Data must persist in the database and populate the page upon start-up
+1. Application will run on Chrome Chrome
 2. The application is responsive and changes size depending on window size
 
 ## Use Cases
