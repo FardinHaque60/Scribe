@@ -13,13 +13,17 @@
     - Carlos: Share, Delete, Search Notes
 
 ### 2023-11-17 at 14:00
-- Attendees:
+- Attendees: Fardin, Carlos, Henry
 - Team Updates:
+    - Carlos:
+    - Fardin: Made login and create account page, set-up db, and made writing to DB for creating an account work
+    - Henry:
 - Group Progress:
+    - We have a login, create account, and some dashboard made. Looking into creating the details and features into dashboard now.
 - This Week Goals:
-
-### 2023-11-24 at 14:00
-- Attendees:
-- Team Updates:
-- Group Progress:
-- This Week Goals:
+    - Everyone: Scrub through entries for use cases and check if any reference from database is there
+        - Look if your alt seqs look good or not
+        - Comment from prof: "A bit more attention to detail is needed in these requirements. Be clear about what the user will see and do. Alt Seq should be things the user does wrong and the steps your app will take to help them fix it."
+    - Carlos: Will merge table and insert images reqs into one, will have 13 reqs total + ethical implications write up
+    - Fardin: Look into trigger being the same as #1 on use cases, look into creating a pop up for making things
+    - Henry: Will work on login page and create account page and revise Milestone #1 details
