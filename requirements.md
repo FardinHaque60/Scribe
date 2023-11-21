@@ -11,7 +11,7 @@
 10. Create User Profile: User can create a profile from which they can log into 
 11. Edit User Profiles: User can edit their profile
 12. Insert Images: Add ability to attach images to notes
-13. Spell Check w/ Spello Library: User is given suggestions when they have improper grammar/spelling
+13. Spell Check: User is given suggestions when they have improper grammar/spelling
 
 ## Non-functional Requirements
 1. Application will run on Chrome Chrome
@@ -243,7 +243,7 @@
     2. System prompts user to choose a different file
     3. Users selects on compatible file type
 
-13. Spell Check w/ Spello Library - Fardin Haque
+13. Spell Check - Fardin Haque
 - **Pre-condition:** User is in a note they created
 - **Trigger:** System detects a mistake in their grammar/spelling
 - **Primary Sequence:** 
