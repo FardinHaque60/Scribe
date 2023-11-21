@@ -5,13 +5,13 @@
 4. Create Template: User can create a template that acts as a boilerplate when creating notes
 5. Delete Note: When user chooses to delete a note, it will be stored in a trash folder and there they can permanently delete afterwards
 6. Share Note: User is able to share their notes to other users
-7. Export & Import w/ Google Drive API: User can connect to their Google Drive to export and import to an from their Drive
+7. Export w/ Google Drive API: User can connect to their Google Drive to export and import to an from their Drive
 8. Recover Note: User is able to recover deleted notes
 9. Search Note: User is able to search a note by its text contents
 10. Create User Profile: User can create a profile from which they can log into 
 11. Edit User Profiles: User can edit their profile
 12. Insert Images: Add ability to attach images to notes
-13. Spell Check: User is given suggestions when they have improper grammar/spelling using python library Spello
+13. Spell Check w/ Spello Library: User is given suggestions when they have improper grammar/spelling
 
 ## Non-functional Requirements
 1. Application will run on Chrome Chrome
@@ -30,7 +30,7 @@
     5. The user clicks "Create Note"
     6. The system checks if the note name is unique
     7. The systems saves the note information 
-    9. System displays note in navigation bar and opens the edit note page (See Use Case #2)
+    8. System displays note in navigation bar and opens the edit note page (See Use Case #2)
 - **Primary Postconditions:** The user can access their created notes in expandable lists within the navigation folder
 - **Alternate Sequence:** User tries to create a note with a name that is already taken by another note
     1. System displays warning that this name is already taken
@@ -76,11 +76,11 @@
 - **Alternate Sequence:** User tries to create a page without giving it a name or uses a non-unique name
     1. The system will display an invalid name erorr
     2. The system will prompt the user to input a valid name to continue
-    2. The user will change input a anme or change the name to something unique
+    3. The user will change input a anme or change the name to something unique
 - **Alternate Sequence #2:** The user enters fields for page and clicks "Go Home"
     1. The system warns the user that their changes will not be saved
     2. The system allows the user to "Continue" or "Cancel"
-    2. The user clicks "Cancel" and they return to the create page display
+    3. The user clicks "Cancel" and they return to the create page display
 
 4. Create Template - Fardin Haque\
 ![](images/Create_Template_UI.png)\
@@ -93,7 +93,7 @@
     4. The user inputs text, styles, tables, images, etc. that they would like like to populate this template with
     5. User clicks on "Save Template"
     6. System checks if name is valid and saves template
-    - **Primary Postconditions:** The template is available in the list of templates when creating a note now (See Use Case #1 for context)
+- **Primary Postconditions:** The template is available in the list of templates when creating a note now (See Use Case #1 for context)
 - **Alternate Sequence:** The user assigns a non-uniqe or null name to the template
     1. The system displays an error that the template name is invalid
     2. The system prompts the user to change the name of the template
@@ -104,194 +104,154 @@
 
 5. Delete Note - Carlos Quiroz\
 ![](images/Trash_UI.png)
-- **Pre-Condition:** User must have a note created
-- **Trigger:** User clicks on delete button
+- **Pre-Condition:** Note that user wants to delete must have been created already
+- **Trigger:** User clicks on delete button when viewing the note
 - **Primary Sequence:**
-    1. User selects note options menu
-    2. System will display menu that includes a delete option
-    3. User selects delete option
-    4. System will display a confirmation message with two options to the user, cancel or delete
+    1. User selects "Options" in menu bar when viewing the note
+    2. System will display a menu that includes a delete option
+    3. User selects the delete option
+    4. System will display a confirmation message with two options to the user, "Cancel" or "Delete"
     5. User selects option to delete
-    6. System stores the deleted note in a trash folder
-    7. System displays all deleted notes inside of trash folder
-    8. User has options to do a permanent deletion of note, recover the note or leave as is and system will permanently delete note in 30 days
-- **Primary Postconditions:** The note user selected to be deleted is in trash folder
-    - Deleted note is removed from users current notes
-- **Alternate Sequence:** User tried to delete note but fails due to storage limit
-    1. System will display an error message
-    2. User can free space by cleaning trash folder
-    3. System allows user to delete note again
-- **Alternate Sequence #2:** User selects to permanently delete note
-    1. User selects note to delete
-    2. System displays confirmation message
-    3. User selects to delete note  
-    4. Note is permanently deleted from users account
-    5. System displays message that note is deleted permanently
+    6. System moves the note to a trash folder
+    7. System displays the home screen
+- **Primary Postconditions:** The note user selected note to be deleted is in the trash folder
+    - Deleted note is removed from the navigation bar storing all notes
+- **Alternate Sequence:** User tries to delete note that exceeds the storage limit
+    1. System will display an error message stating the trash folder is full
+    2. System displays trash folder
+    3. User can free space by cleaning trash folder
 
 6. Share Note - Carlos Quiroz\
 ![](images/Share_UI.png)\
 - **Pre-Condition:** User is logged in and recipient has an account
-- **Trigger:** User clicks on share button
+- **Trigger:** User clicks on share button on notes menu bar
 - **Primary Sequence:**
-    1. User selects note they want to share
-    2. User clicks on share button
-    3. System prompts user to enter email of recipient user
-    4. User enters emails of intended recipient
-    5. System will check if it is a valid email and valid user attached to email
-    6. User clicks send
-    7. Selected note are shared between owner(user) and recipient.
-- **Primary Postconditions:** The shared note is available to all intended recipients
+    1. System prompts user to enter email of recipient user in a text-field
+    2. User enters emails of intended recipient
+    3. System will check if it is a valid email and valid user attached to email
+    4. User clicks send
+    5. System adds a copy of the note to the recipients notes list
+- **Primary Postconditions:** The shared note is available on intended recipients notes list
     - Recipient can view note
-- **Alternate Sequence:** Email of recipient is not valid and or not a valid user
+- **Alternate Sequence:** Email of recipient is not valid and/or not a valid user
     1. System will display an error message stating invalid recipient credentials
-    2. System prompts user to re enter email again
-    3. User can click send once re entered email is verfied
+    2. System prompts user to re-enter email
+    3. User can click send once re-entered email is verfied
 - **Alternate Sequence #2:** User clicks on send button but note fails to send
     1. System prompts user to retry with a retry button
-    2. System will re attempt to send note to recipient by re initiating the sending process
-    3. System display success message once action is completed
+    2. User clicks retry
+    3. System will re-attempt to send note to recipient by re initiating the sending process
+    4. System displays success message
 
-7. Export & Import w/ Google Drive API - Carlos Quiroz\
+7. Export w/ Google Drive API - Carlos Quiroz\
 ![](images/Import:Export_UI.png)\
 - **Pre-Condition:** User has connected Google Drive with their account
-- **Trigger:** User clicks on export/import button
+- **Trigger:** User clicks on export/import button in home menu
 - **Primary Sequence:**
-    1. User clicks on export/import button 
-    2. System prompts user to select import or export 
-    3. User clicks on export
-    4. System prompts user to choose a file format(pdf, txt, docx, etc)
-    5. User chooses a format and clicks on export button
-    6. System connect to Google Drive api
-    7. User selects destination where note will go in their Google Drive
-    8. User clicks upload button to google drive
-    9. System displays message when export was successful
-- **Primary Postconditions:** Selected note has been exported to Google Drive or Selected file in Google Drive has been imported into note
-- **Alternate Sequence:** User clicks on import
-    1. System connects to Google Drive api with user credentials
-    2. User selects which file they want to import(restricted to supported files)
-    3. File is now imported to users notes
-- **Alternate Sequence #2:** System fails to connect to Google Drive
+    1. System prompts user to select import or export 
+    2. User clicks on export
+    3. System prompts user to choose a file format (pdf, txt, docx, etc)
+    4. User chooses a format and clicks on export button
+    5. System connects to Google Drive API
+    6. User selects destination where note will go in their Google Drive
+    7. User clicks Upload to Google Drive button
+    8. System displays message when export was successful
+- **Primary Postconditions:** Selected note has been exported to users Google Drive account
+- **Alternate Sequence:** System fails to connect to Google Drive due to weak internet
     1. System displays error message stating failed connection
+    2. Systems advises user to reload page to re-establish a connection
     2. User can reload page to establish a connection
 
 8. Recover Note - Carlos Quiroz
-- **Pre-Condition:** User has deleted a note
-- **Trigger:** User clicks on recover button
+- **Pre-Condition:** User has deleted a note and the note is in the trash folder
+- **Trigger:** User right clicks note and selects recover
 - **Primary Sequence:** 
-    1. User is inside of the trash folder
-    2. User clicks on recover button
-    3. System prompts user to select the note they want to recover
-    4. User selects note
-    5. User clicks on checkmark button to confirm recovry of note
-    6. System prompts user to confirm their choice (cancel or recover buttons) w/ a message
-    7. User confirm by clicking on recover
-    8. System moves note from trash folder back to where user had previously had stored the note
-- **Primary Postconditions:** Selected note is recovered and available to user
-    - User has access to note with their current notes
+    1. System prompts the user if they are sure they want to recover the note
+    2. User clicks on checkmark button to confirm recovery of note
+    3. System moves note from trash folder back to where user had previously had stored the note
+    4. System displays the note on the main screen
+    5. User can edit note (See Use Case #2)
+- **Primary Postconditions:** Selected note is recovered and available to user in their notes list
 - **Alternate Sequence:** Previous location of note no longer exists
-    1. System will move note to main Notes section
+    1. System will move note to main notes section
     2. User can then select to move the location of the note as they wish
-- **Alternate Sequence #2:** Trash Folder is empty and user clicks on recover button
-    1. System will display a message that folder is empty
-    2. User can leave trash folder and the folder will remain the same
 
-9. Search Note - Carlos Quiroz\
+9. Search Notes - Carlos Quiroz\
 ![](images/Search_UI.png)\
-- **Pre-condition:** User must have an existing note
+- **Pre-condition:** User must be on main page
 - **Trigger:** User clicks on search button
 - **Primary Sequence:**
-    1. User clicks on search button
-    2. System display a search bar where user can type a text input of a phrase or keywords they seek
-    3. User types a text input
-    4. System will look through all notes seeking those that match users input
-    5. System will display all note(s) that contains users input
-    6. User can select the note that contain the text content they seek
-- **Primary Postconditions:** User finds notes that contains the text contents they were seeking for
-- **Alternate Sequence:** System can't find a match for user search input
-    1. System displays an error message
+    1. System display a search bar where user can type a text input of a phrase or keywords they seek
+    2. User types a text input
+    3. System find all notes that contain the user inputted substring
+    4. System will display all note(s) that were found
+    5. User selects a note from the list
+    6. System displays note for editing
+- **Primary Postconditions:** System displays notes that match user inputted string
+- **Alternate Sequence:** System can not find a match for user inputted search request
+    1. System displays an error message that states "No Results"
     2. System prompts user to try and search for a different term
-    3. System will continue once it finds a match to the given search input
+    3. User inputs a different string
 
 10. Create User Profile - Henry To\
 ![](images/Welcome+Login_UI.png)
-- **Pre-condition:** The user is on the main page
-- **Trigger:** User clicks on create profile button
+- **Pre-condition:** User has the application open
+- **Trigger:** User is on the create account page
 - **Primary Sequence:**
-    1. User clicks on create profile button
-    2. System displays a create profile button
-    3. User types in string of text for name
-    4. System will create the user profile
-    5. System will display all the profiles created
-    6. User can now select which profile to pick
-- **Primary Postconditions:** User profile is now added 
-- **Alternate Sequence:** The user does not choose to create a profile but instead picks a profile
-    1. System prompts user to pick a profile
-    2. A profile is selected
-- **Alternate Sequence #2:** The user decides not to create a profile page
-    1. User is prompted if they are sure if they want to cancel
-    2. The request is canceled
-    3. User is back on the main page
+    1. System prompts user to enter their username, password, and email
+    2. User enters their name, password, and email into the provided text-fields
+    3. User clicks "Submit"
+    4. Systems checks if username and email is available
+    5. System creates a profile for the user
+    6. System displays application home page for the new user
+- **Primary Postconditions:** Systems saves user information for future login
+- **Alternate Sequence:** The user inputs a username and email that is already taken by another user
+    1. Systems displays error that username and/or email are taken
+    2. System prompts user to enter a different username and/or email
+    3. User changes their information so it is unique, or logs in to existing profile
 
 11. Edit User Profiles - Henry To
 - **Pre-condition:** User must have an existing profile
-- **Trigger:** User clicks on edit profile
+- **Trigger:** User clicks on edit profile on home page
 - **Primary Sequence:**
-    1. User clicks on edit profile
-    2. System display options on how to edit profile
-    3. Options to rename profile
-    4. System prompts user on what the new name should be
+    1. System display profile information (username, password, email) in text-fields
+    2. User changes text-fields
+    3. User clicks "Save Changes"
+    4. System checks if username and/or email are available
     5. System updates the profile
-- **Primary Postconditions:** User has added an images to their notes
-- **Alternate Sequence:** The user decides to change profile picture
-    1. User clicks on change profile picture
-    2. System displays to upload the picture
-    3. System updates the user profile picture
-    4. System updates the profile
-- **Alternate Sequence #2:** The user decides not to change their user profile
-    1. System prompts user if they are sure to proceed with no changes
-    2. The user is back to the main page
+- **Primary Postconditions:** User's profile reflects new changes
+- **Alternate Sequence:** The username and password that the user is trying to change to has been taken
+    1. The system displays an error that the inputted username and password are taken
+    2. The system prompts the user to change them
+    3. The user changes the non-unique fields to something that is available
    
 12. Insert Images - Henry To\
 ![](images/Home_UI.png)\
 - **Pre-condition:** User must have an existing note
-- **Trigger:** User clicks on add images to notes
+- **Trigger:** User clicks on add images option in notes menu
 - **Primary Sequence:**
-    1. User clicks on add images to notes
-    2. User is prompted to choose what type of images to post
-    3. User clicks on images they would like to upload
-    4. User submits the images to the existing note
-    5. The database is now updated with the image on the notes
-- **Primary Postconditions:** User has added an images to their notes
-- **Alternate Sequence:** User tries to upload a video instead of an image
-    1. User is prompted to specify that an image is required
-    2. User is back to prompt on uploading an image
+    1. System opens file system for user to choose image to add
+    2. User clicks on images they would like to add
+    3. The system displays the image on the users note
+    4. The system creates dots to re-size the image
+    5. The user resizes the image as needed
+    6. The user clicks "Save Changes"
+    7. The system saves the note with the new changes
+- **Primary Postconditions:** The note displays an image within it that is available upon revisiting the note
+- **Alternate Sequence:** User selects a file type that the system cannot display on the note
+    1. System displays error message that it only accepts png, jpeg, and jpg file types
+    2. System prompts user to choose a different file
+    3. Users selects on compatible file type
 
-13. Insert Tables - Henry To
-- **Pre-condition:** User must have existing notes
-- **Trigger:** User clicks on create table within the notes  
-- **Primary Sequence:**
-    1. User clicks on create table option
-    2. User is prompted as to what size the table needs to be
-    3. User chooses the table type
-    4. Table is created in the notes
-    5. The table is prompted to require a link to notes
-    6. The system checks if the table link is valid
-    7. Tables is now created with links to notes
-    8. The database is now updated with the table within the notes
-- **Primary Postconditions:**  User has now added tables with a link to the notes attached
-- **Alternate Sequence:** User Tables are created with no links to the notes
-    1. User decides to attach no links to the notes
-    2. User is prompted if they are sure they do not want link to the notes
-    3. User notes is created without a link
-
-14. Spell Check - Fardin Haque
+13. Spell Check w/ Spello Library - Fardin Haque
 - **Pre-condition:** User is in a note they created
-- **Trigger:** User creates a mistake in their grammar/spelling
+- **Trigger:** System detects a mistake in their grammar/spelling
 - **Primary Sequence:** 
-    1. User is writing in their note and they make a mistake
-    2. System will use the library Spello running in the background to provide any suggestions
-    3. System will underline spelling with a red line to indicate their a suggestion
-    4. User can click on the suggestion and accept it and it will update their note
-- **Primary Postconditions:** The note is updated with the correct spelling/grammar upon user confirmation
-- **Alternate Sequence:** User declines spelling suggestion
-    1. User can ignore spelling suggestion and the system will remove the red underline from it
+    1. System underlines spelling/grammar suggestion in red
+    2. User right clicks suggestion
+    3. System will display the suggestion and below have options for "Accept" or "Ignore"
+    5. User selects "Accept"
+    6. System closes menu and removes red underline with suggestion, replacing it with the suggestion
+- **Primary Postconditions:** The note is updated with the suggestion
+- **Alternate Sequence:** User clicks "Ignore" when right clicking suggestion
+    1. System will remove red underline from suggestion and keep users old entry
