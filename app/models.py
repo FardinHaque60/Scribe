@@ -22,7 +22,9 @@ class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(10000), nullable=False)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeighKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     
     def __repr__(self) -> str:
         return '<Post {}>'.format(self.body)
+    
+#<!-- <a class="button" href="{{ url_for('view_note', note_id=note['id']) }}">{{ note['title'] }}</a> -->
