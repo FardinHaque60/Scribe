@@ -4,11 +4,22 @@ from datetime import date
 from .forms import LoginForm, CreateAccount
 from .models import User
 
+#need to pass notes into every page we inherit so the notes lists persists on nav bar
+note1 = {
+        'id': 45,
+        'title': "some note"
+    }
+note2 = {
+    'id': 42,
+    'title': "some other notes"
+}
+notes = [note1, note2]
+
 @myapp_obj.route("/")
 @myapp_obj.route("/home")
 def main_page():
-    name = "temp" #add some way to call db and get the name here
-    return render_template('home.html', name=name)
+    name = "temp" #add some way to call db and get the users name here
+    return render_template('home.html', name=name, notes=notes)
 
 @myapp_obj.route("/login", methods=['GET', 'POST'])
 def login():
@@ -34,4 +45,9 @@ def create_account():
 
 @myapp_obj.route("/trash_folder")
 def trash_folder():
-    return render_template("trash_folder.html")
+    return render_template("trash_folder.html", notes=notes)
+
+# change route url to actual note name
+@myapp_obj.route("/viewing_note_temp_url")
+def view_note():
+    return render_template("view_note.html", notes=notes)
