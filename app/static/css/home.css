@@ -43,8 +43,8 @@ body {
     text-decoration: none;
 }
 #content {
-    margin-left: 220px;
-    padding: 20px;
+    margin-left: 200px;
+    /* padding: 20px; */
 }
 a.button {
     display: block;
