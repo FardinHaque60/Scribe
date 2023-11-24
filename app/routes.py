@@ -5,15 +5,13 @@ from datetime import date
 from .forms import LoginForm, CreateAccount
 from .models import User
 
-
-
 @myapp_obj.route("/home")
-@login_required # users cannot access this function that are not authenticated
+@login_required # users that are not authenticated cannot access this function
 def main_page():
     name = "temp" #add some way to call db and get the name here
     return render_template('home.html', name=name)
 
-# login function also serves as the default page (until changed?)
+# login route, also serves as the default page (until changed?)
 @myapp_obj.route("/")
 @myapp_obj.route("/login", methods=['GET', 'POST'])
 def login():
@@ -34,14 +32,14 @@ def login():
         return redirect('/home')
     return render_template('login.html', form=form)
 
-# logout function
+# logout route
 @myapp_obj.route("/logout")
 def logout():
-    # # Flask-Login function registers the user as logged out
+    # Flask-Login function registers the user as logged out
     logout_user()
-    
     return redirect ("/")
-# create account function
+
+# create route function
 @myapp_obj.route("/create_account", methods=['GET', 'POST'])
 def create_account():
     # checks if user is logged in
@@ -56,7 +54,6 @@ def create_account():
         flash('New Account Created')
         return redirect('/login')
     return render_template("create_account.html", form=form)
-
 
 
 @myapp_obj.route("/trash_folder")
