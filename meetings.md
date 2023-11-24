@@ -15,7 +15,7 @@
 ### 2023-11-17 at 14:00
 - Attendees: Fardin, Carlos, Henry
 - Team Updates:
-    - Carlos:
+    - Carlos: Made the top navbar and worked on making the vertical nav bar
     - Fardin: Made login and create account page, set-up db, and made writing to DB for creating an account work
     - Henry:
 - Group Progress:
