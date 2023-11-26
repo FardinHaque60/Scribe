@@ -8,6 +8,17 @@
             <h1>Sign In</h1>
             <form action="" method="POST" novalidate>
                 {{ form.hidden_tag() }}
+
+               <!--  {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        <span style="color: red;">[{{ message }}]</span>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+                {% endwith %} -->
+                <!--fix it so that it only displays the error messages for login only-->
                 <p>
                     {{ form.username.label }}
                     <br> <br>

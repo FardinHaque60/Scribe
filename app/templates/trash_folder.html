@@ -1,11 +1,22 @@
 {% extends "home.html" %}
 
 {% block content%}  
-    <div class="base">
-        {% if name %}
-        <h1>{{ name }}</h1>
-        {% else %}
-        <h1>Trash</h1>
-        {% endif %}
-    </div>
+    <h2>Trash<h2><br>
+
+    {% for notes in trashed_notes%}
+        <form method="post" action="{{ url_for('note_man',note_id=notes.id ) }}">
+            {{ form.hidden_tag() }}
+ 
+            <div class="row mb-2">
+                
+                <div class="col" style="font-size: 20px;"> <a href="{{ url_for('view_note', note_id=notes.id) }}">
+                    {{ notes.title }}</a></div>
+                <div class="col-auto">
+                    
+                    {{ form.recover_note(class="btn btn-primary mr-2") }}
+                    {{ form.delete(class="btn btn-danger") }}
+                </div>
+            </div>
+        </form>
+    {%endfor%}
 {% endblock %}
