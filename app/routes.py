@@ -12,16 +12,14 @@ from .models import User, Note
 # home route
 @myapp_obj.route("/home")
 @login_required       # users that are not authenticated cannot access this link
-def main_page():
+def home():
     user = current_user
     name = user.username
     notes = Note.query.filter(Note.user_id == user.id, Note.trashed == False).all()
-
     return render_template('home.html', name=name, notes=notes)
 
-
-# login route
-@myapp_obj.route("/")
+# login route, also serves as the default page (until changed?)
+@myapp_obj.route("/", methods=['GET', 'POST'])
 @myapp_obj.route("/login", methods=['GET', 'POST'])
 def login():
     # checks if user is logged in
