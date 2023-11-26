@@ -12,7 +12,7 @@ def main_page():
     return render_template('home.html', name=name)
 
 # login route, also serves as the default page (until changed?)
-@myapp_obj.route("/")
+@myapp_obj.route("/", methods=['GET', 'POST'])
 @myapp_obj.route("/login", methods=['GET', 'POST'])
 def login():
     # checks if user is logged in
