@@ -25,9 +25,11 @@ class User(UserMixin, db.Model):
         
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    body = db.Column(db.String(10000), nullable=False)
+    title = db.Column(db.String(32), nullable=False)
+    body = db.Column(db.String(1000), nullable=False)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    trashed = db.Column(db.Boolean, default=False)
     
     def __repr__(self) -> str:
         return '<Post {}>'.format(self.body)
