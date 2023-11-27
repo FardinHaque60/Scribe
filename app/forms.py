@@ -31,7 +31,6 @@ class CreateAccount(FlaskForm):
         
 class SearchForm(FlaskForm):
     searched = StringField("Title", validators=[DataRequired()])
-    body = StringField("Body", validators=[DataRequired()])
     submit = SubmitField('Enter')
     
 class CreateNote(FlaskForm):
