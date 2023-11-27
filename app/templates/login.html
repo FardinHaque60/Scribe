@@ -8,20 +8,37 @@
             <h1>Sign In</h1>
             <form action="" method="POST" novalidate>
                 {{ form.hidden_tag() }}
+
+               <!--  {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        <span style="color: red;">[{{ message }}]</span>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+                {% endwith %} -->
+                <!--fix it so that it only displays the error messages for login only-->
                 <p>
                     {{ form.username.label }}
                     <br> <br>
-                    {{ form.username(size=32) }}
+                    {{ form.username(size=32) }} <br>
+                    {% for error in form.username.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
                 </p>
                 <p>
                     {{ form.password.label }}
                     <br> <br>
-                    {{ form.password(size=32) }}
+                    {{ form.password(size=32) }} <br>
+                    {% for error in form.password.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
                 </p>
                 <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
                 <p>{{ form.submit() }}</p>
-                <p> Don't have an account? <a href="{{'/create_account'}}">Sign Up</a></p>
             </form>
+            <p> Don't have an account? <a href="{{'/create_account'}}">Sign Up</a></p>
         </div>
     </body>
 </html>

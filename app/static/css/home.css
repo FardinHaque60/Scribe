@@ -9,18 +9,13 @@
 p {
     font-family: monospace;
 }
-body {
-    margin: 0;
-    padding: 0;
-    font-family:sans-serif;
-}
-
+/* old sidebar css
 #sidebar {
     width: 200px;
     height: 100vh;
     background-color: #333;
     color: #fff;
-    padding: 20px;
+    padding: 0px 20px 20px 20px;
     box-sizing: border-box;
     position: fixed;
     overflow-y: auto;
@@ -52,4 +47,65 @@ a.button {
     padding: 5px;
     color: #fff;
     text-decoration: none;
+}
+.button {
+    display: block;
+    width: 160px;
+    padding: 5px;
+    color: rgba(255,255,255,.5);
+    background-color: #333;
+    border: 1px solid #333;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.button:hover {
+    background-color: #464343;
+    color: #d0bfbf;
+  }
+*/
+
+
+h4 {
+    text-align: center;
+}
+
+body {
+    background: #eee;
+    font-family:sans-serif;
+}
+#side_nav {
+    background: #333;
+    min-width: 250px;
+    max-width: 250px;
+    transition: all 0.3s;
+}
+.content {
+    min-height: 100vh;
+    width: 100%;
+}
+hr.h-color {
+    background: #eee;
+}
+
+.sidebar li.active {
+    background: #eee;
+    border-radius: 8px;
+}
+.sidebar li.active a, .sidebar li.active a:hover {
+    color: #000;
+}
+.sidebar li a {  
+    color: #fff;
+}
+
+@media(max-width: 767px) {
+    #side_nav {
+        margin-left: -250px;
+        position: absolute;
+        min-height: 100vh;
+        z-index: 1;
+    }
+    #side_nav.active {
+        margin-left: 0;
+    }
 }
