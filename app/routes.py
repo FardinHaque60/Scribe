@@ -5,13 +5,14 @@ from datetime import date
 from .forms import LoginForm, CreateAccount, SearchForm, CreateNote, NoteManagment
 from .models import User, Note
 
-'''for all routes add the flashed messages to html files''' 
+'''for all routes add the flashed messages to html files'''
 
 # dynamic code of home.html will work if I pass all the vars in main_page route(name, notes) to all routes
-# it's too redundant so need to find a better solution
+# TODO: it's too redundant so need to find a better solution
+# REPLY: look into making notes = ... global then
 # home route
 @myapp_obj.route("/home")
-@login_required       # users that are not authenticated cannot access this link
+@login_required # users that are not authenticated cannot access this link
 def main_page():
     user = current_user
     name = user.username
@@ -80,7 +81,8 @@ def view_note(note_id):
 # create note route
 @myapp_obj.route('/create_note', methods=['GET', 'POST'])
 def create_note():
-    form = CreateNote();
+    form = CreateNote()
+    notes = Note.query.filter(Note.user_id == current_user.id, Note.trashed == False).all()
     if form.validate_on_submit():
         notes = Note(title=form.title.data, body=form.body.data, author=current_user)
         
@@ -93,9 +95,9 @@ def create_note():
         db.session.commit()
         
         flash('Note created successfully!', 'success')
-        return redirect('/create_note')
+        return redirect('/home')
     
-    return render_template('create_note.html', form=form)
+    return render_template('create_note.html', form=form, name=current_user.username, notes=notes)
 
 
 # search route
@@ -117,15 +119,20 @@ def create_note():
 def search():
     user = current_user
     form = SearchForm()
+    #contains all the notes for this user
     notes = Note.query.filter(Note.user_id == user.id, Note.trashed == False).all()
     
     if form.validate_on_submit():
         search_query = form.searched.data
-        results = Note.query.filter(notes & ((Note.title.contains(search_query)) | (Note.body.contains(search_query)))).all()
+        #contains the notes that were sifted from search query
+        results = Note.query.filter(Note.body.contains(search_query) | Note.title.contains(search_query)).all()
+        #below sets results to the intersection of this users notes and the resultant notes
+        #TODO: not sure if this will always work since it converts to a set
+        results = set(results) & set(notes)
 
-        return render_template("search.html", form=form, results=results, notes=notes)
+        return render_template("search.html", form=form, results=results, notes=notes, name=current_user.username)
 
-    return render_template("search.html", form=form, notes=notes)
+    return render_template("search.html", form=form, notes=notes, name=current_user.username)
 
 # view trashed notes
 @myapp_obj.route('/trash')
