@@ -1,8 +1,19 @@
-<html>
-    <head>
-        <title>Scribe - Create Template</title>
-    </head>
-    <body>
-        
-    </body>
-</html>
+{%extends "home.html" %}
+
+{%block content%}
+    <h2>Create Template</h2><br>
+    <form method="POST" action=""> 
+        {{ form.hidden_tag() }}
+
+        <p> 
+            {{ form.title.label}} <br>
+            {{ form.title }}
+        </p>
+        <br>
+        <p>
+            {{ form.body.label }} <br>
+            {{ form.body }}
+        </p>
+        <p> {{ form.submit }} </p>
+    </form>
+{%endblock%}

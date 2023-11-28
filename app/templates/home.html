@@ -1,7 +1,6 @@
 <html>
     <head>
         <title>Scribe</title>
-        
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
               crossorigin="anonymous">
@@ -10,6 +9,7 @@
         
     </head>
     <body>
+      <!--top nav bar-->
       <div class="container-fluid no-padding">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
               <span class="navbar-brand mb-0 h1">Scribe</span>
@@ -19,37 +19,82 @@
 
               <div class="collapse navbar-collapse" id="navbar">
                 <div class="navbar-nav">
-                  <a class="nav-item nav-link" href="#"> <i class="bi bi-search"></i> Search</a>
-                  <a class="nav-item nav-link" href="#"> <i class="bi bi-share"></i> Share</a>
-                  <a class="nav-item nav-link" href="#"> <i class="bi bi-box-arrow-up"></i> Export</a>
-                  <a class="nav-item nav-link" href="#"> <i class="bi bi-three-dots-vertical"></i> Options</a>
-                  <a class="nav-item nav-link" href="{{ url_for('trash_folder') }}"> <i class="bi bi-archive"></i> Trash</a>
+                  <a class="nav-item nav-link" href="/home"><i class="bi bi-house"></i> Home</a>
+                  <a class="nav-item nav-link" href="{{ url_for('search') }}"> <i class="bi bi-search"></i> Search</a>
+                  <!--<a class="nav-item nav-link" href="#"> <i class="bi bi-share"></i> Share</a>-->
+                  <!-- will implement at a later milestone <a class="nav-item nav-link" href="#"> <i class="bi bi-box-arrow-up"></i> Export</a> -->
                   <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+                  <a class="nav-item nav-link" href="#"> <i class="bi bi-three-dots-vertical"></i> Options</a>
+                  <a class="nav-item nav-link" href="{{ url_for('trash') }}"> <i class="bi bi-archive"></i> Trash</a>
+                  
                 </div>
               </div>
 
             </nav>
       </div>
           
+      <!--side bar-->
+      <div class="main-container d-flex">
+        <div class="sidebar" id="side_nav">
+            <ul class="list-unstyled px-2">
+              <li class=""><a href="{{url_for('create_note')}}"  class="text-decoration-none px-3 py-2 d-block">
+                  <i class="bi bi-plus-lg"></i> Create Note</a></li>
+
+              <li class=""><a href="{{url_for('create_template')}}" class="text-decoration-none px-3 py-2 d-block">
+                <i class="bi bi-plus-lg"></i> Create Template</a></li>
+
+              <li class=""><a href="{{url_for('create_page')}}" class="text-decoration-none px-3 py-2 d-block">
+                  <i class="bi bi-plus-lg"></i> Create Page</a></li>
+              </li>
+            </ul>
+
+            <hr class="h-color mx-2">
+            <h4> 
+              <span class="text-white"> {{ name }}'s Notes</span>
+            </h4>
+
+            <ul class="list-unstyled px-2">
+                {% for note in notes %}
+                <li class="">
+                  <a href="{{ url_for('view_note', note_id=note.id) }}" class="text-decoration-none px-3 py-2 d-block">
+                    {{ note.title }} </a>
+                </li>
+                {% endfor %}
+            </ul>
+        
+        </div>
+          <div class="content">
+            <div class="dashboard-content px-3 pt-4">
+                {% block content %} {% endblock %}
+            </div>
+          </div>
+      </div>
+
+
+    <!--old sidebar
       <div id="sidebar">
         <div id="sidebar-top">
-        <a class="button" href="{{ url_for('trash_folder') }}"><i class="bi bi-plus-lg"></i> Create Note</a>
-        <a class="button" href="#"><i class="bi bi-plus-lg"></i> Create Template</a>
-        <a class="button" href="#"><i class="bi bi-plus-lg"></i> Create Page</a>
-        </div>
+              <button class="button" onclick="window.location.href='{{ url_for('create_note') }}'">
+                <i class="bi bi-plus-lg"></i> Create Note
+              </button>
+              <button class="button" onclick="window.location.href='#'">
+                <i class="bi bi-plus-lg"></i> Create Template
+              </button>
+              <button class="button" onclick="window.location.href='#'">
+                <i class="bi bi-plus-lg"></i> Create Page
+              </button>
+       </div>
         <ul>
           {% for note in notes %}
             <li>
-              <a class="button"href="{{ url_for('view_note', note_id=note['id']) }}">{{ note['title'] }}</a>
+              <a class="button"href="{{ url_for('view_note', note_id=note.id) }}" >
+                {{ note.title }} 
+              </a>
             </li>
           {% endfor %}
         </ul>
       </div>
-
-      <div id="content">
-        {% block content %} {% endblock %}
-      </div>
-
+    -->
 
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
               integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" 
@@ -62,9 +107,3 @@
               crossorigin="anonymous"></script>
     </body>
 </html>
-
-
-
-
-
-
