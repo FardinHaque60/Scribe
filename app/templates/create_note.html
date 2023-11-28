@@ -4,12 +4,11 @@
     <h2>Create Note</h2><br>
     <form method="POST" action=""> 
         {{ form.hidden_tag() }}
-        {{ form.csrf_token }}
 
         <label for="{{ form.template_menu.id }}">{{ form.template_menu.label }}</label>
-        <select id="{{ form.template_menu.id }}" name="{{form.template_menu.label}}">
+        <select id="{{ form.template_menu.id }}" name="{{form.template_menu.name}}">
             {% for template in form.template_menu.choices %}
-                <option value="{{template.id}}"> {{ template.title }}</option>
+                <option value="{{ template.id }}"> {{ template.title }}</option>
             {% endfor %}
         </select>
         <br>
