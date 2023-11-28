@@ -21,7 +21,7 @@
                 <div class="navbar-nav">
                   <a class="nav-item nav-link" href="/home"><i class="bi bi-house"></i> Home</a>
                   <a class="nav-item nav-link" href="{{ url_for('search') }}"> <i class="bi bi-search"></i> Search</a>
-                  <a class="nav-item nav-link" href="#"> <i class="bi bi-share"></i> Share</a>
+                  <!--<a class="nav-item nav-link" href="#"> <i class="bi bi-share"></i> Share</a>-->
                   <!-- will implement at a later milestone <a class="nav-item nav-link" href="#"> <i class="bi bi-box-arrow-up"></i> Export</a> -->
                   <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
                   <a class="nav-item nav-link" href="#"> <i class="bi bi-three-dots-vertical"></i> Options</a>
@@ -63,11 +63,11 @@
             </ul>
         
         </div>
-          <div class="content">
-            <div class="dashboard-content px-3 pt-4">
-                {% block content %} {% endblock %}
-            </div>
+        <div class="content">
+          <div class="dashboard-content px-3 pt-4">
+              {% block content %} {% endblock %}
           </div>
+        </div>
       </div>
 
 
