@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, HiddenField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, HiddenField, SelectField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Optional
-from wtforms.widgets import TextArea
+from wtforms.widgets import TextArea, TextInput
 from app.models import User, Note
 
 
@@ -31,15 +31,21 @@ class CreateAccount(FlaskForm):
         
 class SearchForm(FlaskForm):
     searched = StringField("Title", validators=[DataRequired()])
-    body = StringField("Body", validators=[DataRequired()])
     submit = SubmitField('Enter')
     
 class CreateNote(FlaskForm):
-    title = StringField("Title", validators=[DataRequired()], widget=TextArea())
-    body = StringField("Text Field", validators=[DataRequired()], widget=TextArea())
+    template_menu = SelectField("Select a Template:", choices = [], name='template_menu')
+    title = StringField("Title", validators=[DataRequired()], widget=TextInput())
+    body = StringField("Note Body", validators=[DataRequired()], widget=TextArea())
 
     submit = SubmitField("Enter")
     
+class CreateTemplate(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()], widget=TextInput())
+    body = StringField('Template Body', validators=[DataRequired()], widget=TextArea())
+
+    submit = SubmitField("Enter")
+
 class NoteManagment(FlaskForm):
     note_id = HiddenField('Note ID')
     recover_note = SubmitField('Recover', validators=[Optional()])
