@@ -34,7 +34,7 @@ class SearchForm(FlaskForm):
     submit = SubmitField('Enter')
     
 class CreateNote(FlaskForm):
-    template_menu = SelectField("Select a Template:", choices = [])
+    template_menu = SelectField("Select a Template:", choices = [], name='template_menu')
     title = StringField("Title", validators=[DataRequired()], widget=TextInput())
     body = StringField("Note Body", validators=[DataRequired()], widget=TextArea())
 

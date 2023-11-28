@@ -1,4 +1,4 @@
-from flask import jsonify, render_template, redirect, flash, url_for
+from flask import jsonify, render_template, redirect, flash, request, url_for
 from flask_login import current_user, login_user, login_required, logout_user
 from app import myapp_obj, db
 from datetime import date
@@ -83,13 +83,15 @@ def view_note(note_id):
 def create_note():
     form = CreateNote()
     notes = Note.query.filter(Note.user_id == current_user.id, Note.trashed == False).all()
-    choices = (Template.query.filter(Template.user_id == current_user.id).all())
+    #choices is a list of integers representing the template ids
+    #since in model, templates have __repr__ as id and in html we assign the value as template.id
+    choices = Template.query.filter(Template.user_id == current_user.id).all()
     #inserts dummy template in first, just a blank template
-    choices.insert(0, Template(id=0, title="blank note", body="", author=current_user))
+    dummy_template = Template(id=0, title="blank note", body="", author=current_user)
+    choices.insert(0, dummy_template)
     form.template_menu.choices = choices
     if form.validate_on_submit():
         notes = Note(title=form.title.data, body=form.body.data, author=current_user)
-        
         # clears form
         form.title.data = ''
         form.body.data = ''
@@ -100,6 +102,9 @@ def create_note():
         
         flash('Note created successfully!', 'success')
         return redirect('/home')
+    else:
+        print(form.errors) #this prints {} if there are no errors
+        print(request.form) #prints ImmutableMultiDict([]) if there are no errors
     
     return render_template('create_note.html', form=form, name=current_user.username, notes=notes)
 
@@ -110,8 +115,10 @@ def get_body(entry_id):
     
     if entry:
         return jsonify({'body': entry.body})
-    else:
+    elif entry_id == 0:
         return jsonify({'body': ""})
+    else:
+        return jsonify({'error': "entry not found"}), 404
 
 # create template route
 @myapp_obj.route('/create_template', methods=['GET', 'POST'])

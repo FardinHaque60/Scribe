@@ -13,7 +13,7 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(32), nullable=False)
     email = db.Column(db.String(100), nullable=False)
     notes = db.relationship('Note', backref="author")
-    tempaltes = db.relationship('Template', backref = "author")
+    templates = db.relationship('Template', backref = "author")
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
@@ -42,4 +42,4 @@ class Template(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self) -> str:
-        return '{}'.format(self.title)
+        return '{}'.format(self.id)
