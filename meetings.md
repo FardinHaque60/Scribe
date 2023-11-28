@@ -31,7 +31,7 @@
 ### 2023-11-27 at 18:00
 - Attendees: Fardin, Carlos
 - Team Updates:
-    - Carlos: 
+    - Carlos: Made delete, and recover note features, worked on login and create acc to have better functionality
     - Fardin: Worked on create note, template, and fixed/ contributed to search and viewing notes in navigation bar implementation
 - Group Progress:
     - We have a working application that allows the user to login, create an account, create notes, create templates, delete, recover, and search
