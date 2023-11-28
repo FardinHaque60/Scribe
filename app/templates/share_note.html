@@ -1,0 +1,17 @@
+{% extends "home.html" %}
+
+{% block content %}
+    <h2>Share Note</h2>
+
+    <form method="post" action="{{ url_for('share_note', note_id=shared_note.id) }}">
+        {{ form.hidden_tag() }}
+        <p>{{ form.recipient.label }}</p> 
+        <p>{{ form.recipient }}</p> 
+            {% for error in form.recipient.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        <p> {{ form.submit }} </p>
+        
+    </form>
+
+{% endblock %}
