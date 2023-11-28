@@ -27,3 +27,21 @@
     - Carlos: Will merge table and insert images reqs into one, will have 13 reqs total + ethical implications write up
     - Fardin: Look into trigger being the same as #1 on use cases, look into creating a pop up for making things
     - Henry: Will work on login page and create account page and revise Milestone #1 details
+
+### 2023-11-27 at 18:00
+- Attendees: Fardin, Carlos, Henry
+- Team Updates:
+    - Carlos: 
+    - Fardin: 
+    - Henry:
+- Group Progress:
+    - 
+- This Week Goals:
+    - Everyone: 
+        - look into updating readme
+        - make creating notes look better etc.
+        - Questions to ask in class:
+        1. For the ethical implications write-up does the "impact of engineering solutions" regard our application specifically, i.e. do you want us to write about the impacts our notes app makes on the lists areas?
+        2. For groups of smaller size do they have to implement less use cases?
+        3. Can we just link a pr # if we have multiple commits that are just under there?
+    - Carlos: look into ethical implications write-up suggestions
