@@ -1,9 +1,18 @@
 {%extends "home.html" %}
 
 {%block content%}
-    <h2>Notes</h2><br>
+    <h2>Create Note</h2><br>
     <form method="POST" action=""> 
         {{ form.hidden_tag() }}
+        {{ form.csrf_token }}
+
+        <label for="{{ form.template_menu.id }}">{{ form.template_menu.label }}</label>
+        <select id="{{ form.template_menu.id }}" name="{{form.template_menu.label}}">
+            {% for template in form.template_menu.choices %}
+                <option value="{{template.id}}"> {{ template.title }}</option>
+            {% endfor %}
+        </select>
+        <br>
 
         <p> 
             {{ form.title.label}} <br>
@@ -16,4 +25,22 @@
         </p>
         <p> {{ form.submit }} </p>
     </form>
+
+    <!-- Script for populating the text area (inputting the template) based on their template selection -->
+    <script>
+        // Add an event listener to the dropdown
+        document.getElementById('template_menu').addEventListener('change', function() {
+            // Get the selected option value
+            var selectedOption = this.value;
+
+            console.log(selectedOption)
+            fetch('/get_template_body/' + selectedOption)
+                .then(response => response.json())
+                .then(data => {
+                    // Update the content of the textarea with the templates body
+                    document.getElementById('body').value = data.body;
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
 {%endblock%}
