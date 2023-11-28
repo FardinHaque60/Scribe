@@ -232,14 +232,13 @@ def move_to_trash(note_id):
 
 # sharing between users
 # TODO: sidebar doesnt render properly
-@myapp_obj.route('/view_note/share_note/<int:note_id>', methods=['GET', 'POST'])
+@myapp_obj.route('/share_note/<int:note_id>', methods=['GET', 'POST'])
 def share_note(note_id):
     user = current_user
     name =  user.username
     notes = Note.query.filter(Note.user_id == user.id, Note.trashed == False).all()
     shared_note = Note.query.get_or_404(note_id)
     form = ShareNote()
-    
     if form.validate_on_submit():
         # gets email of recipient of note
         recipient_email = form.recipient.data
@@ -259,5 +258,5 @@ def share_note(note_id):
         else:
             print('User not found')
             flash('User not found', 'error')
-
-    return render_template('share_note.html', form=form, shared_note=shared_note)
+    
+    return render_template('share_note.html', form=form, shared_note=shared_note, name=name, notes=notes)
