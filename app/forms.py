@@ -50,3 +50,7 @@ class NoteManagment(FlaskForm):
     note_id = HiddenField('Note ID')
     recover_note = SubmitField('Recover', validators=[Optional()])
     delete = SubmitField('Delete', validators=[Optional()])
+
+class ShareNote(FlaskForm):
+    recipient = StringField('Enter Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Share', validators=[DataRequired()])
