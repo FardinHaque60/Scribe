@@ -1,9 +1,9 @@
-from flask import render_template, redirect, flash, url_for
+from flask import jsonify, render_template, redirect, flash, url_for
 from flask_login import current_user, login_user, login_required, logout_user
 from app import myapp_obj, db
 from datetime import date
-from .forms import LoginForm, CreateAccount, SearchForm, CreateNote, NoteManagment
-from .models import User, Note
+from .forms import LoginForm, CreateAccount, SearchForm, CreateNote, NoteManagment, CreateTemplate
+from .models import User, Note, Template
 
 '''for all routes add the flashed messages to html files'''
 
@@ -83,6 +83,10 @@ def view_note(note_id):
 def create_note():
     form = CreateNote()
     notes = Note.query.filter(Note.user_id == current_user.id, Note.trashed == False).all()
+    choices = (Template.query.filter(Template.user_id == current_user.id).all())
+    #inserts dummy template in first, just a blank template
+    choices.insert(0, Template(id=0, title="blank note", body="", author=current_user))
+    form.template_menu.choices = choices
     if form.validate_on_submit():
         notes = Note(title=form.title.data, body=form.body.data, author=current_user)
         
@@ -99,22 +103,59 @@ def create_note():
     
     return render_template('create_note.html', form=form, name=current_user.username, notes=notes)
 
+#handles getting a template based on its id, called from create_note.html
+@myapp_obj.route('/get_template_body/<int:entry_id>')
+def get_body(entry_id):
+    entry = Template.query.get(entry_id)
+    
+    if entry:
+        return jsonify({'body': entry.body})
+    else:
+        return jsonify({'body': ""})
+
+# create template route
+@myapp_obj.route('/create_template', methods=['GET', 'POST'])
+def create_template():
+    form = CreateTemplate()
+    notes = Note.query.filter(Note.user_id == current_user.id, Note.trashed == False).all()
+    if form.validate_on_submit():
+        template = Template(title=form.title.data, body=form.body.data, author=current_user)
+        
+        # clears form
+        form.title.data = ''
+        form.body.data = ''
+        
+        # adds to database
+        db.session.add(template)
+        db.session.commit()
+        
+        flash('Template created successfully!', 'success')
+        return redirect('/home')
+    
+    return render_template('create_template.html', form=form, name=current_user.username, notes=notes)
+
+# create page route
+@myapp_obj.route('/create_page', methods=['GET', 'POST'])
+def create_page():
+    form = CreateTemplate()
+    notes = Note.query.filter(Note.user_id == current_user.id, Note.trashed == False).all()
+    if form.validate_on_submit():
+        template = Template(title=form.title.data, body=form.body.data, author=current_user)
+        
+        # clears form
+        form.title.data = ''
+        form.body.data = ''
+        
+        # adds to database
+        db.session.add(template)
+        db.session.commit()
+        
+        flash('Template created successfully!', 'success')
+        return redirect('/home')
+    
+    return render_template('create_page.html', form=form, name=current_user.username, notes=notes)
 
 # search route
-# @myapp_obj.route('/search', methods=['GET', 'POST'])
-# def search():
-#     user= current_user
-#     form = SearchForm()
-#     results=['this']
-#     notes  = Note.query.filter(Note.user_id == user.id, Note.trashed == False).all()
-    
-#     if form.validate_on_submit():
-#         search_query = form.searched.data
-#         results = Note.query.filter((Note.title.contains(search_query)) | (Note.body.contains(search_query))).all()
-        
-        
-#     return render_template("search.html", form=form, results=results, notes=notes)
-
 @myapp_obj.route('/search', methods=['GET', 'POST'])
 def search():
     user = current_user
