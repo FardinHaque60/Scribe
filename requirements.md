@@ -10,7 +10,7 @@
 9. Search Note: User is able to search a note by its text contents
 10. Create User Profile: User can create a profile from which they can log into 
 11. Edit User Profiles: User can edit their profile
-12. Insert Images: Add ability to attach images to notes
+12. User Login: Allows user to login to their notes dashboard
 13. Spell Check: User is given suggestions when they have improper grammar/spelling
 
 ## Non-functional Requirements
@@ -225,23 +225,21 @@
     2. The system prompts the user to change them
     3. The user changes the non-unique fields to something that is available
    
-12. Insert Images - Henry To\
+12. User Login - Fardin\
 ![](images/Home_UI.png)\
-- **Pre-condition:** User is currently viewing the note they would like to add an image to
-- **Trigger:** User clicks on add images option in notes menu
+- **Pre-condition:** User has an exisiting account
+- **Trigger:** User is on login page and no one is currently signed in on the session
 - **Primary Sequence:**
-    1. System opens file manager for user to choose image to add
-    2. User clicks on images they would like to add
-    3. The system displays the image on the users note
-    4. The system creates a grid to re-size the image
-    5. The user resizes the image as needed
-    6. The user clicks "Save Changes"
-    7. The system saves the note with the new image
-- **Primary Postconditions:** The note displays an image within it that will be available upon revisiting the note
-- **Alternate Sequence:** User selects a file type that the system cannot display on the note
-    1. System displays error message that it only accepts png, jpeg, and jpg file types
-    2. System prompts user to choose a different file
-    3. Users selects on compatible file type
+    1. System prompts user to enter their username and password. Additionally, provides a field to "remember me"
+    2. User types in valid username and password then clicks "Submit"
+    3. System looks for matching credentials
+    4. System opens User's dashboard displaying notes
+    5. User is free to operate on the home page
+- **Primary Postconditions:** The system displays the user information and keeps user signed in until they logout
+- **Alternate Sequence:** User inputs invalid credentials (invalid username and password or credentials that do not exist)
+    1. System displays error message stating that they input an invalid username and/or password
+    2. System prompts user to enter correct credentials or create an account
+    3. Users inputs the create credentials or goes to create account page (see use case #10)
 
 13. Spell Check - Fardin Haque
 - **Pre-condition:** User is making changes within a note
