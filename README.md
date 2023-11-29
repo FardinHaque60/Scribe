@@ -33,6 +33,10 @@ To run our application, run the following commands in a Linux terminal:
 * Create Templates 
 * Search Notes 
 * Share Notes 
+* Create Pages [Coming Soon!]
+* Export to Google Drive [Coming Soon!]
+* Edit Notes [Coming Soon!]
+* Edit Profile [Coming Soon!]
 
 ## How To Create Account
 * Upon start up, click on Sign Up. Type username in username field. Type password in password field.  
@@ -73,3 +77,11 @@ Click on Enter. All notes that contain that search query will populate Search Re
 (Note: recipient must be an existing user of Scribe)
 * Click on note you want to share. When viewing the note, click on share button.  
 Enter email of intended recipient. Click on share. Note is now shared for intended recipient.
+
+## How to Create a Page [Coming Soon!]
+
+## How to Export to Google Drive [Coming Soon!]
+
+## How to Edit Notes [Coming Soon!]
+
+## How to Edit Profile [Coming Soon!]
