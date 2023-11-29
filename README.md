@@ -16,10 +16,13 @@ Plus with recovery features you don't have to worry about accidentally deleting 
 Scribe also has the ability to share notes between users and includes a search feature.
 
 # Setup
-Clone or download repo.  
+To run our application, run the following commands in a Linux terminal: 
+* `git clone https://github.com/FardinHaque60/Scribe.git` to clone the repository in your current directory.
 * `python3 -m venv venv` to create a virtual environment.  
 * `source venv/bin/activate` to activate virtual environment.  
 * `pip3 install -r requirements.txt` to install all the dependencies needed to run the app.
+* `python3 run.py` to run the application
+* cntrl/cmd + click the link `http://127.0.0.1:5000` that is displayed in the output to run the application in your broswer
 
 ## Features
 * Create Profile
@@ -27,14 +30,14 @@ Clone or download repo.
 * Delete Notes 
 * Recover Notes 
 * Create Notes 
-* Create templates 
+* Create Templates 
 * Search Notes 
 * Share Notes 
 
 ## How To Create Account
-* From login page, click on  Sign Up. Type username in username field. Type password in password field.  
+* Upon start up, click on Sign Up. Type username in username field. Type password in password field.  
 Proceed to retype the same password in repeat password field.   
-Enter a valid email in email field.  Click on register. Account is now registered.
+Enter a valid email in email field. Click on register. Account is now registered.
 
 ## How To Login
 * Enter existing username in username field then Enter the password for that username. Click on sign in. User is now logged in.
@@ -48,7 +51,7 @@ Enter a valid email in email field.  Click on register. Account is now registere
         * Click on drop down menu. Choose a template (if no templates are available, blank note is default).  
         Note body field is populated with the template body. Proceed as expected.
 
-## How To Create template
+## How To Create Template
 * Click on Create template button. Enter the title for template in title field.   
 Enter the text to be saved in the body field. Click Enter. Template is now created
 
@@ -67,9 +70,6 @@ That note is back in users notes. Note is recovered.
 Click on Enter. All notes that contain that search query will populate Search Results section. Click on one of notes to view its contents.
 
 ## How To Share
-(Note: recipient must be a user of Scribe)
+(Note: recipient must be an existing user of Scribe)
 * Click on note you want to share. When viewing the note, click on share button.  
 Enter email of intended recipient. Click on share. Note is now shared for intended recipient.
-
-
-
