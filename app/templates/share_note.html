@@ -1,17 +1,36 @@
 {% extends "home.html" %}
 
 {% block content %}
-    <h2>Share Note</h2>
+    <h2>Share Note</h2><br>
+
+    {% with messages = get_flashed_messages(category_filter=["shareError", "shareSuccess"]) %}
+        {% if messages %}
+            {% for message in messages%}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }} 
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 
     <form method="post" action="{{ url_for('share_note', note_id=shared_note.id) }}">
         {{ form.hidden_tag() }}
-        <p>{{ form.recipient.label }}</p> 
-        <p>{{ form.recipient }}</p> 
+        <p>
+            {{ form.recipient.label }} <br>
+            {{ form.recipient(class="form-control") }}
+        </p> 
+
             {% for error in form.recipient.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
-        <p> {{ form.submit }} </p>
+
+        <p> {{ form.submit(class="btn btn-outline-primary") }} </p>
         
     </form>
 
 {% endblock %}
+
+
