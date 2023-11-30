@@ -33,7 +33,7 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()    # queries database to find the user
         # checks password hash with attached to the user the user
         if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password', 'error')
+            flash('Invalid username or password', 'loginError')
             return redirect("/login") 
         # Flask-Login function registers the user as logged in
         login_user(user, remember=form.remember_me.data)
@@ -62,7 +62,7 @@ def create_account():
         # adds new user to database
         db.session.add(u)
         db.session.commit()
-        flash('New Account Created. You can now login')
+        flash('New Account Created. You can now login', 'accSuccess')
         return redirect('/login')
     return render_template("create_account.html", form=form)
 
@@ -98,8 +98,8 @@ def create_note():
         db.session.add(notes)
         db.session.commit()
         
-        flash('Note created successfully!', 'success')
-        return redirect('/home')
+        flash('Note created successfully!', 'noteSuccess')
+        return redirect('/create_note')
     else:
         print(form.errors) #this prints {} if there are no errors
         print(request.form) #prints ImmutableMultiDict([]) if there are no errors
@@ -136,8 +136,8 @@ def create_template():
         db.session.add(template)
         db.session.commit()
         
-        flash('Template created successfully!', 'success')
-        return redirect('/home')
+        flash('Template created successfully!', 'templateSuccess')
+        return redirect('/create_template')
     
     return render_template('create_template.html', form=form, name=current_user.username, notes=notes)
 
@@ -158,7 +158,7 @@ def create_page():
         db.session.add(template)
         db.session.commit()
         
-        flash('Template created successfully!', 'success')
+        flash('Page created successfully!', 'pageSuccess')
         return redirect('/home')
     
     return render_template('create_page.html', form=form, name=current_user.username, notes=notes)
@@ -201,15 +201,17 @@ def trash():
 def note_man(note_id):
     form = NoteManagment()
     note = Note.query.get_or_404(note_id)
-    if form.validate_on_submit:
+    if form.validate_on_submit():
         # user selects to delete note
         if form.delete.data:    
             db.session.delete(note)       
             print("Note is deleted")
+            flash(f'"{note.title}" has been deleted', 'deletionSuccess')
         # user selects to recover note
         elif form.recover_note.data:   
             note.trashed = False
             print("note is recoverd")
+            flash(f'"{note.title}" has been recovered', 'recoverySuccess')
         db.session.commit()
     return redirect('/trash')
 
@@ -227,7 +229,7 @@ def move_to_trash(note_id):
         flash("There a problem moving note to trash")
         print("There a problem moving note to trash")
         
-    return redirect('/home')
+    return redirect('/trash')
 
 
 # sharing between users
@@ -252,11 +254,9 @@ def share_note(note_id):
             # commits note to recipients database
             db.session.add(note)
             db.session.commit()
-            print('note shared')
-            flash('Note Shared Succesfully', 'success')
-            return redirect('/home')
+            flash('Note Shared Succesfully', 'shareSuccess')
+            
         else:
-            print('User not found')
-            flash('User not found', 'error')
+            flash('User not found', 'shareError')
     
     return render_template('share_note.html', form=form, shared_note=shared_note, name=name, notes=notes)
