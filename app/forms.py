@@ -39,6 +39,12 @@ class CreateNote(FlaskForm):
     body = StringField("Note Body:", validators=[DataRequired()], widget=TextArea())
 
     submit = SubmitField("Enter")
+
+class ViewNote(FlaskForm):
+    title = StringField("Title:", validators=[DataRequired()], widget=TextInput())
+    body = StringField("Note Body:", validators=[DataRequired()], widget=TextArea())
+
+    submit = SubmitField("Save Changes")
     
 class CreateTemplate(FlaskForm):
     title = StringField('Template Title:', validators=[DataRequired()], widget=TextInput())

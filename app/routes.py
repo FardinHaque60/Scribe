@@ -2,7 +2,7 @@ from flask import jsonify, render_template, redirect, flash, request, url_for
 from flask_login import current_user, login_user, login_required, logout_user
 from app import myapp_obj, db
 from datetime import date
-from .forms import LoginForm, CreateAccount, SearchForm, CreateNote, NoteManagment, CreateTemplate, ShareNote
+from .forms import LoginForm, CreateAccount, SearchForm, CreateNote, NoteManagment, CreateTemplate, ShareNote, ViewNote
 from .models import User, Note, Template
 
 '''for all routes add the flashed messages to html files'''
@@ -72,9 +72,24 @@ def create_account():
 def view_note(note_id):
     note = Note.query.get_or_404(note_id)
     notes = Note.query.filter(Note.user_id == current_user.id, Note.trashed == False).all()
-    
-    return render_template('view_note.html', note=note, name=current_user.username, notes=notes)
-    
+    form = ViewNote()
+
+    if request.method == 'GET':
+        form.title.data = note.title
+        form.body.data = note.body
+
+    if form.validate_on_submit():
+        #add checks to make sure title is still unique
+        note.title = form.title.data
+        note.body = form.body.data
+        db.session.commit()
+        flash('Note edited successfully!', 'noteEditSuccess')
+        return redirect(url_for('view_note', note_id=note_id))
+    else:
+        print(form.errors)
+        print(request.form)
+
+    return render_template('view_note.html', form=form, note=note, name=current_user.username, notes=notes)
 
 # create note route
 @myapp_obj.route('/create_note', methods=['GET', 'POST'])
@@ -108,6 +123,7 @@ def create_note():
 
 
 #handles getting a template based on its id, called from create_note.html
+#helper method, not called to view page
 @myapp_obj.route('/get_template_body/<int:entry_id>')
 def get_body(entry_id):
     entry = Template.query.get(entry_id)
@@ -234,7 +250,6 @@ def move_to_trash(note_id):
 
 
 # sharing between users
-# TODO: sidebar doesnt render properly
 @myapp_obj.route('/share_note/<int:note_id>', methods=['GET', 'POST'])
 def share_note(note_id):
     user = current_user
