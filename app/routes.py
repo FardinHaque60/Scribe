@@ -1,14 +1,14 @@
+from datetime import datetime
 from flask import jsonify, render_template, redirect, flash, request, url_for
 from flask_login import current_user, login_user, login_required, logout_user
 from app import myapp_obj, db
 from datetime import date
-from .forms import LoginForm, CreateAccount, SearchForm, CreateNote, NoteManagment, CreateTemplate, ShareNote, ViewNote
-from .models import User, Note, Template
+from .forms import LoginForm, CreateAccount, SearchForm, CreateNote, NoteManagment, CreateTemplate, ShareNote, ViewNote, CreatePage
+from .models import User, Note, Template, Page
 
 '''for all routes add the flashed messages to html files'''
 
-
-
+''' --------dashboard route below---------'''
 # home route
 @myapp_obj.route("/home")
 @login_required # users that are not authenticated cannot access this link
@@ -18,7 +18,7 @@ def main_page():
     notes = Note.query.filter(Note.user_id == user.id, Note.trashed == False).all()
     return render_template('home.html', name=name, notes=notes)
 
-
+''' ---------------login page route below----------------'''
 # login route
 @myapp_obj.route("/", methods=['GET', 'POST'])
 @myapp_obj.route("/login", methods=['GET', 'POST'])
@@ -40,7 +40,7 @@ def login():
         return redirect('/home')
     return render_template('login.html', form=form)
 
-
+''' ------------------logout route below-------------------'''
 # logout route
 @myapp_obj.route("/logout")
 def logout():
@@ -48,7 +48,7 @@ def logout():
     logout_user()
     return redirect ("/")
 
-
+''' ------------------create account route below--------------'''
 # create account route
 @myapp_obj.route("/create_account", methods=['GET', 'POST'])
 def create_account():
@@ -66,7 +66,7 @@ def create_account():
         return redirect('/login')
     return render_template("create_account.html", form=form)
 
-
+" -----------------------view note route below-------------------"
 # view note route
 @myapp_obj.route('/view_note/<int:note_id>', methods=['GET', 'POST'])
 def view_note(note_id):
@@ -75,6 +75,7 @@ def view_note(note_id):
     form = ViewNote()
 
     if request.method == 'GET':
+        form.timestamp = note.timestamp.strftime("%Y-%m-%d %H:%M")
         form.title.data = note.title
         form.body.data = note.body
 
@@ -82,6 +83,7 @@ def view_note(note_id):
         #add checks to make sure title is still unique
         note.title = form.title.data
         note.body = form.body.data
+        note.timestamp = datetime.now()
         db.session.commit()
         flash('Note edited successfully!', 'noteEditSuccess')
         return redirect(url_for('view_note', note_id=note_id))
@@ -91,20 +93,30 @@ def view_note(note_id):
 
     return render_template('view_note.html', form=form, note=note, name=current_user.username, notes=notes)
 
+''' --------------------create note route below------------------------'''
 # create note route
 @myapp_obj.route('/create_note', methods=['GET', 'POST'])
 def create_note():
     form = CreateNote()
     notes = Note.query.filter(Note.user_id == current_user.id, Note.trashed == False).all()
-    #choices is a list of integers representing the template ids
-    #since in model, templates have __repr__ as id and in html we assign the value as template.id
+
+    ''' for populating templates dropdown menu'''
     choices = Template.query.filter(Template.user_id == current_user.id).all()
-    #inserts dummy template in first, just a blank template
+    #inserts dummy template, default is a blank template for user to start with
     dummy_template = Template(id=0, title="blank note", body="", author=current_user)
     choices.insert(0, dummy_template)
     form.template_menu.choices = choices
+
+    ''' for populating pages dropdown menu'''
+    page_choices = Page.query.filter(Page.user_id == current_user.id).all()
+    default_page = Page(id=0, title="[NO_PAGE]", description="", author=current_user)
+    page_choices.insert(0, default_page)
+    form.page_menu.choices = page_choices
+    print(page_choices)
+    print(choices)
+
     if form.validate_on_submit():
-        notes = Note(title=form.title.data, body=form.body.data, author=current_user)
+        notes = Note(title=form.title.data, body=form.body.data, page=form.page_menu.data, author=current_user)
         # clears form
         form.title.data = ''
         form.body.data = ''
@@ -121,21 +133,7 @@ def create_note():
     
     return render_template('create_note.html', form=form, name=current_user.username, notes=notes)
 
-
-#handles getting a template based on its id, called from create_note.html
-#helper method, not called to view page
-@myapp_obj.route('/get_template_body/<int:entry_id>')
-def get_body(entry_id):
-    entry = Template.query.get(entry_id)
-    
-    if entry:
-        return jsonify({'body': entry.body})
-    elif entry_id == 0:
-        return jsonify({'body': ""})
-    else:
-        return jsonify({'error': "entry not found"}), 404
-
-
+''' -----------------------create template methods below--------------------'''
 # create template route
 @myapp_obj.route('/create_template', methods=['GET', 'POST'])
 def create_template():
@@ -157,21 +155,35 @@ def create_template():
     
     return render_template('create_template.html', form=form, name=current_user.username, notes=notes)
 
+''' template helper method, used in create note '''
+#handles getting a template based on its id, called from create_note.html
+#helper method, not called to view page
+@myapp_obj.route('/get_template_body/<int:entry_id>')
+def get_body(entry_id):
+    entry = Template.query.get(entry_id)
+    
+    if entry:
+        return jsonify({'body': entry.body})
+    elif entry_id == 0:
+        return jsonify({'body': ""})
+    else:
+        return jsonify({'error': "entry not found"}), 404
 
+''' -------------------------create page route below--------------------'''
 # create page route
 @myapp_obj.route('/create_page', methods=['GET', 'POST'])
 def create_page():
-    form = CreateTemplate()
+    form = CreatePage()
     notes = Note.query.filter(Note.user_id == current_user.id, Note.trashed == False).all()
     if form.validate_on_submit():
-        template = Template(title=form.title.data, body=form.body.data, author=current_user)
+        page = Page(title=form.title.data, description=form.description.data, author=current_user)
         
         # clears form
         form.title.data = ''
-        form.body.data = ''
+        form.description.data = ''
         
         # adds to database
-        db.session.add(template)
+        db.session.add(page)
         db.session.commit()
         
         flash('Page created successfully!', 'pageSuccess')
@@ -179,7 +191,7 @@ def create_page():
     
     return render_template('create_page.html', form=form, name=current_user.username, notes=notes)
 
-
+'''-------------------------- search route below ------------------------------'''
 # search route
 @myapp_obj.route('/search', methods=['GET', 'POST'])
 def search():
@@ -200,7 +212,7 @@ def search():
 
     return render_template("search.html", form=form, notes=notes, name=current_user.username)
 
-
+''' ------------------------- trash method below ----------------------------'''
 # view trashed notes
 @myapp_obj.route('/trash')
 def trash():
@@ -211,7 +223,7 @@ def trash():
     
     return render_template('trash_folder.html', trashed_notes=trashed_notes, form=form, notes=notes, name=current_user.username)
     
-    
+''' helper method for trash '''
 # note management handles deletion and recovery
 @myapp_obj.route('/trash/note_man/<int:note_id>', methods=['GET', 'POST'])
 def note_man(note_id):
@@ -248,7 +260,7 @@ def move_to_trash(note_id):
         
     return redirect('/trash')
 
-
+''' ------------------ share note route below ----------------------- '''
 # sharing between users
 @myapp_obj.route('/share_note/<int:note_id>', methods=['GET', 'POST'])
 def share_note(note_id):
