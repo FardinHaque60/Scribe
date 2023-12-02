@@ -206,6 +206,7 @@ def note_man(note_id):
         if form.delete.data:    
             db.session.delete(note)       
             print("Note is deleted")
+            print(form.delete.data)
             flash(f'"{note.title}" has been deleted', 'deletionSuccess')
         # user selects to recover note
         elif form.recover_note.data:   
@@ -223,11 +224,11 @@ def move_to_trash(note_id):
     try:
         note.trashed = True
         db.session.commit()
-        flash("Note moved to trash")
-        print("Note moved to trash")
+        flash(f'"{note.title}" moved to trash', 'trashSuccess')
+        print(f'"{note.title}" moved to trash')
     except:
-        flash("There a problem moving note to trash")
-        print("There a problem moving note to trash")
+        flash(f'Error: "{note.title} could not be moved to trash"', 'trashError')
+        print(f'Error: "{note.title} could not be moved to trash"')
         
     return redirect('/trash')
 
