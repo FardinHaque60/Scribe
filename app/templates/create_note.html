@@ -19,6 +19,14 @@
     <form method="POST" action=""> 
         {{ form.hidden_tag() }}
 
+        <!-- select page dropdown menu-->
+        <label for="{{ form.page_menu.id }}">{{ form.page_menu.label }}</label>
+        <select id="{{ form.page_menu.id }}" name="{{form.page_menu.name}}">
+            {% for page in form.page_menu.choices %}
+                <option value="{{ page.id }}"> {{ page.title }}</option>
+            {% endfor %}
+        </select>
+
         <!-- select template drowpdown -->
         <label for="{{ form.template_menu.id }}">{{ form.template_menu.label }}</label>
         <select id="{{ form.template_menu.id }}" name="{{form.template_menu.name}}">
