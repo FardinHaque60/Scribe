@@ -187,7 +187,7 @@ def create_page():
         db.session.commit()
         
         flash('Page created successfully!', 'pageSuccess')
-        return redirect('/home')
+        return redirect('/create_page')
     
     return render_template('create_page.html', form=form, name=current_user.username, notes=notes)
 
