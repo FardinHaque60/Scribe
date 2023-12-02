@@ -25,18 +25,18 @@ To run our application, run the following commands in a Linux terminal:
 * cntrl/cmd + click the link `http://127.0.0.1:5000` that is displayed in the output to run the application in your broswer
 
 ## Features
-* Create Profile
-* Login 
-* Delete Notes 
-* Recover Notes 
-* Create Notes 
-* Create Templates 
-* Search Notes 
-* Share Notes 
-* Create Pages [Coming Soon!]
-* Export to Google Drive [Coming Soon!]
-* Edit Notes [Coming Soon!]
-* Edit Profile [Coming Soon!]
+* Create Profile ~ by Fardin 
+* Login ~ by Fardin + Carlos
+* Delete Notes ~ by Carlos
+* Recover Notes ~ by Carlos
+* Create Notes ~ by Fardin
+* Create Templates ~ by Fardin
+* Search Notes ~ by Fardin + Carlos
+* Share Notes ~ by Carlos
+* Create Pages ~ by Fardin [Coming Soon!]
+* Export to Google Drive ~ by Carlos [Coming Soon!]
+* Edit Notes ~ by Fardin [Coming Soon!]
+* Edit Profile ~ by Fardin [Coming Soon!]
 
 ## How To Create Account
 * Upon start up, click on Sign Up. Type username in username field. Type password in password field.  
