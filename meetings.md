@@ -67,3 +67,17 @@
         - Google drive API
     - Fardin: creating pages, editing notes
         - clean up this meeting write-up and fix creating notes, push this so carlos can create a pr for his share implementation
+
+### 2023-12-01 at 15:30
+- Attendees: Fardin, Carlos
+- Team Updates:
+    - Fardin: Worked on editing note functionality, currently working on implementing Quill API and side bar bootstraps
+    - Carlos: Worked on getting erorr messages to show up on screen, looking to add Google Drive API
+- Group Progress:
+    - We have implemented 8 functional requirements so far with full functionality in login, create account, search, trash, and recover. 
+    - We are still looking to make future changes to edit note, create note, create template with enhanced abilities like adding markdown/styles to notes
+    - We are on track to implement the remaining features: google drive API, spell check, creating pages and are looking to allocate the last few days to polishing (making things look nice and testing)
+- This Week Goals:
+    - Everyone: Testing!
+    - Fardin: Must ~ Implement creating pages, spell check library, editing notes styles. Polishes ~ side bar bootstrap for collapsable menu
+    - Carlos: Must ~ Implement error messages, export to google drive API. Polishes ~ bootstrap/ UI styles wherever it seems neccessary
