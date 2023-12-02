@@ -1,22 +1,45 @@
 {% extends "home.html" %}
 
 {% block content%}  
-    <h2>Trash<h2><br>
+    <h2>Trash</h2><br>
+
+    <!-- displays user a message when note is trashed (& when there is an error moving to trash), deleted & recovered-->
+    {% with messages = get_flashed_messages(category_filter=["deletionSuccess", "recoverySuccess", "trashSuccess", "trashError"]) %}
+        {% if messages %}
+            {% for message in messages%}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }} 
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 
     {% for notes in trashed_notes%}
-        <form method="post" action="{{ url_for('note_man',note_id=notes.id ) }}">
+        <form method="post" action="{{ url_for('note_man',note_id=notes.id) }}" onsubmit="return myFunction();">
             {{ form.hidden_tag() }}
  
             <div class="row mb-2">
-                
                 <div class="col" style="font-size: 20px;"> <a href="{{ url_for('view_note', note_id=notes.id) }}">
                     {{ notes.title }}</a></div>
                 <div class="col-auto">
                     
-                    {{ form.recover_note(class="btn btn-primary mr-2") }}
+                    {{ form.recover_note(class="btn btn-primary") }}
                     {{ form.delete(class="btn btn-danger") }}
+
                 </div>
             </div>
         </form>
+
+
+        <script>
+            function myFunction() {
+                var result = confirm("Are you sure you want to do this action?");
+                return result;
+            }
+
+        </script>
     {%endfor%}
 {% endblock %}
