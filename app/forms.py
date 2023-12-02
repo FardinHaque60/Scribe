@@ -34,6 +34,7 @@ class SearchForm(FlaskForm):
     submit = SubmitField('Enter')
     
 class CreateNote(FlaskForm):
+    page_menu = SelectField("Select Page:", choices=[], name='page_menu')
     template_menu = SelectField("Select a Template:", choices = [], name='template_menu')
     title = StringField("Note Title:", validators=[DataRequired()], widget=TextInput())
     body = StringField("Note Body:", validators=[DataRequired()], widget=TextArea())
@@ -41,6 +42,7 @@ class CreateNote(FlaskForm):
     submit = SubmitField("Enter")
 
 class ViewNote(FlaskForm):
+    timestamp: StringField()
     title = StringField("Title:", validators=[DataRequired()], widget=TextInput())
     body = StringField("Note Body:", validators=[DataRequired()], widget=TextArea())
 
@@ -49,6 +51,12 @@ class ViewNote(FlaskForm):
 class CreateTemplate(FlaskForm):
     title = StringField('Template Title:', validators=[DataRequired()], widget=TextInput())
     body = StringField('Template Body:', validators=[DataRequired()], widget=TextArea())
+
+    submit = SubmitField("Enter")
+
+class CreatePage(FlaskForm):
+    title = StringField("Page Title: ", validators=[DataRequired()], widget=TextInput())
+    description = StringField('Page Description: ', validators=[DataRequired()], widget=TextArea())
 
     submit = SubmitField("Enter")
 
