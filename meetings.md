@@ -68,6 +68,18 @@
     - Fardin: creating pages, editing notes
         - clean up this meeting write-up and fix creating notes, push this so carlos can create a pr for his share implementation
 
+### 2023-11-28 at 10:45
+- Attendees: Fardin, Carlos
+- Team Updates:
+    - Fardin: Made design plan for home page and how new side bar will look like, some search improvements
+    - Carlos: Made some bootstrap changes to home page and made plan for implemenitng erorr messages and additional bootstraps
+- Group Progress:
+    - Working app with the above mentioned features, with improved search functionality. 
+- This Week Goals:
+    - Everyone: Get app to have all but API related requirements by end of next week
+    - Carlos: Implement Google Drive API, error messages, and bootstrap polishes
+    - Fardin: Implement creating pages, improve editing notes (+spell check), and side bar tweaks
+
 ### 2023-12-01 at 15:30
 - Attendees: Fardin, Carlos
 - Team Updates:
