@@ -35,14 +35,14 @@ class SearchForm(FlaskForm):
     
 class CreateNote(FlaskForm):
     template_menu = SelectField("Select a Template:", choices = [], name='template_menu')
-    title = StringField("Title", validators=[DataRequired()], widget=TextInput())
-    body = StringField("Note Body", validators=[DataRequired()], widget=TextArea())
+    title = StringField("Note Title:", validators=[DataRequired()], widget=TextInput())
+    body = StringField("Note Body:", validators=[DataRequired()], widget=TextArea())
 
     submit = SubmitField("Enter")
     
 class CreateTemplate(FlaskForm):
-    title = StringField('Title', validators=[DataRequired()], widget=TextInput())
-    body = StringField('Template Body', validators=[DataRequired()], widget=TextArea())
+    title = StringField('Template Title:', validators=[DataRequired()], widget=TextInput())
+    body = StringField('Template Body:', validators=[DataRequired()], widget=TextArea())
 
     submit = SubmitField("Enter")
 
@@ -52,5 +52,5 @@ class NoteManagment(FlaskForm):
     delete = SubmitField('Delete', validators=[Optional()])
 
 class ShareNote(FlaskForm):
-    recipient = StringField('Enter Email', validators=[DataRequired(), Email()])
+    recipient = StringField('Enter Email:', validators=[DataRequired(), Email()])
     submit = SubmitField('Share', validators=[DataRequired()])

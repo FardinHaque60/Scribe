@@ -2,27 +2,42 @@
 
 {%block content%}
     <h2>Create Note</h2><br>
+
+    {% with messages = get_flashed_messages(category_filter=["noteSuccess"]) %}
+        {% if messages %}
+            {% for message in messages%}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }} 
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
     <form method="POST" action=""> 
         {{ form.hidden_tag() }}
 
+        <!-- select template drowpdown -->
         <label for="{{ form.template_menu.id }}">{{ form.template_menu.label }}</label>
         <select id="{{ form.template_menu.id }}" name="{{form.template_menu.name}}">
             {% for template in form.template_menu.choices %}
                 <option value="{{ template.id }}"> {{ template.title }}</option>
             {% endfor %}
         </select>
-        <br>
 
         <p> 
             {{ form.title.label}} <br>
-            {{ form.title }}
+            {{ form.title(class="form-control") }}
         </p>
-        <br>
+
         <p>
             {{ form.body.label }} <br>
-            {{ form.body }}
-        </p>
-        <p> {{ form.submit }} </p>
+            {{ form.body(class="form-control", rows="10") }}
+        </p> <br>
+
+        <p> {{ form.submit(class="btn btn-outline-primary") }} </p>
     </form>
 
     <!-- Script for populating the text area (inputting the template) based on their template selection -->
