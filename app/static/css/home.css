@@ -109,3 +109,7 @@ hr.h-color {
         margin-left: 0;
     }
 }
+
+.custom-card {
+    background-color: transparent;
+}

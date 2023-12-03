@@ -54,15 +54,48 @@
               <span class="text-white"> {{ name }}'s Notes</span>
             </h4>
 
+            <!-- unorderd list of all pages, notes, shared notes -->
             <ul class="list-unstyled px-2">
+              <!-- list of notes and pages -->
+                {% for item, value in page_notes.items() %}
+                <!-- lists the pages -->
+                <li class="">
+                  <a class="text-decoration-none px-3 py-2 d-block" data-toggle="collapse" href="#collapse{{loop.index}}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    {{ item.title }}
+                  </a>
+                </li>
+
+                <!-- lists the notes under the above page -->
+                <div class="collapse" id="collapse{{loop.index }}">
+                  <div class="card card-body custom-card"> <!-- orig: card card-body-->
+                    <ul class="listed-unstyled px-2">
+                    {% for note in value %}
+                      <li class="">
+                        <a href="{{ url_for('view_note', note_id=note.id) }}" class="text-decoration-none px-3 py-2 d-block">
+                          {{ note.title }} </a>
+                      </li>
+                    {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+                {% endfor %}
+
+              <!-- list of notes NOT in pages-->
                 {% for note in notes %}
                 <li class="">
                   <a href="{{ url_for('view_note', note_id=note.id) }}" class="text-decoration-none px-3 py-2 d-block">
                     {{ note.title }} </a>
                 </li>
                 {% endfor %}
+                
+                <!-- list of shared notes -->
+                {% for note in shared %}
+                <li class="">
+                  <a href="{{ url_for('view_note', note_id=note.id) }}" class="text-decoration-none px-3 py-2 d-block">
+                    {{ note.title }} </a>
+                </li>
+                {% endfor %}
             </ul>
-        
         </div>
 
         <div class="content">

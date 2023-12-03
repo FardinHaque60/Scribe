@@ -19,17 +19,18 @@
         {{ form.hidden_tag() }}
         <div class="row mb-2">
             <div class="col" style="font-size: 20px;">
-            <p><small>last change: {{ form.timestamp }}</small></p>
-            {{ form.title.label }} 
-            {{ form.title }} 
-            <br>    
-            <p>
-                {{ form.body.label }} <br>
-            </p>
-            <p>
-                {{ form.body(class="form-control", rows="10") }}
-            </p> <br>
-
+                <p><small>last change: {{ note.timestamp.strftime("%Y-%m-%d %H:%M") }}</small></p>
+                    Owner: {{ note.owner }} <br>
+                    {{ form.title.label }} 
+                    {{ form.title(style="font-size: 18px;") }} 
+                <br>    
+                <p>
+                    {{ form.body.label }} <br>
+                </p>
+                <p>
+                    {{ form.body(class="form-control", rows="10") }}
+                </p> 
+                <br>
             </div>
 
             <div class="col-auto">
