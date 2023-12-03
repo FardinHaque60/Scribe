@@ -253,6 +253,7 @@ def move_to_trash(note_id):
 # sharing between users
 @myapp_obj.route('/share_note/<int:note_id>', methods=['GET', 'POST'])
 def share_note(note_id):
+    name, notes, page_notes, shared = home_helper()
     shared_note = Note.query.get_or_404(note_id)
     form = ShareNote()
     if form.validate_on_submit():
@@ -264,7 +265,7 @@ def share_note(note_id):
         
         if recipient:
             # creates a copy of shared note for recipient to recieve
-            note = Note(owner=current_user.username, title=f"{shared_note.title} - shared from {name}", body=shared_note.body, user_id=recipient.id)
+            note = Note(owner=current_user.username, title=f"{shared_note.title}", body=shared_note.body, user_id=recipient.id)
             # commits note to recipients database
             db.session.add(note)
             db.session.commit()
@@ -272,7 +273,6 @@ def share_note(note_id):
             
         else:
             flash('User not found', 'shareError')
-    name, notes, page_notes, shared = home_helper()
     return render_template('share_note.html', form=form, shared_note=shared_note, name=name, notes=notes, page_notes=page_notes, shared=shared)
 
 ''' --------------------- helper method that holds home page info ---------------'''
@@ -295,6 +295,6 @@ def home_helper():
     #puts shared notes in seperate list and removes from notes
     for note in notes:
         if (note.owner != current_user.username):
-            shared.add(note)
+            shared.append(note)
             notes.remove(note)
     return name, notes, page_notes, shared
