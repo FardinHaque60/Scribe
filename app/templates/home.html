@@ -19,6 +19,7 @@
       <div class="container-fluid no-padding">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
               <a class="navbar-brand mb-0 h1" href="/home"><i class="bi bi-house"></i> Scribe</a>
+              <!-- responsive toggle if screen gets too small to fit navbar -->
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -88,6 +89,8 @@
                 </li>
                 {% endfor %}
                 
+                <br>
+                <span class="text-white h5">Shared Notes: </span>
                 <!-- list of shared notes -->
                 {% for note in shared %}
                 <li class="">
