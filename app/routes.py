@@ -70,6 +70,7 @@ def create_account():
 def view_note(note_id):
     note = Note.query.get_or_404(note_id)
     form = ViewNote()
+    owner = User.query.get_or_404(note.owner)  #gives the user as a user data entry
 
     if request.method == 'GET':
         form.title.data = note.title
@@ -87,7 +88,7 @@ def view_note(note_id):
         print(form.errors)
         print(request.form)
     name, notes, page_notes, shared = home_helper()
-    return render_template('view_note.html', form=form, note=note, name=name, notes=notes, page_notes=page_notes, shared=shared)
+    return render_template('view_note.html', form=form, owner=owner.username, note=note, name=name, notes=notes, page_notes=page_notes, shared=shared)
 
 ''' --------------------create note route below------------------------'''
 # create note route
@@ -112,7 +113,7 @@ def create_note():
 
     if form.validate_on_submit():
         print("entered")
-        notes = Note(owner=current_user.username, title=form.title.data, body=request.form['content'], page=form.page_menu.data, author=current_user)
+        notes = Note(owner=current_user.id, title=form.title.data, body=request.form['content'], page=form.page_menu.data, author=current_user)
         # clears form
         form.title.data = ''
         #form.body.data = ''
@@ -266,7 +267,7 @@ def share_note(note_id):
         
         if recipient:
             # creates a copy of shared note for recipient to recieve
-            note = Note(owner=current_user.username, title=f"{shared_note.title}", body=shared_note.body, user_id=recipient.id)
+            note = Note(owner=current_user.id, title=f"{shared_note.title}", body=shared_note.body, user_id=recipient.id)
             # commits note to recipients database
             db.session.add(note)
             db.session.commit()
@@ -281,7 +282,8 @@ def share_note(note_id):
 def home_helper():
     user = current_user
     name = user.username
-    notes = Note.query.filter(Note.page == 0, Note.user_id == user.id, Note.trashed == False).all()
+    notes = Note.query.filter(Note.page == 0, Note.user_id == user.id, Note.trashed == False, Note.owner == current_user.id).all()
+    shared = Note.query.filter(Note.page == 0, Note.user_id == user.id, Note.trashed == False, Note.owner != current_user.id).all()
     pages = Page.query.filter(Page.user_id == user.id).all() #pages
     notes_w_pages = Note.query.filter(Note.page != "[NO_PAGE]", Note.user_id == user.id, Note.trashed == False).all() #notes in pages
     page_notes = {}
@@ -292,10 +294,6 @@ def home_helper():
         for page in pages:
             if page.id == int(note.page):
                 page_notes[page].append(note)
-    shared = []
-    #puts shared notes in seperate list and removes from notes
-    for note in notes:
-        if (note.owner != current_user.username):
-            shared.append(note)
-            notes = Note.query.filter(Note.page == 0, Note.user_id == user.id, Note.trashed == False, Note.owner == current_user.username).all()
+
+    
     return name, notes, page_notes, shared
