@@ -42,7 +42,7 @@ class CreateNote(FlaskForm):
     submit = SubmitField("Enter")
 
 class ViewNote(FlaskForm):
-    title = StringField("Title:",  widget=TextInput())
+    title = StringField("Title:",  validators=[DataRequired()], widget=TextInput())
     body = StringField("Note Body:",  widget=TextArea())
 
     submit = SubmitField("Save Changes")
