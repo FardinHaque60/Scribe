@@ -21,7 +21,6 @@ To run our application, run the following commands in a Linux terminal:
 * `python3 -m venv venv` to create a virtual environment.  
 * `source venv/bin/activate` to activate virtual environment.  
 * `pip3 install -r requirements.txt` to install all the dependencies needed to run the app.
-* `flask shell` to open a flask terminal then `db.create_all()` to create the database
 * `python3 run.py` to run the application
 * cntrl/cmd + click the link `http://127.0.0.1:5000` that is displayed in the output to run the application in your broswer
 
