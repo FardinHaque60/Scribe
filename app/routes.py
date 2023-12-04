@@ -78,7 +78,7 @@ def view_note(note_id):
     if form.validate_on_submit():
         #add checks to make sure title is still unique
         note.title = form.title.data
-        note.body = form.body.data
+        note.body = request.form['content']
         note.timestamp = datetime.now()
         db.session.commit()
         flash('Note edited successfully!', 'noteEditSuccess')
@@ -111,10 +111,11 @@ def create_note():
     print(choices)
 
     if form.validate_on_submit():
-        notes = Note(owner=current_user.username, title=form.title.data, body=form.body.data, page=form.page_menu.data, author=current_user)
+        print("entered")
+        notes = Note(owner=current_user.username, title=form.title.data, body=request.form['content'], page=form.page_menu.data, author=current_user)
         # clears form
         form.title.data = ''
-        form.body.data = ''
+        #form.body.data = ''
         
         # adds to database
         db.session.add(notes)
@@ -134,11 +135,11 @@ def create_note():
 def create_template():
     form = CreateTemplate()
     if form.validate_on_submit():
-        template = Template(title=form.title.data, body=form.body.data, author=current_user)
+        template = Template(title=form.title.data, body=request.form['content'], author=current_user)
         
         # clears form
         form.title.data = ''
-        form.body.data = ''
+        #form.body.data = ''
         
         # adds to database
         db.session.add(template)

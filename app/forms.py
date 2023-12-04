@@ -37,7 +37,7 @@ class CreateNote(FlaskForm):
     page_menu = SelectField("Select Page:", choices=[], name='page_menu')
     template_menu = SelectField("Select a Template:", choices = [], name='template_menu')
     title = StringField("Note Title:", validators=[DataRequired()], widget=TextInput())
-    body = StringField("Note Body:", validators=[DataRequired()], widget=TextArea())
+    body = StringField("Note Body:")
 
     submit = SubmitField("Enter")
 
@@ -49,7 +49,7 @@ class ViewNote(FlaskForm):
     
 class CreateTemplate(FlaskForm):
     title = StringField('Template Title:', validators=[DataRequired()], widget=TextInput())
-    body = StringField('Template Body:', validators=[DataRequired()], widget=TextArea())
+    body = StringField('Template Body:')
 
     submit = SubmitField("Enter")
 
