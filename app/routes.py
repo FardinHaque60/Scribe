@@ -297,5 +297,5 @@ def home_helper():
     for note in notes:
         if (note.owner != current_user.username):
             shared.append(note)
-            notes.remove(note)
+            notes = Note.query.filter(Note.page == 0, Note.user_id == user.id, Note.trashed == False, Note.owner == current_user.username).all()
     return name, notes, page_notes, shared
