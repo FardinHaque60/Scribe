@@ -23,7 +23,7 @@
                 {% endif %}
             {% endwith %}
 
-            {% with messages = get_flashed_messages(category_filter=["loginError") %}
+            {% with messages = get_flashed_messages(category_filter=["loginError"]) %}
                 {% if messages %}
                     {% for message in messages%}
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
