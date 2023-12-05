@@ -56,9 +56,10 @@
                     {% endfor %}
                 </p>
                 <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-                <p>{{ form.submit() }}</p>
+                <p>{{ form.submit() }}</p><br>
             </form>
-            <p> Don't have an account? <a href="{{'/create_account'}}">Sign Up</a></p>
+            <p> Don't have an account? <a href="{{'/create_account'}}">Sign Up</a></p><br>
+            <a href="{{ url_for('google_login') }}" class="btn btn-danger">Log In With Google</a>
         </div>
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
