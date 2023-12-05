@@ -1,17 +1,40 @@
 {% extends "home.html" %}
 
 {% block content%}  
+    <h2> Profile Information </h2> <br>
+    {% with messages = get_flashed_messages(category_filter=["profileEditSuccess"]) %}
+    {% if messages %}
+        {% for message in messages%}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }} 
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
 
-    <div class="row mb-2">
+    <form id="view_profile_form" method="POST" action="">
+        {{ form.hidden_tag() }}
+        <div class="row mb-2">
+            <div class="col" style="font-size: 20px;"> 
+                <p> {{form.username.label}}
+                {{form.username}} </p>
+                <br>
 
-        <div class="col" style="font-size: 20px;"> Hello {{ name }}<br>
-            <p> {{form.username.label}}
-            {{form.username}} </p>
-            <br>
-
-            <p>{{form.email.label}}
-             {{form.email}}</p>
+                <p>{{form.email.label}}
+                {{form.email}}</p>
+            </div>
         </div>
-    </div>
+
+        <div class="col-auto">
+            <a href = "{{ url_for('change_password')}}" class="btn btn-outline-danger">Change Password</a>
+        </div> <br>
+
+        <div class="col-auto">
+            {{form.submit(class="btn btn-outline-primary")}}
+        </div>
+    </form>  
 
 {% endblock %}

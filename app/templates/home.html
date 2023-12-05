@@ -67,14 +67,14 @@
               <!-- list of notes and pages -->
                 {% for item, value in page_notes.items() %}
                 <!-- lists the pages -->
-                <li class="">
-                  <a class="text-decoration-none px-3 py-2 d-block" data-toggle="collapse" href="#collapse{{loop.index}}" role="button" aria-expanded="false" aria-controls="collapseExample">
-                    📁 {{ item.title }}
-                  </a>
+                <li class="padding-bottom">
+                  <a id="folderToggle" class="text-decoration-none px-3 py-2 d-inline" data-toggle="collapse" href="#collapse{{loop.index}}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    📁 </a>
+                  <a href="{{ url_for('view_page', page_id=item.id) }}" class="text-decoration-none py-2 d-inline"> {{ item.title }} </a> 
                 </li>
 
                 <!-- lists the notes under the above page -->
-                <div class="collapse" id="collapse{{loop.index }}">
+                <div class="collapse padding-bottom" id="collapse{{loop.index }}">
                   <div class="card card-body custom-card no-padding"> <!-- orig: card card-body-->
                     <ul class="listed-unstyled px-2">
                     {% for note in value %}
@@ -90,9 +90,11 @@
 
               <!-- list of notes NOT in pages-->
                 {% for note in notes %}
-                <li class="">
-                  <a href="{{ url_for('view_note', note_id=note.id) }}" class="text-decoration-none px-3 py-2 d-block">
-                    ✏️ {{ note.title }} </a>
+                <li class="padding-bottom">
+                  <a href="{{ url_for('view_note', note_id=note.id) }}" class="text-decoration-none px-3 py-2 d-inline">
+                  ✏️  </a>
+                  <a href="{{ url_for('view_note', note_id=note.id) }}" class="text-decoration-none py-2 d-inline">
+                    {{ note.title }} </a>
                 </li>
                 {% endfor %}
                 
@@ -100,17 +102,43 @@
                 <span class="text-white h5">Shared Notes: </span>
                 <!-- list of shared notes -->
                 {% for note in shared %}
-                <li class="">
+                <li class="padding-bottom">
                   <a href="{{ url_for('view_note', note_id=note.id) }}" class="text-decoration-none px-3 py-2 d-block">
-                    ✏️ {{ note.title }} </a>
+                    ✏️ </a>
+                  <a href="{{ url_for('view_note', note_id=note.id) }}" class="text-decoration-none py-2 d-block">
+                    {{ note.title }} </a>
                 </li>
+                <br>
                 {% endfor %}
             </ul>
         </div>
 
         <div class="content">
           <div class="dashboard-content px-3 pt-4">
-              <div class="shadow-lg p-3 mb-5 bg-white rounded">{% block content %} {% endblock %}</div>
+              <div class="shadow-lg p-3 mb-5 bg-white rounded">
+                {% block content %} 
+                  <div class="inline-container"> 
+                    <div class="home-padding">
+                      <h1> Welcome to Scribe </h1> <br> <br>
+                      <h3> Let's get writing {{ name }}! </h3> <br>
+                      <p> it is currently {{ current_time }} </p> <br> <br> 
+                      <p> Get Started by: </p>
+                        <ul class="list-unstyled px-2">
+                          <li class=""><a href="{{url_for('create_note')}}"  class="text-decoration-none px-3 py-2 d-block">
+                              <i class="bi bi-plus-lg"></i> ✏️ Create Note</a></li>
+            
+                          <li class=""><a href="{{url_for('create_template')}}" class="text-decoration-none px-3 py-2 d-block">
+                            <i class="bi bi-plus-lg"></i> Create Template</a></li>
+            
+                          <li class=""><a href="{{url_for('create_page')}}" class="text-decoration-none px-3 py-2 d-block">
+                              <i class="bi bi-plus-lg"></i> 📁 Create Page</a></li>
+                          </li>
+                        </ul>
+                    </div>
+                    <img class="home-art-image" src="https://bootstrapmade.com/demo/templates/FlexStart/assets/img/hero-img.png">
+                  </div> 
+                {% endblock %}
+              </div>
           </div>
         </div>
       </div>
@@ -127,5 +155,21 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
               integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
               crossorigin="anonymous"></script>
+      <script>
+        var folder = document.getElementById("folderToggle");
+
+        const closeFolder = "📁";
+        const openFolder = "📂";
+
+        var toggle = false;
+
+        function toggleFolder() {
+          folder.textContent = toggle ? closeFolder : openFolder;
+
+          toggle = !toggle;
+        }
+
+        folder.addEventListener('click', toggleFolder)
+      </script>
     </body>
 </html>

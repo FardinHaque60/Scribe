@@ -1,12 +1,14 @@
-from datetime import datetime
 from flask import jsonify, render_template, redirect, flash, request, url_for
 from flask_login import current_user, login_user, login_required, logout_user
 from app import myapp_obj, db
-from datetime import date
-from .forms import LoginForm, CreateAccount, SearchForm, CreateNote, NoteManagment, CreateTemplate, ShareNote, ViewNote, CreatePage, ViewProfile
+from datetime import datetime
+from .forms import ChangePassword, LoginForm, CreateAccount, SearchForm, CreateNote, NoteManagment, CreateTemplate, ShareNote, ViewNote, CreatePage, ViewProfile, ViewPage
 from .models import User, Note, Template, Page
 
 '''for all routes add the flashed messages to html files'''
+@myapp_obj.context_processor
+def inject_current_time():
+    return dict(current_time=datetime.now().strftime("%Y-%m-%d %H:%M"))
 
 ''' --------dashboard route below---------'''
 # home route
@@ -14,6 +16,7 @@ from .models import User, Note, Template, Page
 @login_required # users that are not authenticated cannot access this link
 def main_page():
     name, notes, page_notes, shared = home_helper()
+
     return render_template('home.html', name=name, notes=notes, page_notes=page_notes, shared=shared)
 
 ''' ---------------login page route below----------------'''
@@ -63,6 +66,29 @@ def create_account():
         flash('New Account Created. You can now login', 'accSuccess')
         return redirect('/login')
     return render_template("create_account.html", form=form)
+
+''' ----------------------view page route below ----------------'''
+@myapp_obj.route("/view_page/<int:page_id>", methods=['GET', 'POST'])
+def view_page(page_id):
+    name, notes, page_notes, shared = home_helper()
+    page = Page.query.get_or_404(page_id)
+    form = ViewPage()
+
+    if request.method == 'GET':
+        form.title.data = page.title
+        form.body.data = page.description
+
+    if form.validate_on_submit():
+        page.title = form.title.data
+        page.description = form.body.data
+
+        db.session.commit()
+        flash("Edited Page Successfully", "editPageSuccess")
+        return redirect(url_for("view_page", page_id=page_id))
+    else:
+        print(form.errors)
+        print(request.form)
+    return render_template('view_page.html', page=page, form=form, name=name, notes=notes, page_notes=page_notes, shared=shared)
 
 " -----------------------view note route below-------------------"
 # view note route
@@ -277,6 +303,7 @@ def share_note(note_id):
             flash('User not found', 'shareError')
     return render_template('share_note.html', form=form, shared_note=shared_note, name=name, notes=notes, page_notes=page_notes, shared=shared)
 
+''' --------------------- view profile route below ------------------'''
 @myapp_obj.route("/view_profile", methods=['GET', 'POST'])
 def view_profile():
     name, notes, page_notes, shared = home_helper()
@@ -285,8 +312,40 @@ def view_profile():
     if request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
-        form.password.data = current_user.password
+
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+
+        db.session.commit()
+
+        flash("Profile Edited Succesfully!", "profileEditSuccess")
+        return redirect('/view_profile')
+    else:
+        print(form.errors)
+        print(request.form)
     return render_template('view_profile.html', form=form, name=name, notes=notes, page_notes=page_notes, shared=shared)
+
+''' ----------- chage password route, button for this is on edit profile page --------- '''
+@myapp_obj.route('/change_password', methods=['GET', 'POST'])
+def change_password():
+    name, notes, page_notes, shared = home_helper()
+    form = ChangePassword()
+
+    if form.validate_on_submit():
+        if current_user.check_password(form.old_password.data):
+            current_user.set_password(form.new_password.data)
+
+            db.session.commit()
+            flash("Password changed successfully", "changePasswordSuccess")
+            return redirect('/change_password')
+        else:
+            flash("Incorrect password", "changePasswordFail")
+            return redirect('/change_password')
+    else:
+        print(form.errors)
+        print(request.form)
+    return render_template('change_password.html', form=form, name=name, notes=notes, page_notes=page_notes, shared=shared)
 
 ''' --------------------- helper method that holds home page info ---------------'''
 #used for any pages that extend home.html

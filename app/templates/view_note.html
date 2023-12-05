@@ -17,37 +17,36 @@
 
     <form id="view_note_form" method="POST" action="">
         {{ form.hidden_tag() }}
-        <div class="row mb-2">
-            <div class="col" style="font-size: 20px;">
-                <p><small>last change: {{ note.timestamp.strftime("%Y-%m-%d %H:%M") }}</small></p>
-                    Owner: {{ owner }} <br>
-                    {{ form.title.label }} 
-                    {{ form.title(style="font-size: 18px;") }} 
-                <br>    
-                <p> {{ form.body.label }}
-                    <!-- Create the editor container -->
-                    <div id="editor">
-                        {{ form.body.data|safe }}
-                    </div>
-                    <input type="hidden" id="note_body" name="content">
-                </p>
-                <br>
-            </div>
-
-            <div class="col-auto">
-                <a href = "{{ url_for('move_to_trash', note_id=note.id)}}" class="btn btn-outline-danger">Trash</a>
-            </div>
-
-            <div class="col-auto">
-                <a href = "{{ url_for('share_note', note_id=note.id)}}" class="btn btn-outline-primary">Share</a>
-            </div>
-
-            <div class="col-auto">
-                <button type="button" class="btn btn-outline-primary" onclick="submitForm()"> Save Changes </button>
-            </div>
-            
+        <div class="col" style="font-size: 20px;">
+            <p><small>last change: {{ note.timestamp.strftime("%Y-%m-%d %H:%M") }}</small></p>
+                Owner: {{ owner }} <br>
+                {{ form.title.label }} 
+                {{ form.title(style="font-size: 18px;") }} 
+            <br>    
+            <p> {{ form.body.label }}
+                <!-- Create the editor container -->
+                <div id="editor">
+                    {{ form.body.data|safe }}
+                </div>
+                <input type="hidden" id="note_body" name="content">
+            </p>
+            <br>
         </div>
     </form>
+
+    <div class="row mb-2">
+        <div class="col-auto">
+            <a href = "{{ url_for('move_to_trash', note_id=note.id)}}" class="btn btn-outline-danger">Trash</a>
+        </div>
+
+        <div class="col-auto">
+            <a href = "{{ url_for('share_note', note_id=note.id)}}" class="btn btn-outline-primary">Share</a>
+        </div>
+
+        <div class="col-auto">
+            <button type="button" class="btn btn-outline-primary" onclick="submitForm()"> Save Changes </button>
+        </div>
+    </div>
 
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script>
