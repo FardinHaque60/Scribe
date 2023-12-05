@@ -1,0 +1,17 @@
+{% extends "home.html" %}
+
+{% block content%}  
+
+    <div class="row mb-2">
+
+        <div class="col" style="font-size: 20px;"> Hello {{ name }}<br>
+            <p> {{form.username.label}}
+            {{form.username}} </p>
+            <br>
+
+            <p>{{form.email.label}}
+             {{form.email}}</p>
+        </div>
+    </div>
+
+{% endblock %}

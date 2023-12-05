@@ -34,15 +34,28 @@ class SearchForm(FlaskForm):
     submit = SubmitField('Enter')
     
 class CreateNote(FlaskForm):
+    page_menu = SelectField("Select Page:", choices=[], name='page_menu')
     template_menu = SelectField("Select a Template:", choices = [], name='template_menu')
     title = StringField("Note Title:", validators=[DataRequired()], widget=TextInput())
-    body = StringField("Note Body:", validators=[DataRequired()], widget=TextArea())
+    body = StringField("Note Body:")
 
     submit = SubmitField("Enter")
+
+class ViewNote(FlaskForm):
+    title = StringField("Title:",  validators=[DataRequired()], widget=TextInput())
+    body = StringField("Note Body:",  widget=TextArea())
+
+    submit = SubmitField("Save Changes")
     
 class CreateTemplate(FlaskForm):
     title = StringField('Template Title:', validators=[DataRequired()], widget=TextInput())
-    body = StringField('Template Body:', validators=[DataRequired()], widget=TextArea())
+    body = StringField('Template Body:')
+
+    submit = SubmitField("Enter")
+
+class CreatePage(FlaskForm):
+    title = StringField("Page Title: ", validators=[DataRequired()], widget=TextInput())
+    description = StringField('Page Description: ', validators=[DataRequired()], widget=TextArea())
 
     submit = SubmitField("Enter")
 
@@ -54,3 +67,8 @@ class NoteManagment(FlaskForm):
 class ShareNote(FlaskForm):
     recipient = StringField('Enter Email:', validators=[DataRequired(), Email()])
     submit = SubmitField('Share', validators=[DataRequired()])
+
+class ViewProfile(FlaskForm):
+    username = StringField("Username", validators=[DataRequired()], widget=TextInput())
+    password = PasswordField("Password", validators=[DataRequired()])
+    email = StringField("Email")

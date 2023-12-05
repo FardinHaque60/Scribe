@@ -14,6 +14,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(100), nullable=False)
     notes = db.relationship('Note', backref="author")
     templates = db.relationship('Template', backref = "author")
+    pages = db.relationship('Page', backref="author")
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
@@ -26,9 +27,11 @@ class User(UserMixin, db.Model):
         
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    owner = db.Column(db.String(32), nullable=False)
     title = db.Column(db.String(32), nullable=False)
     body = db.Column(db.String(1000), nullable=False)
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    page = db.Column(db.String(32), default=0, nullable=False)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.now())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     trashed = db.Column(db.Boolean, default=False)
     
@@ -39,6 +42,15 @@ class Template(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(32), nullable=False)
     body = db.Column(db.String(1000), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __repr__(self) -> str:
+        return '{}'.format(self.id)
+    
+class Page(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(32), nullable=False)
+    description = db.Column(db.String(1000), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self) -> str:
