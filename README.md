@@ -34,9 +34,8 @@ To run our application, run the following commands in a Linux terminal:
 * Search Notes ~ by Fardin + Carlos
 * Share Notes ~ by Carlos
 * Create Pages ~ by Fardin 
-* Export to Google Drive ~ by Carlos [Coming Soon!]
 * Edit Notes ~ by Fardin 
-* Edit Profile ~ by Fardin [Coming Soon!]
+* Edit Profile ~ by Fardin
 
 ## How To Create Account
 * Upon start up, click on Sign Up. Type username in username field. Type password in password field.  
@@ -82,10 +81,10 @@ Enter email of intended recipient. Click on share. Note is now shared for intend
 * Click "+ Create Page" on the side navigation bar. Enter details about the page like its name and description. Click Create Page and your
 page will appear on the side navigation bar. You can click your page to view notes below it. To add notes to your page, when creating a note select a page from the drop down menu to add it to that page.
 
-## How to Export to Google Drive [Coming Soon!]
-
 ## How to Edit Notes 
 * Click on the desired note in the side bar. Make changes to the note title or body and click save changes. The next time you view the note 
 the changes will be displayed.
 
-## How to Edit Profile [Coming Soon!]
+## How to Edit Profile
+* Click on your profile in the top right hand corner. You can change your username and email here and have a button to change your passowrd. 
+Enter in your desired details and click "Save Changes"

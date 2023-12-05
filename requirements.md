@@ -5,13 +5,12 @@
 4. Create Template: User can create a template that acts as a boilerplate when creating notes
 5. Delete Note: When user chooses to delete a note, it will be stored in a trash folder and there they can permanently delete afterwards
 6. Share Note: User is able to share their notes to other users
-7. Export w/ Google Drive API: User can connect to their Google Drive to export and import to an from their Drive
-8. Recover Note: User is able to recover deleted notes
-9. Search Note: User is able to search a note by its text contents
-10. Create User Profile: User can create a profile from which they can log into 
-11. Edit User Profiles: User can edit their profile
-12. User Login: Allows user to login to their notes dashboard
-13. Spell Check: User is given suggestions when they have improper grammar/spelling
+7. Recover Note: User is able to recover deleted notes
+8. Search Note: User is able to search a note by its text contents
+9. Create User Profile: User can create a profile from which they can log into 
+10. Edit User Profiles: User can edit their profile
+11. User Login: Allows user to login to their notes dashboard
+12. Spell Check: User is given suggestions when they have improper grammar/spelling
 
 ## Non-functional Requirements
 1. Application will run on Chrome Chrome
@@ -143,26 +142,7 @@
     3. System will re-attempt to send note to recipient by re-initiating the sending process
     4. System displays success message
 
-7. Export w/ Google Drive API - Carlos Quiroz\
-![](images/Import:Export_UI.png)\
-- **Pre-Condition:** User has connected Google Drive with their account
-- **Trigger:** User clicks on export/import button in home menu
-- **Primary Sequence:**
-    1. System prompts user to select import or export 
-    2. User clicks on export
-    3. System prompts user to choose a file format (pdf, txt, docx, etc)
-    4. User chooses a format and clicks on export button
-    5. System connects to Google Drive API
-    6. User selects destination where note will go in their Google Drive
-    7. User clicks Upload to Google Drive button
-    8. System displays message upon successful export
-- **Primary Postconditions:** Selected note has been exported to users Google Drive account
-- **Alternate Sequence:** System fails to connect to Google Drive due to weak internet
-    1. System displays error message stating failed connection
-    2. Systems advises user to reload page to re-establish a connection
-    2. User reloads page
-
-8. Recover Note - Carlos Quiroz
+7. Recover Note - Carlos Quiroz
 - **Pre-Condition:** User has deleted a note and the note is in the trash folder
 - **Trigger:** User right clicks note and selects recover
 - **Primary Sequence:** 
@@ -176,7 +156,7 @@
     1. System will move note to main notes section
     2. User can then select to move the location of the note as they wish
 
-9. Search Notes - Carlos Quiroz\
+8. Search Notes - Carlos Quiroz\
 ![](images/Search_UI.png)\
 - **Pre-condition:** User must be on main page
 - **Trigger:** User clicks on search button
@@ -193,7 +173,7 @@
     2. System prompts user to try and search for a different term
     3. User inputs a different string
 
-10. Create User Profile - Henry To\
+9. Create User Profile - Henry To\
 ![](images/Welcome+Login_UI.png)
 - **Pre-condition:** User has the application open
 - **Trigger:** User is on the create account page
@@ -210,7 +190,7 @@
     2. System prompts user to enter a different username and/or email
     3. User changes their information so it is unique, or logs in to existing profile
 
-11. Edit User Profiles - Henry To
+10. Edit User Profiles - Henry To
 - **Pre-condition:** User must have an existing profile and is logged into it
 - **Trigger:** User clicks on edit profile on home page
 - **Primary Sequence:**
@@ -225,7 +205,7 @@
     2. The system prompts the user to change them
     3. The user changes the non-unique fields to something that is available
    
-12. User Login - Fardin\
+11. User Login - Fardin\
 ![](images/Home_UI.png)\
 - **Pre-condition:** User has an exisiting account
 - **Trigger:** User is on login page and no one is currently signed in on the session
@@ -241,7 +221,7 @@
     2. System prompts user to enter correct credentials or create an account
     3. Users inputs the create credentials or goes to create account page (see use case #10)
 
-13. Spell Check - Fardin Haque
+12. Spell Check - Fardin Haque
 - **Pre-condition:** User is making changes within a note
 - **Trigger:** System detects a mistake in their grammar/spelling
 - **Primary Sequence:** 
