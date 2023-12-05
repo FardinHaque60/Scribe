@@ -3,7 +3,7 @@ from flask import jsonify, render_template, redirect, flash, request, url_for
 from flask_login import current_user, login_user, login_required, logout_user
 from app import myapp_obj, db
 from datetime import date
-from .forms import LoginForm, CreateAccount, SearchForm, CreateNote, NoteManagment, CreateTemplate, ShareNote, ViewNote, CreatePage, ViewProfile
+from .forms import LoginForm, CreateAccount, SearchForm, CreateNote, NoteManagment, CreateTemplate, ShareNote, ViewNote, CreatePage, ViewProfile, ViewPage
 from .models import User, Note, Template, Page
 
 '''for all routes add the flashed messages to html files'''
@@ -63,6 +63,14 @@ def create_account():
         flash('New Account Created. You can now login', 'accSuccess')
         return redirect('/login')
     return render_template("create_account.html", form=form)
+
+''' ----------------------view page route below ----------------'''
+@myapp_obj.route("/view_page/<int:page_id>", methods=['GET', 'POST'])
+def view_page(page_id):
+    name, notes, page_notes, shared = home_helper()
+    page = Page.query.get_or_404(page_id)
+    form = ViewPage()
+    return render_template('view_page.html', page=page, form=form, name=name, notes=notes, page_notes=page_notes, shared=shared)
 
 " -----------------------view note route below-------------------"
 # view note route
@@ -277,6 +285,7 @@ def share_note(note_id):
             flash('User not found', 'shareError')
     return render_template('share_note.html', form=form, shared_note=shared_note, name=name, notes=notes, page_notes=page_notes, shared=shared)
 
+''' --------------------- view profile route below ------------------'''
 @myapp_obj.route("/view_profile", methods=['GET', 'POST'])
 def view_profile():
     name, notes, page_notes, shared = home_helper()
