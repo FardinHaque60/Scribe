@@ -22,6 +22,9 @@
                 Owner: {{ owner }} <br>
                 {{ form.title.label }} 
                 {{ form.title(style="font-size: 18px;") }} 
+                {% for error in form.title.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
             <br>    
             <p> {{ form.body.label }}
                 <!-- Create the editor container -->

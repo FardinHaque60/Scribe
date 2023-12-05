@@ -20,11 +20,19 @@
         <div class="row mb-2">
             <div class="col" style="font-size: 20px;"> 
                 <p> {{form.username.label}}
-                {{form.username}} </p>
+                {{form.username}}
+                {% for error in form.username.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %} 
+                </p>
                 <br>
 
                 <p>{{form.email.label}}
-                {{form.email}}</p>
+                {{form.email}}
+                {% for error in form.email.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}    
+                </p>
             </div>
         </div>
 

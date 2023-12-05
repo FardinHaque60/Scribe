@@ -23,6 +23,9 @@
         <p> 
             {{ form.title.label}} <br>
             {{ form.title(class="form-control") }}
+            {% for error in form.title.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
         </p>
         <br>
         <p>
