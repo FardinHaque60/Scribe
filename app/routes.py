@@ -1,10 +1,57 @@
 from datetime import datetime
 from flask import jsonify, render_template, redirect, flash, request, url_for
 from flask_login import current_user, login_user, login_required, logout_user
-from app import myapp_obj, db
+from app import myapp_obj, db, drive_service
 from datetime import date
 from .forms import LoginForm, CreateAccount, SearchForm, CreateNote, NoteManagment, CreateTemplate, ShareNote, ViewNote, CreatePage, ViewProfile
 from .models import User, Note, Template, Page
+
+from flask import session, abort
+from google.oauth2 import id_token
+from googleapiclient.http import MediaFileUpload
+import os, pathlib, requests
+from google.oauth2 import id_token
+from google_auth_oauthlib.flow import Flow
+from pip._vendor import cachecontrol
+import google.auth.transport.requests
+
+os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1" # to allow Http traffic for local dev
+GOOGLE_CLIENT_ID = "155272922496-743iq80i1hf059ta30i839k8b00fioeh.apps.googleusercontent.com"
+client_secrets_file = os.path.join(pathlib.Path(__file__).parent, "client_secret.json")
+
+flow = Flow.from_client_secrets_file(
+    client_secrets_file=client_secrets_file,
+    scopes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"],
+    redirect_uri="http://127.0.0.1:5000/callback"
+)
+# ^ all of these can probaly go in __init__ just here so its easier to lookback to
+@myapp_obj.route("/google_login")
+def google_login():
+    authorization_url, state = flow.authorization_url()
+    session["state"] = state
+    return redirect(authorization_url)
+
+@myapp_obj.route("/callback")
+def callback():
+    flow.fetch_token(authorization_response=request.url)
+
+    if not session["state"] == request.args["state"]:
+        abort(500)  # State does not match!
+
+    credentials = flow.credentials
+    request_session = requests.session()
+    cached_session = cachecontrol.CacheControl(request_session)
+    token_request = google.auth.transport.requests.Request(session=cached_session)
+
+    id_info = id_token.verify_oauth2_token(
+        id_token=credentials._id_token,
+        request=token_request,
+        audience=GOOGLE_CLIENT_ID
+    )
+
+    session["google_id"] = id_info.get("sub")
+    session["name"] = id_info.get("name")
+    return redirect("/home")
 
 '''for all routes add the flashed messages to html files'''
 
@@ -308,3 +355,36 @@ def home_helper():
 
     
     return name, notes, page_notes, shared
+
+
+
+
+@myapp_obj.route('/export_note/<int:note_id>', methods=['GET', 'POST'])
+def export_note(note_id):
+    note = Note.query.get_or_404(note_id)
+    name, notes, page_notes, shared = home_helper()
+    
+    try:
+        # Prepare file content
+        file_content = f"Title: {note.title}\n\n{note.body}"
+
+        # Create a temporary file with the content
+        temp_file_path = 'app/file.txt'
+        with open(temp_file_path, 'w') as temp_file:
+            temp_file.write(file_content)
+        # Upload file to Google Drive
+        media = MediaFileUpload(temp_file_path, resumable=True)
+        file_metadata = {'name': f'{note.title}.txt'}
+        drive_service.files().create(body=file_metadata, media_body=media, fields='id').execute()
+
+        flash(f'Note "{note.title}" exported to Google Drive successfully!', 'exportSuccess')
+
+    except Exception as e:
+        flash(f'Error exporting note to Google Drive: {str(e)}', 'exportError')
+
+    finally:
+        # Remove the temporary file after uploading
+        if os.path.exists(temp_file_path):
+            os.remove(temp_file_path)
+
+    return render_template('export.html', note=note, name=name, notes=notes, page_notes=page_notes, shared=shared)
