@@ -115,7 +115,30 @@
 
         <div class="content">
           <div class="dashboard-content px-3 pt-4">
-              <div class="shadow-lg p-3 mb-5 bg-white rounded">{% block content %} {% endblock %}</div>
+              <div class="shadow-lg p-3 mb-5 bg-white rounded">
+                {% block content %} 
+                  <div class="inline-container"> 
+                    <div class="home-padding">
+                      <h1> Welcome to Scribe </h1> <br> <br>
+                      <h3> Let's get writing {{ name }}! </h3> <br>
+                      <p> it is currently {{ current_time }} </p> <br> <br> 
+                      <p> Get Started by: </p>
+                        <ul class="list-unstyled px-2">
+                          <li class=""><a href="{{url_for('create_note')}}"  class="text-decoration-none px-3 py-2 d-block">
+                              <i class="bi bi-plus-lg"></i> ✏️ Create Note</a></li>
+            
+                          <li class=""><a href="{{url_for('create_template')}}" class="text-decoration-none px-3 py-2 d-block">
+                            <i class="bi bi-plus-lg"></i> Create Template</a></li>
+            
+                          <li class=""><a href="{{url_for('create_page')}}" class="text-decoration-none px-3 py-2 d-block">
+                              <i class="bi bi-plus-lg"></i> 📁 Create Page</a></li>
+                          </li>
+                        </ul>
+                    </div>
+                    <img class="home-art-image" src="https://bootstrapmade.com/demo/templates/FlexStart/assets/img/hero-img.png">
+                  </div> 
+                {% endblock %}
+              </div>
           </div>
         </div>
       </div>

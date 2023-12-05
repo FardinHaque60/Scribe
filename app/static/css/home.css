@@ -126,14 +126,25 @@ hr.h-color {
     padding-left: 5%;
 }
 
-.left-align {
-    align-items: end;
-}
-
 .navbar-right {
     float: right;
 }
 
 .padding-bottom {
     padding-bottom: 5%
+}
+
+.home-art-image {
+    margin-left: 25%;
+    margin-top: 5%;
+    padding-bottom: 5%;
+}
+
+.inline-container {
+    display: flex;
+}
+
+.home-padding {
+    padding-top: 2%;
+    padding-left: 2%;
 }
