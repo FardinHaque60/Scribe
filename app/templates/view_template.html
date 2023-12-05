@@ -1,8 +1,8 @@
 {% extends "home.html" %}
 
 {% block content%}  
-
-    {% with messages = get_flashed_messages(category_filter=["noteEditSuccess"]) %}
+    <h2> Edit Template </h2> <br>
+    {% with messages = get_flashed_messages(category_filter=["templateEditSuccess"]) %}
         {% if messages %}
             {% for message in messages%}
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -14,38 +14,29 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
-
-    <form id="view_note_form" method="POST" action="">
+    
+    <form id="view_template_form" method="POST" action="">
         {{ form.hidden_tag() }}
         <div class="col" style="font-size: 20px;">
-            <p><small>last change: {{ note.timestamp.strftime("%Y-%m-%d %H:%M") }}</small></p>
-                Owner: {{ owner }} <br>
+            <p>
                 {{ form.title.label }} 
                 {{ form.title(style="font-size: 18px;") }} 
                 {% for error in form.title.errors %}
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
-            <br>    
+            </p>  
             <p> {{ form.body.label }}
                 <!-- Create the editor container -->
                 <div id="editor">
                     {{ form.body.data|safe }}
                 </div>
-                <input type="hidden" id="note_body" name="content">
+                <input type="hidden" id="template_body" name="content">
             </p>
             <br>
         </div>
     </form>
 
     <div class="row mb-2">
-        <div class="col-auto">
-            <a href = "{{ url_for('move_to_trash', note_id=note.id)}}" class="btn btn-outline-danger">Trash</a>
-        </div>
-
-        <div class="col-auto">
-            <a href = "{{ url_for('share_note', note_id=note.id)}}" class="btn btn-outline-primary">Share</a>
-        </div>
-
         <div class="col-auto">
             <button type="button" class="btn btn-outline-primary" onclick="submitForm()"> Save Changes </button>
         </div>
@@ -69,8 +60,8 @@
 
         function submitForm() {
             var content = quill.root.innerHTML;
-            document.getElementById('note_body').value = content;
-            document.getElementById('view_note_form').submit();
+            document.getElementById('template_body').value = content;
+            document.getElementById('view_template_form').submit();
         }
     </script>
 {% endblock %}

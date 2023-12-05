@@ -17,22 +17,35 @@
 
     <form id="view_profile_form" method="POST" action="">
         {{ form.hidden_tag() }}
-        <div class="row mb-2">
+        <div class="row mb-2 inline-container">
             <div class="col" style="font-size: 20px;"> 
-                <p> {{form.username.label}}
-                {{form.username}}
-                {% for error in form.username.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-                {% endfor %} 
-                </p>
-                <br>
+                    <p> {{form.username.label}}
+                    {{form.username}}
+                    {% for error in form.username.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %} 
+                    </p>
+                    <br>
 
-                <p>{{form.email.label}}
-                {{form.email}}
-                {% for error in form.email.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}    
-                </p>
+                    <p>{{form.email.label}}
+                    {{form.email}}
+                    {% for error in form.email.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}    
+                    </p> <br>
+            </div>
+            <div class="col" style="font-size: 20px;">
+                <p> Edit Your Templates </p>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Select a Template to Edit
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        {% for template in form.template_menu.choices %}
+                        <a class="dropdown-item" href="{{ url_for('view_template', template_id=template.id) }}"> {{ template.title }}</a>
+                        {% endfor %} 
+                    </div>
+                </div>
             </div>
         </div>
 
