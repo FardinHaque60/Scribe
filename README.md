@@ -33,9 +33,9 @@ To run our application, run the following commands in a Linux terminal:
 * Create Templates ~ by Fardin
 * Search Notes ~ by Fardin + Carlos
 * Share Notes ~ by Carlos
-* Create Pages ~ by Fardin [Coming Soon!]
+* Create Pages ~ by Fardin 
 * Export to Google Drive ~ by Carlos [Coming Soon!]
-* Edit Notes ~ by Fardin [Coming Soon!]
+* Edit Notes ~ by Fardin 
 * Edit Profile ~ by Fardin [Coming Soon!]
 
 ## How To Create Account
@@ -78,10 +78,14 @@ Click on Enter. All notes that contain that search query will populate Search Re
 * Click on note you want to share. When viewing the note, click on share button.  
 Enter email of intended recipient. Click on share. Note is now shared for intended recipient.
 
-## How to Create a Page [Coming Soon!]
+## How to Create a Page
+* Click "+ Create Page" on the side navigation bar. Enter details about the page like its name and description. Click Create Page and your
+page will appear on the side navigation bar. You can click your page to view notes below it. To add notes to your page, when creating a note select a page from the drop down menu to add it to that page.
 
 ## How to Export to Google Drive [Coming Soon!]
 
-## How to Edit Notes [Coming Soon!]
+## How to Edit Notes 
+* Click on the desired note in the side bar. Make changes to the note title or body and click save changes. The next time you view the note 
+the changes will be displayed.
 
 ## How to Edit Profile [Coming Soon!]
