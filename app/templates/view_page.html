@@ -20,7 +20,11 @@
         <div class="row mb-2">
             <div class="col" style="font-size: 20px;"> 
                 <p> {{form.title.label}}
-                {{form.title}} </p>
+                {{form.title}} 
+                {% for error in form.title.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+                </p>
                 <br>
 
                 <p>{{form.body.label}}
