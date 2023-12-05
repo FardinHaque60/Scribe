@@ -1,0 +1,26 @@
+{% extends 'home.html' %}
+
+{% block content %}
+  <h2>Export Note to Google Drive</h2><br>
+
+  <div>
+    <p>Note Titile: {{ note.title }}</p>
+    <p>Note Body: {{ note.body }}</p>
+  </div>
+
+  <form method="POST" action="{{ url_for('export_note', note_id=note.id) }}">
+    <button type="submit">Export to Google Drive</button>
+  </form>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class="flash-messages">
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+
+ 
+{% endblock %}
