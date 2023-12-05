@@ -98,15 +98,17 @@
                     {{ note.title }} </a>
                 </li>
                 {% endfor %}
-                
-                <br>
-                <span class="text-white h5">Shared Notes: </span>
+
+                <hr class="h-color mx-2">
+                <h5> 
+                  <span class="text-white padding-left"> Shared Notes </span>
+                </h5>
                 <!-- list of shared notes -->
                 {% for note in shared %}
                 <li class="padding-bottom">
-                  <a href="{{ url_for('view_note', note_id=note.id) }}" class="text-decoration-none px-3 py-2 d-block">
+                  <a href="{{ url_for('view_note', note_id=note.id) }}" class="text-decoration-none px-3 py-2 d-inline">
                     ✏️ </a>
-                  <a href="{{ url_for('view_note', note_id=note.id) }}" class="text-decoration-none py-2 d-block">
+                  <a href="{{ url_for('view_note', note_id=note.id) }}" class="text-decoration-none py-2 d-inline">
                     {{ note.title }} </a>
                 </li>
                 <br>
