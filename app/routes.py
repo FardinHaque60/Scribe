@@ -6,6 +6,8 @@ from .forms import ChangePassword, LoginForm, CreateAccount, SearchForm, CreateN
 from .models import User, Note, Template, Page
 
 '''for all routes add the flashed messages to html files'''
+
+''' --------- adds current time to every child of home.html -------- '''
 @myapp_obj.context_processor
 def inject_current_time():
     return dict(current_time=datetime.now().strftime("%Y-%m-%d %H:%M"))
