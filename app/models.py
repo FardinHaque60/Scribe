@@ -34,6 +34,7 @@ class Note(db.Model):
     timestamp = db.Column(db.DateTime, index=True, default=datetime.now())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     trashed = db.Column(db.Boolean, default=False)
+    trashed_time = db.Column(db.DateTime, index=True, default=datetime.now())
     
     def __repr__(self) -> str:
         return '<Note {}>'.format(self.body)
@@ -43,6 +44,8 @@ class Template(db.Model):
     title = db.Column(db.String(32), nullable=False)
     body = db.Column(db.String(1000), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    trashed = db.Column(db.Boolean, default=False)
+    trashed_time = db.Column(db.DateTime, index=True, default=datetime.now())
 
     def __repr__(self) -> str:
         return '{}'.format(self.id)
@@ -52,6 +55,8 @@ class Page(db.Model):
     title = db.Column(db.String(32), nullable=False)
     description = db.Column(db.String(1000), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    trashed = db.Column(db.Boolean, default=False)
+    trashed_time = db.Column(db.DateTime, index=True, default=datetime.now())
 
     def __repr__(self) -> str:
         return '{}'.format(self.id)
