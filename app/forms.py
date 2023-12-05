@@ -50,7 +50,8 @@ class ViewNote(FlaskForm):
 class ViewPage(FlaskForm):
     title = StringField("Title:",  validators=[DataRequired()], widget=TextInput())
     body = StringField("Page Body:",  validators=[DataRequired()], widget=TextArea())
-
+    
+    trash = SubmitField("Trash")
     submit = SubmitField("Save Changes")
     
 class CreateTemplate(FlaskForm):
