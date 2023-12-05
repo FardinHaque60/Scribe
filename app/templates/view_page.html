@@ -1,11 +1,36 @@
 {% extends "home.html" %}
 
 {% block content%}  
+    <h2> Page Information </h2> <br>
+    {% with messages = get_flashed_messages(category_filter=["editPageSuccess"]) %}
+    {% if messages %}
+        {% for message in messages%}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }} 
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
 
-    <div class="row mb-2">
+    <form id="view_page_form" method="POST" action="">
+        {{ form.hidden_tag() }}
+        <div class="row mb-2">
+            <div class="col" style="font-size: 20px;"> 
+                <p> {{form.title.label}}
+                {{form.title}} </p>
+                <br>
 
-        <div class="col" style="font-size: 20px;">Title: {{ page.title }} <br> <p>Body:{{page.body}}</p></div>
+                <p>{{form.body.label}}
+                {{form.body(class="form-control", rows="10")}}</p>
+            </div>
+        </div>
         
-    </div>
+        <div class="col-auto">
+            {{form.submit(class="btn btn-outline-primary")}}
+        </div>
+    </form> 
 
 {% endblock %}
