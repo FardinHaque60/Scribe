@@ -1,10 +1,10 @@
 {% extends "home.html" %}
 
 {% block content%}  
-    <h2>Trash</h2><br>
+
 
     <!-- displays user a message when note is trashed (& when there is an error moving to trash), deleted & recovered-->
-    {% with messages = get_flashed_messages(category_filter=["deletionSuccess", "recoverySuccess", "trashSuccess", "trashError"]) %}
+    {% with messages = get_flashed_messages(category_filter=["deletionSuccess", "recoverySuccess", "trashSuccess", "trashError", "pgdeletionSuccess", "pgrecoverySuccess", "noteInPgSuccess","DelnoteInPgSuccess"]) %}
         {% if messages %}
             {% for message in messages%}
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -17,29 +17,52 @@
         {% endif %}
     {% endwith %}
 
-    {% for notes in trashed_notes%}
-        <form method="post" action="{{ url_for('note_man',note_id=notes.id) }}" onsubmit="return myFunction();">
-            {{ form.hidden_tag() }}
- 
-            <div class="row mb-2">
-                <div class="col" style="font-size: 20px;"> <a href="{{ url_for('view_note', note_id=notes.id) }}">
-                    {{ notes.title }}</a></div>
-                <div class="col-auto">
-                    
-                    {{ form.recover_note(class="btn btn-primary") }}
-                    {{ form.delete(class="btn btn-danger") }}
+    <h3>Trashed Notes:<h3><hr>
+        {% for notes in trashed_notes%}
+            <form method="post" action="{{ url_for('note_man',note_id=notes.id) }}" onsubmit="return myFunction();">
+                {{ form.hidden_tag() }}
+    
+                <div class="row mb-2">
+                    <div class="col" style="font-size: 20px;"> <a href="{{ url_for('view_note', note_id=notes.id) }}">
+                        {{ notes.title }}</a><br>
+                        <small>Date: {{ notes.trashed_time.strftime("%m-%d-%y") }}</small> <br>
+                        <small>Page: {{notes.page }} </small>
+                     
+                    </div>
+                    <div class="col-auto">
+                        
+                        {{ form.recover_note(class="btn btn-primary") }}
+                        {{ form.delete(class="btn btn-danger") }}
 
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        {%endfor%}
 
+    <br><h3>Trashed Pages:<h3><hr>
+        {% for pages in trashed_pages%}
+            <form method="post" action="{{ url_for('page_man',page_id=pages.id) }}" onsubmit="return myFunction();">
+                {{ form.hidden_tag() }}
 
-        <script>
-            function myFunction() {
-                var result = confirm("Are you sure you want to do this action?");
-                return result;
-            }
-
-        </script>
-    {%endfor%}
+                <div class="row mb-2">
+                    <div class="col" style="font-size: 20px;"> <a href="{{ url_for('view_page', page_id=pages.id) }}">
+                        {{ pages.title }}</a></br>
+                        <small>Date: {{ pages.trashed_time.strftime("%m-%d-%y") }}</small> <br>
+                        <small>ID: {{ pages.id }}</small> <br>
+                    </div>
+                    <div class="col-auto">
+                        
+                        {{ form.recover_note(class="btn btn-primary") }}
+                        {{ form.delete(class="btn btn-danger") }}
+                    </div>
+                </div>
+            </form>
+        {%endfor%}
+                
+    <script>
+        function myFunction() {
+            var result = confirm("Are you sure you want to do this action?");
+            return result;
+        }
+    </script>
 {% endblock %}
