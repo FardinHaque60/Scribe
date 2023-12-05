@@ -117,3 +117,19 @@ hr.h-color {
 #editor {
     height: 35%;
 }
+
+.custom-select {
+    width: 15%;
+}
+
+.padding-left {
+    padding-left: 5%;
+}
+
+.left-align {
+    align-items: end;
+}
+
+.navbar-right {
+    float: right;
+}

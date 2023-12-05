@@ -67,3 +67,8 @@ class NoteManagment(FlaskForm):
 class ShareNote(FlaskForm):
     recipient = StringField('Enter Email:', validators=[DataRequired(), Email()])
     submit = SubmitField('Share', validators=[DataRequired()])
+
+class ViewProfile(FlaskForm):
+    username = StringField("Username", validators=[DataRequired()], widget=TextInput())
+    password = PasswordField("Password", validators=[DataRequired()])
+    email = StringField("Email")

@@ -3,7 +3,7 @@ from flask import jsonify, render_template, redirect, flash, request, url_for
 from flask_login import current_user, login_user, login_required, logout_user
 from app import myapp_obj, db
 from datetime import date
-from .forms import LoginForm, CreateAccount, SearchForm, CreateNote, NoteManagment, CreateTemplate, ShareNote, ViewNote, CreatePage
+from .forms import LoginForm, CreateAccount, SearchForm, CreateNote, NoteManagment, CreateTemplate, ShareNote, ViewNote, CreatePage, ViewProfile
 from .models import User, Note, Template, Page
 
 '''for all routes add the flashed messages to html files'''
@@ -99,13 +99,13 @@ def create_note():
     ''' for populating templates dropdown menu'''
     choices = Template.query.filter(Template.user_id == current_user.id).all()
     #inserts dummy template, default is a blank template for user to start with
-    dummy_template = Template(id=0, title="blank note", body="", author=current_user)
+    dummy_template = Template(id=0, title="Blank Note", body="", author=current_user)
     choices.insert(0, dummy_template)
     form.template_menu.choices = choices
 
     ''' for populating pages dropdown menu'''
     page_choices = Page.query.filter(Page.user_id == current_user.id).all()
-    default_page = Page(id=0, title="[NO_PAGE]", description="", author=current_user)
+    default_page = Page(id=0, title="No Page", description="", author=current_user)
     page_choices.insert(0, default_page)
     form.page_menu.choices = page_choices
     print(page_choices)
@@ -122,7 +122,7 @@ def create_note():
         db.session.add(notes)
         db.session.commit()
         
-        flash('Note created successfully!', 'noteSuccess')
+        flash('Note created successfully! Find it on the side bar to make changes.', 'noteSuccess')
         return redirect('/create_note')
     else:
         print(form.errors) #this prints {} if there are no errors
@@ -276,6 +276,17 @@ def share_note(note_id):
         else:
             flash('User not found', 'shareError')
     return render_template('share_note.html', form=form, shared_note=shared_note, name=name, notes=notes, page_notes=page_notes, shared=shared)
+
+@myapp_obj.route("/view_profile", methods=['GET', 'POST'])
+def view_profile():
+    name, notes, page_notes, shared = home_helper()
+    form = ViewProfile()
+
+    if request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+        form.password.data = current_user.password
+    return render_template('view_profile.html', form=form, name=name, notes=notes, page_notes=page_notes, shared=shared)
 
 ''' --------------------- helper method that holds home page info ---------------'''
 #used for any pages that extend home.html
