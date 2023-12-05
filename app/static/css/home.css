@@ -133,3 +133,7 @@ hr.h-color {
 .navbar-right {
     float: right;
 }
+
+.padding-bottom {
+    padding-bottom: 5%
+}

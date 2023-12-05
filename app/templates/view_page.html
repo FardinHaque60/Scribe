@@ -4,15 +4,7 @@
 
     <div class="row mb-2">
 
-        <div class="col" style="font-size: 20px;">Title: {{ note.title }} <br> <p>Body:{{note.body}}</p></div>
-        
-        <div class="col-auto">
-            <a href = "{{ url_for('move_to_trash', note_id=note.id)}}" class="btn btn-outline-danger">Trash</a>
-        </div>
-
-        <div class="col-auto">
-            <a href = "{{ url_for('share_note', note_id=note.id)}}" class="btn btn-outline-primary">Share</a>
-        </div>
+        <div class="col" style="font-size: 20px;">Title: {{ page.title }} <br> <p>Body:{{page.body}}</p></div>
         
     </div>
 
