@@ -98,7 +98,11 @@ def view_page(page_id):
 def view_note(note_id):
     note = Note.query.get_or_404(note_id)
     form = ViewNote()
-    owner = User.query.get_or_404(note.owner)  #gives the user as a user data entry
+    owner = User.query.get(note.owner)  #gives the user as a user data entry
+    if owner:
+        owner_name = owner.username
+    else:
+        owner_name = "Deleted_User"
 
     if request.method == 'GET':
         form.title.data = note.title
@@ -116,7 +120,7 @@ def view_note(note_id):
         print(form.errors)
         print(request.form)
     name, notes, page_notes, shared = home_helper()
-    return render_template('view_note.html', form=form, owner=owner.username, note=note, name=name, notes=notes, page_notes=page_notes, shared=shared)
+    return render_template('view_note.html', form=form, owner=owner_name, note=note, name=name, notes=notes, page_notes=page_notes, shared=shared)
 
 ''' --------------------create note route below------------------------'''
 # create note route
@@ -515,7 +519,7 @@ def delete_profile():
     user = current_user
     name, notes, page_notes, shared = home_helper()
     templates = Template.query.filter(Template.user_id == current_user.id).all()
-    notes_in_page = Note.query.filter(Note.page !='[NO_PAGE]' , Page.user_id == current_user.id)
+    notes_in_page = Note.query.filter(Note.page != '0' , Page.user_id == current_user.id)
     # if users had, notes, pages, shared notes, or templates, delete them all from database
     try:
         if notes:  
