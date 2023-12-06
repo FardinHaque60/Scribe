@@ -1,0 +1,56 @@
+{% extends "home.html" %}
+
+{% block content%}  
+    <h2> {{name}}'s Current Templates </h2> <br>
+    {% with messages = get_flashed_messages(category_filter=["editPageSuccess"]) %}
+    {% if messages %}
+        {% for message in messages%}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }} 
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    {% for template in templates%}
+
+        <div class="row mb-2">
+            <div class="col" style="font-size: 20px;">
+                {{ template.title }}</br>
+                {{ template.body}}
+                <div class="col-auto">
+                    <a href = "{{ url_for('move_to_trash2', temp_id=template.id)}}" class="btn btn-outline-danger">Trash</a>
+                </div>
+            </div>
+ 
+
+
+    {% endfor %}
+
+{% endblock %}
+
+
+
+
+<!--{% for pages in trashed_pages%}
+            <form method="post" action="{{ url_for('page_man',page_id=pages.id) }}" onsubmit="return myFunction();">
+                {{ form.hidden_tag() }}
+
+                <div class="row mb-2">
+                    <div class="col" style="font-size: 20px;"> <a href="{{ url_for('view_page', page_id=pages.id) }}">
+                        {{ pages.title }}</a></br>
+                        <small>Date: {{ pages.trashed_time.strftime("%m-%d-%y") }}</small> <br>
+                        <small>ID: {{ pages.id }}</small> <br>
+                    </div>
+                    <div class="col-auto">
+                        
+                        {{ form.recover_note(class="btn btn-primary") }}
+                        {{ form.delete(class="btn btn-danger") }}
+                    </div>
+                </div>
+            </form>
+        {%endfor%}-->
+                
