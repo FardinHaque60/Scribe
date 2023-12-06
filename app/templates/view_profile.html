@@ -35,6 +35,9 @@
         <div class="col-auto">
             {{form.submit(class="btn btn-outline-primary")}}
         </div>
+        <div class="col-auto">
+            <a href = "{{ url_for('delete_profile')}}" class="btn btn-outline-danger">Delete Profile</a>
+        </div>
     </form>  
 
 {% endblock %}
