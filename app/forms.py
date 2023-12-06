@@ -77,13 +77,13 @@ class ShareNote(FlaskForm):
 
 class ViewProfile(FlaskForm):
     username = StringField("Username", validators=[DataRequired()], widget=TextInput())
-    email = StringField("Email")
+    email = StringField("Email", validators=[DataRequired(), Email()], widget=TextInput())
 
     submit = SubmitField("Save Changes")
 
 class ChangePassword(FlaskForm):
     old_password = PasswordField('Old Password', validators=[DataRequired()])
-    new_password = PasswordField('New Password')
+    new_password = PasswordField('New Password', validators=[DataRequired()])
     new_password2 = PasswordField( 'Repeat New Password', validators=[DataRequired(), EqualTo('new_password')])
 
     submit = SubmitField("Change Password")
