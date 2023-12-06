@@ -22,25 +22,28 @@
         {% for notes in trashed_notes%}
             <form method="post" action="{{ url_for('note_man',note_id=notes.id) }}" onsubmit="return myFunction();">
                 {{ form.hidden_tag() }}
-    
-                <div class="row mb-2">
-                    <div class="col" style="font-size: 20px;"> <a href="{{ url_for('view_note', note_id=notes.id) }}">
-                        {{ notes.title }}</a><br>
-                        <small>Date: {{ notes.trashed_time.strftime("%m-%d-%y") }}</small> <br>
-                        <small>Page: {{notes.page }} </small>
-                     
-                    </div>
-                    <div class="col-auto">
-                        
-                        {{ form.recover_note(class="btn btn-primary") }}
-                        {{ form.delete(class="btn btn-danger") }}
+                <ul class="list-group list-group-flush">
 
+                    <div class="row mb-2">
+                        <div class="col" style="font-size: 20px;"> 
+                            <li class="list-group-item">
+                                <a href="{{ url_for('view_note', note_id=notes.id) }}"> {{ notes.title }}</a> <br>
+                                <small>Date: {{ notes.trashed_time.strftime("%m-%d-%y") }}</small> <br>
+                                <small>Page: {{notes.page }} </small>
+                            </li>
+                        </div>
+
+                        <div class="col-auto">
+                            {{ form.recover_note(class="btn btn-primary") }}
+                            {{ form.delete(class="btn btn-danger") }}
+                        </div>
                     </div>
-                </div>
+
+                </uL>
             </form>
         {%endfor%}
     {%else%}
-            <p>No Notes in trash</p>
+            <p class="text-muted" style="font-size: 20px;">No notes in trash</p>
     {% endif%}
 
     <br><h3>Trashed Pages:<h3><hr>
@@ -49,22 +52,25 @@
             <form method="post" action="{{ url_for('page_man',page_id=pages.id) }}" onsubmit="return myFunction();">
                 {{ form.hidden_tag() }}
 
-                <div class="row mb-2">
-                    <div class="col" style="font-size: 20px;"> <a href="{{ url_for('view_page', page_id=pages.id) }}">
-                        {{ pages.title }}</a></br>
-                        <small>Date: {{ pages.trashed_time.strftime("%m-%d-%y") }}</small> <br>
-                        <small>ID: {{ pages.id }}</small> <br>
+                <ul class="list-group list-group-flush">
+                    <div class="row mb-2">
+                        <div class="col" style="font-size: 20px;"> 
+                            <li class="list-group-item">
+                                <a href="{{ url_for('view_page', page_id=pages.id) }}"> {{ pages.title }} </a></br>
+                                <small>Date: {{ pages.trashed_time.strftime("%m-%d-%y") }}</small> <br>
+                                <small>ID: {{ pages.id }}</small> <br>
+                            </li>
+                        </div>
+                        <div class="col-auto">
+                            {{ form.recover_note(class="btn btn-primary") }}
+                            {{ form.delete(class="btn btn-danger") }}
+                        </div>
                     </div>
-                    <div class="col-auto">
-                        
-                        {{ form.recover_note(class="btn btn-primary") }}
-                        {{ form.delete(class="btn btn-danger") }}
-                    </div>
-                </div>
+                </uL>
             </form>
         {%endfor%}
     {% else %}
-        <p>No Pages in trash</p>
+        <p class="text-muted" style="font-size: 20px;">No pages in trash</p>
     {% endif %}
 
 
@@ -73,22 +79,24 @@
         {% for template in trashed_templates %}
             <form method="post" action="{{ url_for('temp_man',temp_id=template.id) }}" onsubmit="return myFunction();">
                 {{ form.hidden_tag() }}
-
-                <div class="row mb-2">
-                    <div class="col" style="font-size: 20px;"> <a href="{{ url_for('templates', temp_id=template.id) }}">
-                        {{ template.title }}</a></br>
-                        <small>Date: {{ template.trashed_time.strftime("%m-%d-%y") }}</small> <br>
+                <ul class="list-group list-group-flush">
+                    <div class="row mb-2">
+                        <div class="col" style="font-size: 20px;"> 
+                            <li class="list-group-item">
+                                <a href="{{ url_for('templates', temp_id=template.id) }}"> {{ template.title }}</a></br>
+                                <small>Date: {{ template.trashed_time.strftime("%m-%d-%y") }}</small> <br>
+                            </li>
+                        </div>
+                        <div class="col-auto">
+                            {{ form.recover_note(class="btn btn-primary") }}
+                            {{ form.delete(class="btn btn-danger") }}
+                        </div>
                     </div>
-                    <div class="col-auto">
-                        
-                        {{ form.recover_note(class="btn btn-primary") }}
-                        {{ form.delete(class="btn btn-danger") }}
-                    </div>
-                </div>
+                </ul>
             </form>
         {%endfor%}
     {% else %}
-            <p>No Templates in trash</p>
+            <p class="text-muted" style="font-size: 20px;">No templates in trash</p>
     {% endif %}
                 
     <script>
