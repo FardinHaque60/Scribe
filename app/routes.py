@@ -241,19 +241,18 @@ def trash():
     user = current_user
     trashed_notes = Note.query.filter(Note.user_id == current_user.id, Note.trashed == True).all()
     trashed_pages = Page.query.filter(Page.user_id == current_user.id, Page.trashed == True).all()
-    trashed_templates = Template.query.filter(Template.user_id == current_user.id, Template.trashed == True)
+    trashed_templates = Template.query.filter(Template.user_id == current_user.id, Template.trashed == True).all()
     form = NoteManagment()
     return render_template('trash_folder.html', trashed_notes=trashed_notes, form=form, notes=notes, name=name, page_notes=page_notes, shared=shared, trashed_pages=trashed_pages, trashed_templates=trashed_templates)
     
 ''' helper method for trash '''
 # note management handles deletion and recovery
-# TODO: find a way to get the page of the note if applicable
 @myapp_obj.route('/trash/note_man/<int:note_id>', methods=['GET', 'POST'])
 def note_man(note_id):
     form = NoteManagment()
     note = Note.query.get_or_404(note_id)
-    page_of_note = 
-
+    page = Page.query.get(note.page)    # gets page associated with note
+    
     if form.validate_on_submit():
         # user selects to delete note
         if form.delete.data:    
@@ -266,10 +265,13 @@ def note_man(note_id):
             if note.page == '0':
                 note.trashed = False
                 print("note is recoverd")
-                flash(f'"{note.title}" has been recovered')
-            elif note.page != '0' and note.page.trashed == True:   # cant recover a note inside a page when page is trashed
-                flash("Error: Cannot recover a note from a trashed page", 'notePgError')
-                return redirect ('/trash')
+                flash(f'"{note.title}" has been recovered', 'recoverySuccess')
+            elif note.page != '0':  # note is attatched to a page
+                if page.trashed == True:   # cant recover a note inside a page when page is trashed
+                    flash("Error: Cannot recover a note from a trashed page", 'notePgError')
+                    return redirect ('/trash')
+                elif page.trashed == False: # can recover a note inside a page when page is not trashed
+                    note.trashed = False
         db.session.commit()
     return redirect('/trash')
 
@@ -321,18 +323,16 @@ def share_note(note_id):
 def view_profile():
     name, notes, page_notes, shared = home_helper()
     form = ViewProfile()
-    choices = Template.query.filter(Template.user_id == current_user.id).all()
+    choices = Template.query.filter(Template.user_id == current_user.id, Template.trashed==False).all()
     print(choices)
     form.template_menu.choices = choices
 
     if request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
-
     if form.validate_on_submit():
         current_user.username = form.username.data
         current_user.email = form.email.data
-
         db.session.commit()
 
         flash("Profile Edited Succesfully!", "profileEditSuccess")
@@ -361,7 +361,7 @@ def view_template(template_id):
         return redirect(url_for('view_template', template_id=template_id))
     return render_template('view_template.html', form=form, template=template, name=name, notes=notes, page_notes=page_notes, shared=shared)
 
-''' ----------- chage password route, button for this is on edit profile page --------- '''
+''' ----------- change password route, button for this is on edit profile page --------- '''
 @myapp_obj.route('/change_password', methods=['GET', 'POST'])
 def change_password():
     name, notes, page_notes, shared = home_helper()
@@ -511,7 +511,8 @@ def temp_man(temp_id):
 def delete_profile():
     user = current_user
     name, notes, page_notes, shared = home_helper()
-    templates = Template.query.filter(Template.user_id == current_user.id, Template.trashed == False).all()
+    templates = Template.query.filter(Template.user_id == current_user.id).all()
+    notes_in_page = Note.query.filter(Note.page !='[NO_PAGE]' , Page.user_id == current_user.id)
     # if users had, notes, pages, shared notes, or templates, delete them all from database
     try:
         if notes:  
@@ -526,6 +527,9 @@ def delete_profile():
         if templates:
             for template in templates:
                 db.session.delete(template)
+        if notes_in_page:
+            for notes in notes_in_page:
+                db.session.delete(notes)
                 
         db.session.delete(user) # deletes users from database
         db.session.commit()
