@@ -10,7 +10,7 @@
         <div class="login">
             <h1>Sign In</h1>
 
-            {% with messages = get_flashed_messages(category_filter=["accSuccess"]) %}
+            {% with messages = get_flashed_messages(category_filter=["accSuccess", "accDelete"]) %}
                 {% if messages %}
                     {% for message in messages%}
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
