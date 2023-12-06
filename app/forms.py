@@ -60,6 +60,12 @@ class CreateTemplate(FlaskForm):
 
     submit = SubmitField("Enter")
 
+class ViewTemplate(FlaskForm):
+    title = StringField("Title:",  validators=[DataRequired()], widget=TextInput())
+    body = StringField("Template Body:",  widget=TextArea())
+
+    submit = SubmitField("Save Changes")
+
 class CreatePage(FlaskForm):
     title = StringField("Page Title: ", validators=[DataRequired()], widget=TextInput())
     description = StringField('Page Description: ', validators=[DataRequired()], widget=TextArea())
@@ -78,6 +84,7 @@ class ShareNote(FlaskForm):
 class ViewProfile(FlaskForm):
     username = StringField("Username", validators=[DataRequired()], widget=TextInput())
     email = StringField("Email", validators=[DataRequired(), Email()], widget=TextInput())
+    template_menu = SelectField("Select a Template:", choices = [], name='template_menu')
 
     submit = SubmitField("Save Changes")
 

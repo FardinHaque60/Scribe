@@ -2,7 +2,7 @@ from flask import jsonify, render_template, redirect, flash, request, url_for
 from flask_login import current_user, login_user, login_required, logout_user
 from app import myapp_obj, db
 from datetime import datetime
-from .forms import ChangePassword, LoginForm, CreateAccount, SearchForm, CreateNote, NoteManagment, CreateTemplate, ShareNote, ViewNote, CreatePage, ViewProfile, ViewPage, TemplateMan
+from .forms import ChangePassword, LoginForm, CreateAccount, SearchForm, CreateNote, NoteManagment, CreateTemplate, ShareNote, ViewNote, CreatePage, ViewProfile, ViewPage
 from .models import User, Note, Template, Page
 
 '''for all routes add the flashed messages to html files'''
@@ -321,6 +321,9 @@ def share_note(note_id):
 def view_profile():
     name, notes, page_notes, shared = home_helper()
     form = ViewProfile()
+    choices = Template.query.filter(Template.user_id == current_user.id).all()
+    print(choices)
+    form.template_menu.choices = choices
 
     if request.method == 'GET':
         form.username.data = current_user.username
@@ -338,6 +341,25 @@ def view_profile():
         print(form.errors)
         print(request.form)
     return render_template('view_profile.html', form=form, name=name, notes=notes, page_notes=page_notes, shared=shared)
+
+@myapp_obj.route('/view_template/<int:template_id>', methods=["GET", "POST"])
+def view_template(template_id):
+    name, notes, page_notes, shared = home_helper()
+    template = Template.query.get_or_404(template_id)
+    form = ViewTemplate()
+
+    if request.method == 'GET':
+        form.title.data = template.title
+        form.body.data = template.body
+
+    if form.validate_on_submit():
+        template.title = form.title.data
+        template.body = request.form['content']
+
+        db.session.commit()
+        flash('Template Edited Successfully', 'templateEditSuccess')
+        return redirect(url_for('view_template', template_id=template_id))
+    return render_template('view_template.html', form=form, template=template, name=name, notes=notes, page_notes=page_notes, shared=shared)
 
 ''' ----------- chage password route, button for this is on edit profile page --------- '''
 @myapp_obj.route('/change_password', methods=['GET', 'POST'])
