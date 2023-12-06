@@ -2,7 +2,7 @@ from flask import jsonify, render_template, redirect, flash, request, url_for
 from flask_login import current_user, login_user, login_required, logout_user
 from app import myapp_obj, db
 from datetime import datetime
-from .forms import ChangePassword, LoginForm, CreateAccount, SearchForm, CreateNote, NoteManagment, CreateTemplate, ShareNote, ViewNote, CreatePage, ViewProfile, ViewPage
+from .forms import ChangePassword, LoginForm, CreateAccount, SearchForm, CreateNote, NoteManagment, CreateTemplate, ShareNote, ViewNote, CreatePage, ViewProfile, ViewPage, ViewTemplate
 from .models import User, Note, Template, Page
 
 '''for all routes add the flashed messages to html files'''

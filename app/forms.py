@@ -86,6 +86,7 @@ class ViewProfile(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), Email()], widget=TextInput())
     template_menu = SelectField("Select a Template:", choices = [], name='template_menu',validators=[Optional()])
 
+
     submit = SubmitField("Save Changes")
 
 class ChangePassword(FlaskForm):
