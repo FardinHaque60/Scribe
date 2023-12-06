@@ -98,7 +98,11 @@ def view_page(page_id):
 def view_note(note_id):
     note = Note.query.get_or_404(note_id)
     form = ViewNote()
-    owner = User.query.get_or_404(note.owner)  #gives the user as a user data entry
+    owner = User.query.get(note.owner)  #gives the user as a user data entry
+    if owner:
+        owner_name = owner.username
+    else:
+        owner_name = "Deleted_User"
 
     if request.method == 'GET':
         form.title.data = note.title
@@ -116,7 +120,7 @@ def view_note(note_id):
         print(form.errors)
         print(request.form)
     name, notes, page_notes, shared = home_helper()
-    return render_template('view_note.html', form=form, owner=owner.username, note=note, name=name, notes=notes, page_notes=page_notes, shared=shared)
+    return render_template('view_note.html', form=form, owner=owner_name, note=note, name=name, notes=notes, page_notes=page_notes, shared=shared)
 
 ''' --------------------create note route below------------------------'''
 # create note route
@@ -125,14 +129,14 @@ def create_note():
     form = CreateNote()
 
     ''' for populating templates dropdown menu'''
-    choices = Template.query.filter(Template.user_id == current_user.id).all()
+    choices = Template.query.filter(Template.user_id == current_user.id, Template.trashed == False).all()
     #inserts dummy template, default is a blank template for user to start with
     dummy_template = Template(id=0, title="Blank Note", body="", author=current_user)
     choices.insert(0, dummy_template)
     form.template_menu.choices = choices
 
     ''' for populating pages dropdown menu'''
-    page_choices = Page.query.filter(Page.user_id == current_user.id).all()
+    page_choices = Page.query.filter(Page.user_id == current_user.id, Page.trashed == False).all()
     default_page = Page(id=0, title="No Page", description="", author=current_user)
     page_choices.insert(0, default_page)
     form.page_menu.choices = page_choices
@@ -237,10 +241,16 @@ def search():
 # view trashed notes
 @myapp_obj.route('/trash')
 def trash():
-    trashed_notes = Note.query.filter(Note.user_id == current_user.id, Note.trashed == True).all()
-    form = NoteManagment()
     name, notes, page_notes, shared = home_helper()
-    return render_template('trash_folder.html', trashed_notes=trashed_notes, form=form, notes=notes, name=name, page_notes=page_notes, shared=shared)
+    user = current_user
+    trashed_notes = Note.query.filter(Note.user_id == current_user.id, Note.trashed == True).all()
+    trashed_pages = Page.query.filter(Page.user_id == current_user.id, Page.trashed == True).all()
+    trashed_templates = Template.query.filter(Template.user_id == current_user.id, Template.trashed == True).all()
+    form = NoteManagment()
+    trashed_notes_dict = {}
+    for item in trashed_notes:
+        trashed_notes_dict[item] = Page.query.get(item.page)
+    return render_template('trash_folder.html', trashed_notes=trashed_notes_dict, form=form, notes=notes, name=name, page_notes=page_notes, shared=shared, trashed_pages=trashed_pages, trashed_templates=trashed_templates)
     
 ''' helper method for trash '''
 # note management handles deletion and recovery
@@ -248,6 +258,8 @@ def trash():
 def note_man(note_id):
     form = NoteManagment()
     note = Note.query.get_or_404(note_id)
+    page = Page.query.get(note.page)    # gets page associated with note
+    
     if form.validate_on_submit():
         # user selects to delete note
         if form.delete.data:    
@@ -256,10 +268,17 @@ def note_man(note_id):
             print(form.delete.data)
             flash(f'"{note.title}" has been deleted', 'deletionSuccess')
         # user selects to recover note
-        elif form.recover_note.data:   
-            note.trashed = False
-            print("note is recoverd")
-            flash(f'"{note.title}" has been recovered', 'recoverySuccess')
+        elif form.recover_note.data:  
+            if note.page == '0':
+                note.trashed = False
+                print("note is recoverd")
+                flash(f'"{note.title}" has been recovered', 'recoverySuccess')
+            elif note.page != '0':  # note is attatched to a page
+                if page.trashed == True:   # cant recover a note inside a page when page is trashed
+                    flash("Error: Cannot recover a note from a trashed page", 'notePgError')
+                    return redirect ('/trash')
+                elif page.trashed == False: # can recover a note inside a page when page is not trashed
+                    note.trashed = False
         db.session.commit()
     return redirect('/trash')
 
@@ -270,6 +289,7 @@ def move_to_trash(note_id):
     note = Note.query.get_or_404(note_id)
     try:
         note.trashed = True
+        note.trashed_time = datetime.utcnow()
         db.session.commit()
         flash(f'"{note.title}" moved to trash', 'trashSuccess')
         print(f'"{note.title}" moved to trash')
@@ -310,18 +330,16 @@ def share_note(note_id):
 def view_profile():
     name, notes, page_notes, shared = home_helper()
     form = ViewProfile()
-    choices = Template.query.filter(Template.user_id == current_user.id).all()
+    choices = Template.query.filter(Template.user_id == current_user.id, Template.trashed==False).all()
     print(choices)
     form.template_menu.choices = choices
 
     if request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
-
     if form.validate_on_submit():
         current_user.username = form.username.data
         current_user.email = form.email.data
-
         db.session.commit()
 
         flash("Profile Edited Succesfully!", "profileEditSuccess")
@@ -350,7 +368,7 @@ def view_template(template_id):
         return redirect(url_for('view_template', template_id=template_id))
     return render_template('view_template.html', form=form, template=template, name=name, notes=notes, page_notes=page_notes, shared=shared)
 
-''' ----------- chage password route, button for this is on edit profile page --------- '''
+''' ----------- change password route, button for this is on edit profile page --------- '''
 @myapp_obj.route('/change_password', methods=['GET', 'POST'])
 def change_password():
     name, notes, page_notes, shared = home_helper()
@@ -378,7 +396,7 @@ def home_helper():
     name = user.username
     notes = Note.query.filter(Note.page == 0, Note.user_id == user.id, Note.trashed == False, Note.owner == current_user.id).all()
     shared = Note.query.filter(Note.page == 0, Note.user_id == user.id, Note.trashed == False, Note.owner != current_user.id).all()
-    pages = Page.query.filter(Page.user_id == user.id).all() #pages
+    pages = Page.query.filter(Page.user_id == user.id, Page.trashed == False).all() #pages
     notes_w_pages = Note.query.filter(Note.page != "[NO_PAGE]", Note.user_id == user.id, Note.trashed == False).all() #notes in pages
     page_notes = {}
     for page in pages:
@@ -391,3 +409,139 @@ def home_helper():
 
     
     return name, notes, page_notes, shared
+
+
+''' ---------------------- move page to trash route below ---------------- '''
+@myapp_obj.route('/view_page/move_to_trash1/<int:page_id>', methods=['GET', 'POST'])
+def move_to_trash1(page_id):
+    page = Page.query.get_or_404(page_id)
+    user = current_user
+    notes = Note.query.filter(Note.page == page_id, Note.user_id == user.id, Note.trashed == False, Note.owner == current_user.id).all()
+    # if a notes has pages then all those pages need to be trashed aswell
+    try:
+        if notes:   # if there a notes in the current page move them to trash aswell
+            for note in notes:
+                flash(f'"{note.title}" from "{page.title}" moved to trash', 'trashSuccess')
+                print(f'"{note.title}" moved to trash')
+                note.trashed = True
+                page.trashed_time = datetime.utcnow()
+        
+        page.trashed = True  # move page to trash
+        page.trashed_time = datetime.utcnow()   # captures time when page was trashed
+        db.session.commit()
+        flash(f'"{page.title}" moved to trash', 'trashSuccess')
+        print(f'"{page.title}" moved to trash')
+        
+    except:
+        flash(f'Error: "{page.title} could not be moved to trash"', 'trashError')
+        print(f'Error: "{page.title} could not be moved to trash"')
+        
+    return redirect('/trash')
+
+
+''' helper method for trashed pages '''
+# handles the deletion and recovery of pages
+@myapp_obj.route('/trash/page_man/<int:page_id>', methods=['GET', 'POST'])
+def page_man(page_id):
+    form = NoteManagment()
+    page = Page.query.get_or_404(page_id)
+    notes_in_page = Note.query.filter(Note.page == page_id, Page.user_id == current_user.id)
+    user = current_user
+    # notes = Note.query.filter(Note.page == page_id, Note.user_id == user.id, Note.trashed == False, Note.owner == current_user.id).all()
+    if form.validate_on_submit():
+        # user selects to delete page
+        if form.delete.data:
+            for notes in notes_in_page:     # if there are notes in the page, when page is deleted, all notes are deleted
+                db.session.delete(notes)    
+            db.session.delete(page)       
+            print(form.delete.data)
+            flash(f'"{page.title}" has been deleted with all its notes', 'deletionSuccess')
+        # user selects to recover page
+        elif form.recover_note.data:  
+            page.trashed = False
+            for notes in  notes_in_page:     # if there are notes in the page, when page is recovered, they are all recovered aswell
+                notes.trashed = False
+            flash(f'"{page.title}" has been recovered with all its notes', 'recoverySuccess')
+        db.session.commit()
+    return redirect('/trash')
+
+
+''' ---------------------- template deletion below ---------------- '''
+# user can see their templates here
+@myapp_obj.route('/template', methods=['GET', 'POST'])
+def templates():
+    user = current_user
+    name, notes, page_notes, shared = home_helper()
+    templates = Template.query.filter(Template.user_id == user.id, Template.trashed == False, Template.user_id == current_user.id).all()
+    return render_template('template.html', templates=templates, name=name, notes=notes, shared=shared, page_notes=page_notes)
+
+''' helper method for moving templates to trash '''
+# moves template to trash
+@myapp_obj.route('/templates/move_to_trash2/<int:temp_id>', methods=['GET', 'POST'])
+def move_to_trash2(temp_id):
+    template = Template.query.get_or_404(temp_id)
+    user = current_user
+    try:
+        # move page to trash
+        template.trashed = True
+        template.trashed_time = datetime.utcnow()
+        db.session.commit()
+        flash(f'"{template.title}" moved to trash', 'trashSuccess')   
+    except:
+        flash(f'Error: "{template.title} could not be moved to trash"', 'trashError')
+        
+    return redirect('/trash')
+
+''' helper method for trashed templates '''
+# handles the template deletion and recovery
+@myapp_obj.route('/trash/temp_man/<int:temp_id>', methods=['GET', 'POST'])
+def temp_man(temp_id):
+    form = NoteManagment()
+    template = Template.query.get_or_404(temp_id)
+
+    if form.validate_on_submit():
+        # user selects to delete template
+        if form.delete.data:    
+            db.session.delete(template)       
+            print(form.delete.data)
+            flash(f'"{template.title}" has been deleted', 'deletionSuccess')
+        # user selects to recover template
+        elif form.recover_note.data:  
+            template.trashed = False
+            flash(f'"{template.title}" has been recovered', 'recoverySuccess')
+        db.session.commit()
+    return redirect('/trash')
+
+
+''' ---------------------- delete profile route ---------------- '''
+@myapp_obj.route("/view_profile/delete_profile", methods=['GET', 'POST'])
+def delete_profile():
+    user = current_user
+    name, notes, page_notes, shared = home_helper()
+    templates = Template.query.filter(Template.user_id == current_user.id).all()
+    notes_in_page = Note.query.filter(Note.page != '0' , Page.user_id == current_user.id)
+    # if users had, notes, pages, shared notes, or templates, delete them all from database
+    try:
+        if notes:  
+            for note in notes:
+                db.session.delete(note)
+        if page_notes:
+            for pages in page_notes:
+                db.session.delete(pages)
+        if shared:
+            for notes in shared:
+                db.session.delete(notes)
+        if templates:
+            for template in templates:
+                db.session.delete(template)
+        if notes_in_page:
+            for notes in notes_in_page:
+                db.session.delete(notes)
+                
+        db.session.delete(user) # deletes users from database
+        db.session.commit()
+        flash("Account successfully deleted. Sorry to see you go.", 'accDelete')
+    except:
+        print("Account deletion error.")
+    
+    return redirect('/login')

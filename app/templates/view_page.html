@@ -31,9 +31,14 @@
                 {{form.body(class="form-control", rows="10")}}</p>
             </div>
         </div>
-        
-        <div class="col-auto">
-            {{form.submit(class="btn btn-outline-primary")}}
+
+        <div class="row mb-2">
+            <div class="col-auto">
+                {{form.submit(class="btn btn-outline-primary")}}
+            </div>
+            <div class="col-auto">
+                <a href = "{{ url_for('move_to_trash1', page_id=page.id)}}" class="btn btn-outline-danger">Trash</a>
+            </div>
         </div>
     </form> 
 
