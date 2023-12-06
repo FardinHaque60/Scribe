@@ -19,7 +19,7 @@
 
     <h3>Trashed Notes:<h3><hr>
     {% if trashed_notes %}
-        {% for notes in trashed_notes%}
+        {% for notes, page in trashed_notes.items() %}
             <form method="post" action="{{ url_for('note_man',note_id=notes.id) }}" onsubmit="return myFunction();">
                 {{ form.hidden_tag() }}
                 <ul class="list-group list-group-flush">
@@ -29,7 +29,7 @@
                             <li class="list-group-item">
                                 <a href="{{ url_for('view_note', note_id=notes.id) }}"> {{ notes.title }}</a> <br>
                                 <small>Date: {{ notes.trashed_time.strftime("%m-%d-%y") }}</small> <br>
-                                <small>Page: {{notes.page }} </small>
+                                <small>Page: {{ page.title }} </small>
                             </li>
                         </div>
 

@@ -243,7 +243,10 @@ def trash():
     trashed_pages = Page.query.filter(Page.user_id == current_user.id, Page.trashed == True).all()
     trashed_templates = Template.query.filter(Template.user_id == current_user.id, Template.trashed == True).all()
     form = NoteManagment()
-    return render_template('trash_folder.html', trashed_notes=trashed_notes, form=form, notes=notes, name=name, page_notes=page_notes, shared=shared, trashed_pages=trashed_pages, trashed_templates=trashed_templates)
+    trashed_notes_dict = {}
+    for item in trashed_notes:
+        trashed_notes_dict[item] = Page.query.get(item.page)
+    return render_template('trash_folder.html', trashed_notes=trashed_notes_dict, form=form, notes=notes, name=name, page_notes=page_notes, shared=shared, trashed_pages=trashed_pages, trashed_templates=trashed_templates)
     
 ''' helper method for trash '''
 # note management handles deletion and recovery
