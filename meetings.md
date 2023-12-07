@@ -93,3 +93,17 @@
     - Everyone: Testing!
     - Fardin: Must ~ Implement creating pages, spell check library, editing notes styles. Polishes ~ side bar bootstrap for collapsable menu
     - Carlos: Must ~ Implement error messages, export to google drive API. Polishes ~ bootstrap/ UI styles wherever it seems neccessary
+
+### 2023-12-05 at 10:45
+- Attendees: Fardin, Carlos
+- Team Updates:
+    - Fardin: Worked on creating and editing pages functionality alongside implementing Quill for editing boxes
+    - Carlos: Worked on trashing, recovering, and Google Drive API progress
+- Group Progress:
+    - We have implemented all the functional requirements that we initially set out for except spell check and google drive API. 
+    - We are still looking to make polished to some UI aspects of the side bar and find bugs related to sharing, editing, and recovering
+    - We are planning on droppping google drive API with something else
+- This Week Goals:
+    - Everyone: Look for bugs, testing, and updating documentation
+    - Fardin: Must ~ Implement viewing profile, templates, pages; editing pages, templates, and profile
+    - Carlos: Must ~ Implement deleting, recovering temoplates, pages, and profile; UI polishes, flash messages
