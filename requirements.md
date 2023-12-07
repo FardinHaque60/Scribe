@@ -1,23 +1,26 @@
 ## Functional Requirements
 1. Create Note: User is able to create a note
-2. Edit Note: User is able to edit a note that has been created
-3. Create Pages: User is able to create pages to organize notes
-4. Create Template: User can create a template that acts as a boilerplate when creating notes
-5. Delete Note: When user chooses to delete a note, it will be stored in a trash folder and there they can permanently delete afterwards
-6. Share Note: User is able to share their notes to other users
-7. Recover Note: User is able to recover deleted notes
-8. Search Note: User is able to search a note by its text contents
-9. Create User Profile: User can create a profile from which they can log into 
-10. Edit User Profiles: User can edit their profile
-11. User Login: Allows user to login to their notes dashboard
-12. Spell Check: User is given suggestions when they have improper grammar/spelling
+2. Edit Note*: User is able to edit a note that has been created
+3. Delete Note*: When user chooses to delete a note, it will be stored in a trash folder and there they can permanently delete afterwards
+4. Recover Note*: User is able to recover deleted notes
+5. Create Page: User is able to create pages to organize notes
+6. Create Template: User can create a template that acts as a boilerplate when creating notes
+7. Edit Template: User can edit a template they have created
+8. Delete Template: User can delete a template they have made
+9. Recover Template: User can recover a template they had previously marked for deletion
+10. Share Note: User is able to share their notes to other users
+11. Search Note: User is able to search a note by its text contents
+12. Create User Profile: User can create a profile from which they can log into 
+13. Edit User Profile: User can edit their profile
+14. Delete User Profile: User can delete their profile
+15. User Login: Allows user to login to their notes dashboard
 
 ## Non-functional Requirements
 1. Application will run on Chrome Chrome
 2. The application is responsive and changes size depending on window size
 
 ## Use Cases
-1. Create Note - Fardin Haque\
+1. Create Note - Carlos Quiroz + Fardin Haque\
 ![](images/Create_Note_UI.png)\
 - **Pre-condition:** The user is on the main page
 - **Trigger:** User clicks on the create note button
@@ -40,7 +43,7 @@
     2. User inputs a name that has not been taken yet
     3. System removes invalid name error
 
-2. Edit Note - Fardin Haque\
+2. Edit Note *Similar use case for editing a page - Fardin Haque\ 
 ![](images/Edit_Note_UI.png)\
 - **Pre-condition:** The note they want to edit exists and is in the navigation bar
 - **Trigger:** User clicks on a note in the navigation bar or creates a note
@@ -62,7 +65,41 @@
     3. User clicks "Save Changes" and then "Go Home"
     4. System saves updated note
 
-3. Create Pages - Fardin Haque\
+3. Delete Note *similar use case for deleting a page - Carlos Quiroz\
+![](images/Trash_UI.png)
+- **Pre-Condition:** Note that user wants to delete must have been created already
+- **Trigger:** User clicks on delete button when viewing the note
+- **Primary Sequence:**
+    1. User selects "Options" in menu bar when viewing the note
+    2. System will display a menu that includes a delete option
+    3. User selects the delete option
+    4. System will display a confirmation message with two options, "Cancel" or "Delete"
+    5. User selects option to delete
+    6. System moves the note to a trash folder
+    7. System displays the home screen
+- **Primary Postconditions:** The user selected note to be deleted is in the trash folder
+    - Deleted note is removed from the navigation bar that stores all notes
+- **Alternate Sequence:** User tries to delete note that exceeds the storage limit
+    1. System will display an error message stating the trash folder is full
+    2. System displays trash folder
+    3. User can free space by cleaning trash folder
+
+4. Recover Note *similar use case for recovering a page - Carlos Quiroz
+- **Pre-Condition:** User has deleted a note and the note is in the trash folder
+- **Trigger:** User right clicks note and selects recover
+- **Primary Sequence:** 
+    1. System prompts the user if they are sure they want to recover the note
+    2. User clicks on checkmark button to confirm recovery of note
+    3. System moves note from trash folder back to where user had previously had stored the note
+    4. System displays the note on the main screen
+    5. User can edit note (See Use Case #2)
+- **Primary Postconditions:** Selected note is recovered and available to user in their notes list
+- **Alternate Sequence:** Previous location of note no longer exists
+    1. System will display an error message stating that the page for this note has been deleted
+    2. System prompts the user to recover the page first
+    3. The User recovers the page and the page in-turn recovers all the notes it housed
+
+5. Create Page - Fardin Haque\
 ![](images/Create_Page_UI.png)\
 - **Pre-condition:** User is on the main page
 - **Trigger:** User clicks on the "Create Page" button
@@ -81,7 +118,7 @@
     2. The system allows the user to "Continue" or "Cancel"
     3. The user clicks "Cancel" and they return to the create page display
 
-4. Create Template - Fardin Haque\
+6. Create Template - Fardin Haque\
 ![](images/Create_Template_UI.png)\
 - **Pre-condition:** The user is on the main page
 - **Trigger:** The user clicks on the "Create Template" button
@@ -101,26 +138,54 @@
     2. The system presents "Cancel" and "Continue" options
     3. The user hits "Cancel" and returns to the create template page
 
-5. Delete Note - Carlos Quiroz\
-![](images/Trash_UI.png)
-- **Pre-Condition:** Note that user wants to delete must have been created already
-- **Trigger:** User clicks on delete button when viewing the note
+7. Edit Template - Fardin Haque\
+- **Pre-condition:** User has a template already made
+- **Trigger:** User is on the view "Profile" menu
 - **Primary Sequence:**
-    1. User selects "Options" in menu bar when viewing the note
-    2. System will display a menu that includes a delete option
-    3. User selects the delete option
-    4. System will display a confirmation message with two options, "Cancel" or "Delete"
-    5. User selects option to delete
-    6. System moves the note to a trash folder
-    7. System displays the home screen
-- **Primary Postconditions:** The user selected note to be deleted is in the trash folder
-    - Deleted note is removed from the navigation bar that stores all notes
-- **Alternate Sequence:** User tries to delete note that exceeds the storage limit
-    1. System will display an error message stating the trash folder is full
-    2. System displays trash folder
-    3. User can free space by cleaning trash folder
+    1. System displays dropdown menu of templates to edit
+    2. User clicks on the desired template they wish to edit
+    3. The system loads a screen displaying this templates information including its title and body
+    4. User modifies the templates title and body fields and clicks "Save Changes"
+    5. System loads message stating successful altering of this template
+- **Alternate Sequence:** User tries to rename the template to a blank title
+    1. The system will display an invalid title erorr
+    2. The system will prompt the user to input a valid title to continue
+    3. The user will change the input to a non-blank title and continue
 
-6. Share Note - Carlos Quiroz\
+8. Delete Template - Carlos Quiroz\
+- **Pre-condition:** User has a template already made
+- **Trigger:** User is on the view "Profile" menu
+- **Primary Sequence:**
+    1. System displays dropdown menu of templates
+    2. User clicks on the desired template they wish to delete
+    3. The system loads a screen displaying this templates information including its title and body
+    4. User selects the "Trash" button when viewing this template
+    5. System loads message stating successfully moved template to trash and displays trash page
+    6. System removes the template from being used when creating notes
+- **Alternate Sequence:** User clicks trash when the template is already in the trash
+    1. System overwrites existing template in trash with itself
+    2. User does not need to take action and system handles it
+
+9. Recover Template - Carlos Quiroz\
+- **Pre-condition:** User has marked a template for deletion
+- **Trigger:** User is in the trash menu
+- **Primary Sequence:**
+    1. System displays list of all templates that have been marked for deletion
+    2. User clicks on the desired template they wish to recover
+    3. The system loads a message confirming if they would like to recover this template
+    4. The User selects "OK" to confirm their action
+    5. The system loads successful recovery of this template
+    6. The system restores the template for use when creating notes
+- **Alternate Sequence:** User tries to rename the template a blank title
+    1. The system will display an invalid title erorr
+    2. The system will prompt the user to input a valid title to continue
+    3. The user will change the input to a non-blank title and continue
+- **Alternate Sequence #2:** The system has no more room for additional templates
+    1. The system displays the user that they have too many templates
+    2. The system prompts the user to delete some templates before they recover this one
+    3. User deletes some templates and recovers their desired template
+
+10. Share Note - Carlos Quiroz\
 ![](images/Share_UI.png)\
 - **Pre-Condition:** User is logged in and sharing recipient has an account
 - **Trigger:** User clicks on share button on notes menu bar
@@ -142,21 +207,7 @@
     3. System will re-attempt to send note to recipient by re-initiating the sending process
     4. System displays success message
 
-7. Recover Note - Carlos Quiroz
-- **Pre-Condition:** User has deleted a note and the note is in the trash folder
-- **Trigger:** User right clicks note and selects recover
-- **Primary Sequence:** 
-    1. System prompts the user if they are sure they want to recover the note
-    2. User clicks on checkmark button to confirm recovery of note
-    3. System moves note from trash folder back to where user had previously had stored the note
-    4. System displays the note on the main screen
-    5. User can edit note (See Use Case #2)
-- **Primary Postconditions:** Selected note is recovered and available to user in their notes list
-- **Alternate Sequence:** Previous location of note no longer exists
-    1. System will move note to main notes section
-    2. User can then select to move the location of the note as they wish
-
-8. Search Notes - Carlos Quiroz\
+11. Search Notes - Carlos Quiroz\
 ![](images/Search_UI.png)\
 - **Pre-condition:** User must be on main page
 - **Trigger:** User clicks on search button
@@ -173,7 +224,7 @@
     2. System prompts user to try and search for a different term
     3. User inputs a different string
 
-9. Create User Profile - Henry To\
+12. Create User Profile - Fardin Haque\
 ![](images/Welcome+Login_UI.png)
 - **Pre-condition:** User has the application open
 - **Trigger:** User is on the create account page
@@ -190,7 +241,7 @@
     2. System prompts user to enter a different username and/or email
     3. User changes their information so it is unique, or logs in to existing profile
 
-10. Edit User Profiles - Henry To
+13. Edit User Profiles - Fardin Haque\
 - **Pre-condition:** User must have an existing profile and is logged into it
 - **Trigger:** User clicks on edit profile on home page
 - **Primary Sequence:**
@@ -205,7 +256,20 @@
     2. The system prompts the user to change them
     3. The user changes the non-unique fields to something that is available
    
-11. User Login - Fardin\
+14. Delete User Profile - Carlos Quiroz\
+- **Pre-condition:** User has a profile
+- **Trigger:** User is currently signed in and viewing their profile
+- **Primary Sequence:**
+    1. System displays their profile information like username, email and templates
+    2. The user clicks "Delete Profile"
+    3. The system redirects them to the login page with a message "Successfully deleted account. We are sorry to see you go"
+    4. System deletes all user information including notes, pages, and templates
+- **Alternate Sequence:** User tries to delete their profile while they still have notes that they shared and are the owner of
+    1. System warns user that their shared notes will appear to be under "Delete_User" for the people they are shared to
+    2. User confirms message and deletes account
+    3. System replaces all notes this user was previously an owner to with "Deleted_User"
+
+15. User Login - Fardin Haque\
 ![](images/Home_UI.png)\
 - **Pre-condition:** User has an exisiting account
 - **Trigger:** User is on login page and no one is currently signed in on the session
@@ -220,16 +284,3 @@
     1. System displays error message stating that they input an invalid username and/or password
     2. System prompts user to enter correct credentials or create an account
     3. Users inputs the create credentials or goes to create account page (see use case #10)
-
-12. Spell Check - Fardin Haque
-- **Pre-condition:** User is making changes within a note
-- **Trigger:** System detects a mistake in their grammar/spelling
-- **Primary Sequence:** 
-    1. System underlines spelling/grammar suggestion in red
-    2. User right clicks suggestion
-    3. System will display the suggestion and have options for "Accept" or "Ignore"
-    5. User selects "Accept"
-    6. System closes menu and removes red underlined text, replacing it with the suggestion
-- **Primary Postconditions:** The note is updated with the suggestion
-- **Alternate Sequence:** User clicks "Ignore" when right clicking suggestion
-    1. System will remove red underline from suggestion and keep users old entry
