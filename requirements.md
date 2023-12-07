@@ -1,6 +1,6 @@
 ## Functional Requirements
 1. Create Note: User is able to create a note
-2. Edit Note*: User is able to edit a note that has been created
+2. Edit Note*: User is able to edit a note that has been created using styles offered by the Quill API
 3. Delete Note*: When user chooses to delete a note, it will be stored in a trash folder and there they can permanently delete afterwards
 4. Recover Note*: User is able to recover deleted notes
 5. Create Page: User is able to create pages to organize notes
