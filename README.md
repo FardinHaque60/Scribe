@@ -21,6 +21,7 @@ Scribe also has the ability to share notes between users and includes a search f
 # Setup
 To run our application, run the following commands in a Linux terminal: 
 * `git clone https://github.com/FardinHaque60/Scribe.git` to clone the repository in your current directory.
+* `cd Scribe/` to enter the repository 
 * `python3 -m venv venv` to create a virtual environment.  
 * `source venv/bin/activate` to activate virtual environment.  
 * `pip3 install -r requirements.txt` to install all the dependencies needed to run the app.
